@@ -9,15 +9,15 @@
 <meta name="keywords" content="">
 <meta name="description" content="非經典古文，可以不用看，主要是我的筆記。SVM被公認是許多任務中效果最好的分類方法之一，SVM的學習能力和訓練計算複雜度與特徵空間維度無關，但在文本分類任務中，降低複雜度是有效處裡大量詞語的一個要點。該論文採用新的降維方法降低文檔向量的維度。還為基於中心的分類算法和SVM分類器引入決策函數，處理一個文檔可能屬於多個class的問題。分析大量的實驗結果表明使用為聚類資料設計的降維算法，使輸入維度降低，可在不犧牲預測精度的情況下取得更好的訓練效率。">
 <meta name="author" content="">
-<link rel="canonical" href="http://example.org/posts/dimensionreductionintextclassificationwithsupportvectormachines/">
+<link rel="canonical" href="https://lin-roger.github.io/posts/dimensionreductionintextclassificationwithsupportvectormachines/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.4a218b31d298c203f9f10882c0d271e6a7a7f0902d5e5425be578abfaf4686f0.css" integrity="sha256-SiGLMdKYwgP58QiCwNJx5qen8JAtXlQlvleKv69GhvA=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.acb54fd32bbc1982428b8850317e45d076b95012730a5936667e6bc21777692a.js" integrity="sha256-rLVP0yu8GYJCi4hQMX5F0Ha5UBJzClk2Zn5rwhd3aSo="
     onload="hljs.initHighlightingOnLoad();"></script>
-<link rel="icon" href="http://example.org/flowey.png">
-<link rel="icon" type="image/png" sizes="16x16" href="http://example.org/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://example.org/favicon-32x32.png">
-<link rel="apple-touch-icon" href="http://example.org/apple-touch-icon.png">
-<link rel="mask-icon" href="http://example.org/safari-pinned-tab.svg">
+<link rel="icon" href="https://lin-roger.github.io/flowey.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://lin-roger.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://lin-roger.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://lin-roger.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://lin-roger.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
 <noscript>
@@ -59,7 +59,7 @@
 </noscript><meta property="og:title" content="Dimension Reduction in Text Classification with Support Vector Machines" />
 <meta property="og:description" content="非經典古文，可以不用看，主要是我的筆記。SVM被公認是許多任務中效果最好的分類方法之一，SVM的學習能力和訓練計算複雜度與特徵空間維度無關，但在文本分類任務中，降低複雜度是有效處裡大量詞語的一個要點。該論文採用新的降維方法降低文檔向量的維度。還為基於中心的分類算法和SVM分類器引入決策函數，處理一個文檔可能屬於多個class的問題。分析大量的實驗結果表明使用為聚類資料設計的降維算法，使輸入維度降低，可在不犧牲預測精度的情況下取得更好的訓練效率。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://example.org/posts/dimensionreductionintextclassificationwithsupportvectormachines/" /><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://lin-roger.github.io/posts/dimensionreductionintextclassificationwithsupportvectormachines/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-11-07T02:46:26+08:00" />
 <meta property="article:modified_time" content="2023-06-26T02:46:26+08:00" />
 
@@ -77,13 +77,13 @@
       "@type": "ListItem",
       "position":  1 ,
       "name": "Posts",
-      "item": "http://example.org/posts/"
+      "item": "https://lin-roger.github.io/posts/"
     }, 
     {
       "@type": "ListItem",
       "position":  2 ,
       "name": "Dimension Reduction in Text Classification with Support Vector Machines",
-      "item": "http://example.org/posts/dimensionreductionintextclassificationwithsupportvectormachines/"
+      "item": "https://lin-roger.github.io/posts/dimensionreductionintextclassificationwithsupportvectormachines/"
     }
   ]
 }
@@ -105,14 +105,14 @@
   "dateModified": "2023-06-26T02:46:26+08:00",
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "http://example.org/posts/dimensionreductionintextclassificationwithsupportvectormachines/"
+    "@id": "https://lin-roger.github.io/posts/dimensionreductionintextclassificationwithsupportvectormachines/"
   },
   "publisher": {
     "@type": "Organization",
     "name": "Flowey \u0026 Code",
     "logo": {
       "@type": "ImageObject",
-      "url": "http://example.org/flowey.png"
+      "url": "https://lin-roger.github.io/flowey.png"
     }
   }
 }
@@ -134,8 +134,8 @@
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="http://example.org/" accesskey="h" title="flowey &amp; code (Alt + H)">
-                <img src="http://example.org/flowey.png" alt="" aria-label="logo"
+            <a href="https://lin-roger.github.io/" accesskey="h" title="flowey &amp; code (Alt + H)">
+                <img src="https://lin-roger.github.io/flowey.png" alt="" aria-label="logo"
                     height="30">flowey &amp; code</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)">
@@ -162,17 +162,17 @@
         </div>
         <ul id="menu">
             <li>
-                <a href="http://example.org/archives/" title="Archive">
+                <a href="https://lin-roger.github.io/archives/" title="Archive">
                     <span>Archive</span>
                 </a>
             </li>
             <li>
-                <a href="http://example.org/search/" title="Search (Alt &#43; /)" accesskey=/>
+                <a href="https://lin-roger.github.io/search/" title="Search (Alt &#43; /)" accesskey=/>
                     <span>Search</span>
                 </a>
             </li>
             <li>
-                <a href="http://example.org/tags/" title="Tags">
+                <a href="https://lin-roger.github.io/tags/" title="Tags">
                     <span>Tags</span>
                 </a>
             </li>
@@ -183,7 +183,7 @@
 
 <article class="post-single">
   <header class="post-header">
-    <div class="breadcrumbs"><a href="http://example.org/">Home</a>&nbsp;»&nbsp;<a href="http://example.org/posts/">Posts</a></div>
+    <div class="breadcrumbs"><a href="https://lin-roger.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://lin-roger.github.io/posts/">Posts</a></div>
     <h1 class="post-title">
       Dimension Reduction in Text Classification with Support Vector Machines
     </h1>
@@ -457,7 +457,7 @@ $$</p>
     <ul class="post-tags">
     </ul>
 <nav class="paginav">
-  <a class="prev" href="http://example.org/posts/promptee/">
+  <a class="prev" href="https://lin-roger.github.io/posts/promptee/">
     <span class="title">« Prev</span>
     <br>
     <span>prompt-engineering 基礎</span>

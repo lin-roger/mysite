@@ -2,35 +2,35 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Flowey &amp; Code</title>
-    <link>http://example.org/</link>
+    <link>https://lin-roger.github.io/</link>
     <description>Recent content on Flowey &amp; Code</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 26 Jun 2023 02:38:25 +0800</lastBuildDate><atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 26 Jun 2023 02:38:25 +0800</lastBuildDate><atom:link href="https://lin-roger.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>🚧Advanced Prompting Engineering 進階提示工程🚧</title>
-      <link>http://example.org/posts/advancedpromptingengineering/</link>
+      <link>https://lin-roger.github.io/posts/advancedpromptingengineering/</link>
       <pubDate>Mon, 26 Jun 2023 02:38:25 +0800</pubDate>
       
-      <guid>http://example.org/posts/advancedpromptingengineering/</guid>
+      <guid>https://lin-roger.github.io/posts/advancedpromptingengineering/</guid>
       <description>🚧還在寫喔!!🚧</description>
     </item>
     
     <item>
       <title>prompt-engineering 基礎</title>
-      <link>http://example.org/posts/promptee/</link>
+      <link>https://lin-roger.github.io/posts/promptee/</link>
       <pubDate>Mon, 26 Jun 2023 01:17:51 +0800</pubDate>
       
-      <guid>http://example.org/posts/promptee/</guid>
+      <guid>https://lin-roger.github.io/posts/promptee/</guid>
       <description>簡單介紹prompt-engineering</description>
     </item>
     
     <item>
       <title>Dimension Reduction in Text Classification with Support Vector Machines</title>
-      <link>http://example.org/posts/dimensionreductionintextclassificationwithsupportvectormachines/</link>
+      <link>https://lin-roger.github.io/posts/dimensionreductionintextclassificationwithsupportvectormachines/</link>
       <pubDate>Mon, 07 Nov 2022 02:46:26 +0800</pubDate>
       
-      <guid>http://example.org/posts/dimensionreductionintextclassificationwithsupportvectormachines/</guid>
+      <guid>https://lin-roger.github.io/posts/dimensionreductionintextclassificationwithsupportvectormachines/</guid>
       <description>非經典古文，可以不用看，主要是我的筆記。SVM被公認是許多任務中效果最好的分類方法之一，SVM的學習能力和訓練計算複雜度與特徵空間維度無關，但在文本分類任務中，降低複雜度是有效處裡大量詞語的一個要點。該論文採用新的降維方法降低文檔向量的維度。還為基於中心的分類算法和SVM分類器引入決策函數，處理一個文檔可能屬於多個class的問題。分析大量的實驗結果表明使用為聚類資料設計的降維算法，使輸入維度降低，可在不犧牲預測精度的情況下取得更好的訓練效率。</description>
     </item>
     
