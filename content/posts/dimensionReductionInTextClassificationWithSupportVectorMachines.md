@@ -16,10 +16,13 @@ SVM被公認是許多任務中效果最好的分類方法之一，SVM的學習�
 
 文本分類是一項監督是任務，將文本分類到預定義的class，用來從大樣文本中尋找有價值的資訊，base on Vctor Space的方法有以下特性，input高維且稀疏(one hot, bag of word)，線性可分性(存在超平面將資料分割)，少數特徵不相關(多數相關)。有人猜測，積極降維會導致資訊嚴重損失，導致分類效果不佳。
 
-給定訓練資料:  
-$(x_i, y_i)$  
-$1\le y_i \le 1$  
-$1\le i\le n$  
+給定訓練資料:
+
+$$(x_i, y_i)$$
+
+$$1\le y_i \le 1$$
+
+$$1\le i\le n$$
 
 具K, C的soft margin SVM之對偶式(Loss(target) funtion, Constraint(條件、約束))為:
 

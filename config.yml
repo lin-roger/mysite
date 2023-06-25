@@ -2,6 +2,7 @@ baseURL : 'https://lin-roger.github.io/'
 languageCode : 'en-us'
 title : 'Flowey & Code'
 theme : "PaperMod"
+math: true
 
 outputs:
   home:
