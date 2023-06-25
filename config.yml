@@ -1,0 +1,63 @@
+baseURL : 'http://example.org/'
+languageCode : 'en-us'
+title : 'Flowey & Code'
+theme : "PaperMod"
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON # is necessary
+
+taxonomies:
+    tag: tags
+
+
+menu:
+    main:
+      - name: Archive
+        pageRef: archives
+        weight: 10
+      - name: Search
+        pageRef: search
+        weight: 20
+      - name: Tags
+        pageRef: tags
+        weight: 30
+
+params:
+    ShowReadingTime: true
+    ShowToc: true
+    TocOpen: true
+    ShowBreadCrumbs: true
+    ShowPostNavLinks: true
+    ShowCodeCopyButtons: true
+    hideFooter: true
+
+    assets:
+        favicon: "flowey.png"
+
+    label:
+        text: "flowey & code"
+        icon: "flowey.png"
+        iconHeight: 30
+
+    homeInfoParams:
+        Title: Flowey & Code 🌺
+        Content: >
+            歡迎你來到小花的快樂原始碼
+
+            - 這裡紀錄著我的生活，你可以在這裡看到技術分享、論文解析和生活碎念等
+
+    socialIcons: # optional
+        - name: github
+          url: "https://github.com/lin-roger"
+        - name: twitter
+          url: "https://twitter.com/ah_flowey"
+    
+    buttons:
+        - name: Archive
+          url: "/archive"
+        - name: Github
+          url: "https://github.com/"
+    

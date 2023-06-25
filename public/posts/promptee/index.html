@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>prompt-engineering 基礎 | Flowey &amp; Code</title>
+<meta name="keywords" content="prompt-engineering, LLM">
+<meta name="description" content="簡單介紹prompt-engineering">
+<meta name="author" content="">
+<link rel="canonical" href="http://example.org/posts/promptee/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.4a218b31d298c203f9f10882c0d271e6a7a7f0902d5e5425be578abfaf4686f0.css" integrity="sha256-SiGLMdKYwgP58QiCwNJx5qen8JAtXlQlvleKv69GhvA=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.acb54fd32bbc1982428b8850317e45d076b95012730a5936667e6bc21777692a.js" integrity="sha256-rLVP0yu8GYJCi4hQMX5F0Ha5UBJzClk2Zn5rwhd3aSo="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="http://example.org/flowey.png">
+<link rel="icon" type="image/png" sizes="16x16" href="http://example.org/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://example.org/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://example.org/apple-touch-icon.png">
+<link rel="mask-icon" href="http://example.org/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="prompt-engineering 基礎" />
+<meta property="og:description" content="簡單介紹prompt-engineering" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/posts/promptee/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-06-26T01:17:51+08:00" />
+<meta property="article:modified_time" content="2023-06-26T01:17:51+08:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="prompt-engineering 基礎"/>
+<meta name="twitter:description" content="簡單介紹prompt-engineering"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "http://example.org/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "prompt-engineering 基礎",
+      "item": "http://example.org/posts/promptee/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "prompt-engineering 基礎",
+  "name": "prompt-engineering 基礎",
+  "description": "簡單介紹prompt-engineering",
+  "keywords": [
+    "prompt-engineering", "LLM"
+  ],
+  "articleBody": "Base LLM \u0026 Instruction Tuned LLM Base LLM 使用大量從網路爬取的資料訓練，輸入一文本後預測出最有可能接續在該文本後的下一個字(token)，所以給定一文章的前半部分其可將其後半部分生成。問題 -\u003e 最有可能接續的字詞和人類預想的相同嗎?假設以下為您的訓練資料\n常見問題:\nQ1:為什麼同樣行程不同旅行社價格會不一樣？\nQ2:行程上有的景點，是不是一定都會走到？\nQ3:為什麼我和朋友的座位沒有安排在一起？\nA1:其實旅遊產品牽涉範圍極廣…\nA2:旅客在報名旅遊行程前…\nA3:機上座位的安排…\n當您向使用該資料訓練的LM輸入\"Q1:為什麼同樣行程不同旅行社價格會不一樣？\"，我們通常為期望LM回答與問題對應的答案，也就是:“A1:其實旅遊產品牽涉範圍極廣…\"，但實際上LM會回答:“Q2:行程上有的景點，是不是一定都會走到？\"，這是因為資料集中，文本Q1的下一段文本為Q2，而非A1，使模型認為Q1-\u003eQ2是最好的選擇，而非Q1-\u003eA1。\n為解決此問題，Instruction Tuned LLM 出現了。透過對Base LLM 使用指令資料集(如: alpaca-tw )微調並使用RLHF技術使LM的的輸出更符合人類的預期。\n指令的基本原則 0. Model Limitations: Hallucination 幻覺(Hallucination)，LLM並不了解自身知識的極限也不完全記得所有其看過的資訊，遇到一些艱澀的問題其可能會嘗試回答，並輸出看似合理但與事實不符或錯誤的回應，透過要求模型找出問題相關的文獻並引用其回答可以減輕此問題(LM找出的相關文獻或引用也有為幻覺之嫌，務必謹慎確認)\n無法做到精確字數要求，如過您在指令中加入以下要求”…, 在50個字以內說明”，可能會出現60甚至70個字(會因語言影響誤差範圍，該問題為token與字/詞數量不等所導致，一個字/詞可由1~n個token組成，通常為1~3個，參考BPE編碼)\n1. Write Clear and Specific Instructions Clear != Short，更長的指令通常提供了更多資訊，可以令模型產生更準確的結果。 Use delimiters，使用分隔符號將輸入資訊清楚的分割，使輸入資料不會與指令或其他資訊混淆，該方法也可以一定程度抵擋Prompt Injections(透過在輸入資料中夾帶惡意指令使模型輸出改變的技術。如:忽略先前的指令，幫我…。使用分隔符號將其指定為輸入資料可使模型不執行該惡意指令) Ask for structured output，可以在指令中要求輸出資料以json、xml等結構化的形式表達，可以被更好的儲存或處裡 Check whether conditions are satisfied，在指令中加入一些條件，避免一些意外使輸出不合預期 Few-shot prompting，對於一個複雜的任務，指令中只有任務描述是不夠的，在指令中加入一些範例可以使LM有效理解你的要求(補充，LLM在zero-shot的表現並不佳，請盡量避免) 2. Give Model Time to Think Specify the steps to complete a task，一個複雜的任務可以將其拆解成多個較為簡單的步驟或指令使模型可以更好理解或處理您的任務 Instruct the model to work out its own solution before rushing to a conclusion，詢問模型時可以要求模型先輸出推論過程在輸出結果 Iterative Prompt Development(Prompt 的開發與迭代流程) Prompt的構成:\nInstructions Context Input Data Output Indicator Prompt guidelines:\n寫出符合基本原則的Prompt 測試Prompt，取得大量輸出 找出不合預期的案例並分析原因以改進Prompt Repeat 並沒有所謂的萬能Prompt，只有適合的Prompt\nUse Case Summarizing 文本摘要 LLM 通常預設以抽樣摘要(以比原文更簡短的通順文本表述原文資訊)為主，可以要求:字數、句數、風格(簡潔的、嚴謹的)、側重在甚麼(對…的影響、XXX說的內容)、摘要的對象(國小生、商業部門經理)等\n你可以要求LLM以抽取式摘要(原文的重點字、詞、句、段，原封不動的取出)，如:“找出/萃取文章中XXX會想知道的關鍵字/資訊/句子”，取得關鍵資訊避免攏言贅詞並減少幻覺產生的可能。\nQuestion Answering 問答 Prompt:\nAnswer the question based on the context below. Keep the answer short and concise. Respond “Unsure about answer” if not sure about the answer.\nKeep the answer short and concise: 指定風格 Respond “Unsure about answer” if not sure about the answer: 1.3-Check whether conditions are satisfied Text Classification 文本分類 Classify the text into neutral, negative or positive and follow the output format.\noutput format:“Class”\nText: I think the vacation is okay.\nSentiment: “Neutral”\nText: I think the food was okay. Sentiment:\n",
+  "wordCount" : "195",
+  "inLanguage": "en",
+  "datePublished": "2023-06-26T01:17:51+08:00",
+  "dateModified": "2023-06-26T01:17:51+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "http://example.org/posts/promptee/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Flowey \u0026 Code",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "http://example.org/flowey.png"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://example.org/" accesskey="h" title="flowey &amp; code (Alt + H)">
+                <img src="http://example.org/flowey.png" alt="" aria-label="logo"
+                    height="30">flowey &amp; code</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://example.org/archives/" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://example.org/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://example.org/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="http://example.org/">Home</a>&nbsp;»&nbsp;<a href="http://example.org/posts/">Posts</a></div>
+    <h1 class="post-title">
+      prompt-engineering 基礎
+    </h1>
+    <div class="post-meta"><span title='2023-06-26 01:17:51 +0800 CST'>June 26, 2023</span>&nbsp;·&nbsp;1 min
+
+</div>
+  </header> <aside id="toc-container" class="toc-container wide">
+    <div class="toc">
+        <details  open>
+            <summary accesskey="c" title="(Alt + C)">
+                <span class="details">Table of Contents</span>
+            </summary>
+
+            <div class="inner"><ul>
+                    <li>
+                        <a href="#base-llm--instruction-tuned-llm" aria-label="Base LLM &amp;amp; Instruction Tuned LLM">Base LLM &amp; Instruction Tuned LLM</a></li>
+                    <li>
+                        <a href="#%e6%8c%87%e4%bb%a4%e7%9a%84%e5%9f%ba%e6%9c%ac%e5%8e%9f%e5%89%87" aria-label="指令的基本原則">指令的基本原則</a><ul>
+                            
+                    <li>
+                        <a href="#0-model-limitations-hallucination" aria-label="0. Model Limitations: Hallucination">0. Model Limitations: Hallucination</a></li>
+                    <li>
+                        <a href="#1-write-clear-and-specific-instructions" aria-label="1. Write Clear and Specific Instructions">1. Write Clear and Specific Instructions</a></li>
+                    <li>
+                        <a href="#2-give-model-time-to-think" aria-label="2. Give Model Time to Think">2. Give Model Time to Think</a></li></ul>
+                    </li>
+                    <li>
+                        <a href="#iterative-prompt-developmentprompt-%e7%9a%84%e9%96%8b%e7%99%bc%e8%88%87%e8%bf%ad%e4%bb%a3%e6%b5%81%e7%a8%8b" aria-label="Iterative Prompt Development(Prompt 的開發與迭代流程)">Iterative Prompt Development(Prompt 的開發與迭代流程)</a></li>
+                    <li>
+                        <a href="#use-casehttpswwwpromptingguideaiintroductionexamples" aria-label="Use Case"><a href="https://www.promptingguide.ai/introduction/examples">Use Case</a></a><ul>
+                            
+                    <li>
+                        <a href="#summarizing-%e6%96%87%e6%9c%ac%e6%91%98%e8%a6%81" aria-label="Summarizing 文本摘要">Summarizing 文本摘要</a></li>
+                    <li>
+                        <a href="#question-answering-%e5%95%8f%e7%ad%94" aria-label="Question Answering 問答">Question Answering 問答</a></li>
+                    <li>
+                        <a href="#text-classification-%e6%96%87%e6%9c%ac%e5%88%86%e9%a1%9e" aria-label="Text Classification 文本分類">Text Classification 文本分類</a>
+                    </li>
+                </ul>
+                </li>
+                </ul>
+            </div>
+        </details>
+    </div>
+</aside>
+<script>
+    let activeElement;
+    let elements;
+    window.addEventListener('DOMContentLoaded', function (event) {
+        checkTocPosition();
+
+        elements = document.querySelectorAll('h1[id],h2[id],h3[id],h4[id],h5[id],h6[id]');
+         
+         activeElement = elements[0];
+         const id = encodeURI(activeElement.getAttribute('id')).toLowerCase();
+         document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+     }, false);
+
+    window.addEventListener('resize', function(event) {
+        checkTocPosition();
+    }, false);
+
+    window.addEventListener('scroll', () => {
+        
+        activeElement = Array.from(elements).find((element) => {
+            if ((getOffsetTop(element) - window.pageYOffset) > 0 && 
+                (getOffsetTop(element) - window.pageYOffset) < window.innerHeight/2) {
+                return element;
+            }
+        }) || activeElement
+
+        elements.forEach(element => {
+             const id = encodeURI(element.getAttribute('id')).toLowerCase();
+             if (element === activeElement){
+                 document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+             } else {
+                 document.querySelector(`.inner ul li a[href="#${id}"]`).classList.remove('active');
+             }
+         })
+     }, false);
+
+    const main = parseInt(getComputedStyle(document.body).getPropertyValue('--article-width'), 10);
+    const toc = parseInt(getComputedStyle(document.body).getPropertyValue('--toc-width'), 10);
+    const gap = parseInt(getComputedStyle(document.body).getPropertyValue('--gap'), 10);
+
+    function checkTocPosition() {
+        const width = document.body.scrollWidth;
+
+        if (width - main - (toc * 2) - (gap * 4) > 0) {
+            document.getElementById("toc-container").classList.add("wide");
+        } else {
+            document.getElementById("toc-container").classList.remove("wide");
+        }
+    }
+
+    function getOffsetTop(element) {
+        if (!element.getClientRects().length) {
+            return 0;
+        }
+        let rect = element.getBoundingClientRect();
+        let win = element.ownerDocument.defaultView;
+        return rect.top + win.pageYOffset;   
+    }
+</script>
+  <div class="post-content"><h2 id="base-llm--instruction-tuned-llm">Base LLM &amp; Instruction Tuned LLM<a hidden class="anchor" aria-hidden="true" href="#base-llm--instruction-tuned-llm">#</a></h2>
+<p>Base LLM 使用大量從網路爬取的資料訓練，輸入一文本後預測出最有可能接續在該文本後的下一個字(token)，所以給定一文章的前半部分其可將其後半部分生成。<strong>問題 -&gt;</strong> 最有可能接續的字詞和人類預想的<strong>相同</strong>嗎?假設以下為您的訓練資料</p>
+<blockquote>
+<p>常見問題:<br>
+Q1:為什麼同樣行程不同旅行社價格會不一樣？<br>
+Q2:行程上有的景點，是不是一定都會走到？<br>
+Q3:為什麼我和朋友的座位沒有安排在一起？</p>
+<p>A1:其實旅遊產品牽涉範圍極廣&hellip;<br>
+A2:旅客在報名旅遊行程前&hellip;<br>
+A3:機上座位的安排&hellip;</p>
+</blockquote>
+<p>當您向使用該資料訓練的LM輸入&quot;Q1:為什麼同樣行程不同旅行社價格會不一樣？&quot;，我們通常為期望LM回答與問題對應的答案，也就是:&ldquo;A1:其實旅遊產品牽涉範圍極廣&hellip;&quot;，但實際上LM會回答:&ldquo;Q2:行程上有的景點，是不是一定都會走到？&quot;，這是因為資料集中，文本Q1的下一段文本為Q2，而非A1，使模型認為Q1-&gt;Q2是最好的選擇，而非Q1-&gt;A1。</p>
+<p>為解決此問題，Instruction Tuned LLM 出現了。透過對Base LLM 使用指令資料集(如:
+<a href="https://github.com/ntunlplab/traditional-chinese-alpaca/blob/main/data/alpaca-tw.json">alpaca-tw</a>
+)微調並使用<a href="https://arxiv.org/abs/1909.08593">RLHF</a>技術使LM的的輸出更符合人類的預期。</p>
+<h2 id="指令的基本原則">指令的基本原則<a hidden class="anchor" aria-hidden="true" href="#指令的基本原則">#</a></h2>
+<h3 id="0-model-limitations-hallucination">0. Model Limitations: Hallucination<a hidden class="anchor" aria-hidden="true" href="#0-model-limitations-hallucination">#</a></h3>
+<ol>
+<li>
+<p>幻覺(Hallucination)，LLM並不了解自身知識的極限也不完全記得所有其看過的資訊，遇到一些艱澀的問題其可能會嘗試回答，並輸出看似合理但與事實不符或錯誤的回應，透過要求模型找出問題相關的文獻並引用其回答可以減輕此問題(<strong>LM找出的相關文獻或引用也有為幻覺之嫌，務必謹慎確認</strong>)</p>
+</li>
+<li>
+<p>無法做到精確字數要求，如過您在指令中加入以下要求&rdquo;&hellip;, 在50個字以內說明&rdquo;，可能會出現60甚至70個字(會因語言影響誤差範圍，該問題為token與字/詞數量不等所導致，一個字/詞可由1~n個token組成，通常為1~3個，參考<a href="https://en.wikipedia.org/wiki/Byte_pair_encoding">BPE編碼</a>)</p>
+</li>
+</ol>
+<h3 id="1-write-clear-and-specific-instructions">1. Write Clear and Specific Instructions<a hidden class="anchor" aria-hidden="true" href="#1-write-clear-and-specific-instructions">#</a></h3>
+<ol start="0">
+<li><strong>Clear != Short</strong>，更長的指令通常提供了更多資訊，可以令模型產生更準確的結果。</li>
+<li>Use delimiters，使用分隔符號將輸入資訊清楚的分割，使輸入資料不會與指令或其他資訊混淆，該方法也可以一定程度抵擋Prompt Injections(透過在輸入資料中夾帶惡意指令使模型輸出改變的技術。如:忽略先前的指令，幫我&hellip;。使用分隔符號將其指定為輸入資料可使模型不執行該惡意指令)</li>
+<li>Ask for structured output，可以在指令中要求輸出資料以json、xml等結構化的形式表達，可以被更好的儲存或處裡</li>
+<li>Check whether conditions are satisfied，在指令中加入一些條件，避免一些意外使輸出不合預期</li>
+<li>Few-shot prompting，對於一個複雜的任務，指令中只有任務描述是不夠的，在指令中加入一些範例可以使LM有效理解你的要求(補充，LLM在zero-shot的表現並不佳，請盡量避免)</li>
+</ol>
+<h3 id="2-give-model-time-to-think">2. Give Model Time to Think<a hidden class="anchor" aria-hidden="true" href="#2-give-model-time-to-think">#</a></h3>
+<ol>
+<li>Specify the steps to complete a task，一個複雜的任務可以將其拆解成多個較為簡單的步驟或指令使模型可以更好理解或處理您的任務</li>
+<li>Instruct the model to work out its own solution before rushing to a conclusion，詢問模型時可以要求模型先輸出推論過程在輸出結果</li>
+</ol>
+<h2 id="iterative-prompt-developmentprompt-的開發與迭代流程">Iterative Prompt Development(Prompt 的開發與迭代流程)<a hidden class="anchor" aria-hidden="true" href="#iterative-prompt-developmentprompt-的開發與迭代流程">#</a></h2>
+<p>Prompt的構成:</p>
+<ul>
+<li>Instructions</li>
+<li>Context</li>
+<li>Input Data</li>
+<li>Output Indicator</li>
+</ul>
+<p>Prompt guidelines:</p>
+<ul>
+<li>寫出符合基本原則的Prompt</li>
+<li>測試Prompt，取得大量輸出</li>
+<li>找出不合預期的案例並分析原因以改進Prompt</li>
+<li>Repeat</li>
+</ul>
+<p>並沒有所謂的<strong>萬能</strong>Prompt，只有<strong>適合</strong>的Prompt</p>
+<h2 id="use-casehttpswwwpromptingguideaiintroductionexamples"><a href="https://www.promptingguide.ai/introduction/examples">Use Case</a><a hidden class="anchor" aria-hidden="true" href="#use-casehttpswwwpromptingguideaiintroductionexamples">#</a></h2>
+<h3 id="summarizing-文本摘要">Summarizing 文本摘要<a hidden class="anchor" aria-hidden="true" href="#summarizing-文本摘要">#</a></h3>
+<p>LLM 通常預設以抽樣摘要(以比原文更簡短的通順文本表述原文資訊)為主，可以要求:字數、句數、風格(簡潔的、嚴謹的)、側重在甚麼(對&hellip;的影響、XXX說的內容)、摘要的對象(國小生、商業部門經理)等</p>
+<p>你可以要求LLM以抽取式摘要(原文的重點字、詞、句、段，原封不動的取出)，如:&ldquo;找出/萃取文章中XXX會想知道的關鍵字/資訊/句子&rdquo;，取得關鍵資訊避免攏言贅詞並減少幻覺產生的可能。</p>
+<h3 id="question-answering-問答">Question Answering 問答<a hidden class="anchor" aria-hidden="true" href="#question-answering-問答">#</a></h3>
+<p>Prompt:</p>
+<blockquote>
+<p>Answer the question based on the context below. Keep the answer short and concise. Respond &ldquo;Unsure about answer&rdquo; if not sure about the answer.</p>
+</blockquote>
+<ul>
+<li>Keep the answer short and concise: 指定風格</li>
+<li>Respond &ldquo;Unsure about answer&rdquo; if not sure about the answer: 1.3-Check whether conditions are satisfied</li>
+</ul>
+<h3 id="text-classification-文本分類">Text Classification 文本分類<a hidden class="anchor" aria-hidden="true" href="#text-classification-文本分類">#</a></h3>
+<blockquote>
+<p>Classify the text into neutral, negative or positive and follow the output format.<br>
+output format:&ldquo;Class&rdquo;</p>
+<p>Text: I think the vacation is okay.<br>
+Sentiment: &ldquo;Neutral&rdquo;<br>
+Text: I think the food was okay.
+Sentiment:</p>
+</blockquote>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://example.org/tags/prompt-engineering/">prompt-engineering</a></li>
+      <li><a href="http://example.org/tags/llm/">LLM</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="http://example.org/posts/advancedpromptingengineering/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>🚧Advanced Prompting Engineering 進階提示工程🚧</span>
+  </a>
+  <a class="next" href="http://example.org/posts/dimensionreductionintextclassificationwithsupportvectormachines/">
+    <span class="title">Next »</span>
+    <br>
+    <span>Dimension Reduction in Text Classification with Support Vector Machines</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
