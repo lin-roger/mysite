@@ -2,7 +2,6 @@ baseURL : 'https://lin-roger.github.io/'
 languageCode : 'en-us'
 title : 'Flowey & Code'
 theme : "PaperMod"
-math: true
 
 outputs:
   home:
@@ -27,6 +26,7 @@ menu:
         weight: 30
 
 params:
+    math: true
     ShowReadingTime: true
     ShowToc: true
     TocOpen: true
