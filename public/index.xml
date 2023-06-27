@@ -6,7 +6,16 @@
     <description>Recent content on Flowey &amp; Code</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 26 Jun 2023 02:38:25 +0800</lastBuildDate><atom:link href="https://lin-roger.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 28 Jun 2023 01:31:35 +0800</lastBuildDate><atom:link href="https://lin-roger.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>🚧Whitening Sentence Representations for Better Semantics and Faster Retrieval🚧</title>
+      <link>https://lin-roger.github.io/posts/whiteningsentencerepresentationsforbettersemanticsandfasterretrieval/</link>
+      <pubDate>Wed, 28 Jun 2023 01:31:35 +0800</pubDate>
+      
+      <guid>https://lin-roger.github.io/posts/whiteningsentencerepresentationsforbettersemanticsandfasterretrieval/</guid>
+      <description>🚧還在寫喔!!語意相似度計算🚧</description>
+    </item>
+    
     <item>
       <title>🚧Advanced Prompting Engineering 進階提示工程🚧</title>
       <link>https://lin-roger.github.io/posts/advancedpromptingengineering/</link>
