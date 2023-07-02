@@ -2,7 +2,7 @@
 title: "🚧How Contextual are Contextualized Word Representations? Comparing the Geometry of BERT, ELMo, and GPT-2 Embeddings🚧"
 summary: "🚧還在寫喔!!🚧"
 date: 2023-06-29T18:26:28+08:00
-lastmod: 2023-06-29T18:26:28+08:00
+lastmod: 2023-07-02T22:27:08+08:00
 tags: 
 - text-similarity 
 

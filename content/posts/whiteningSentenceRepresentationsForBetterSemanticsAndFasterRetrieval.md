@@ -2,7 +2,7 @@
 title: "🚧Whitening Sentence Representations for Better Semantics and Faster Retrieval🚧"
 summary: "🚧還在寫喔!!語意相似度計算🚧"
 date: 2023-06-28T01:31:35+08:00
-lastmod: 2023-06-28T01:31:35+08:00
+lastmod: 2023-07-02T22:32:35+08:00
 tags: 
 - text-similarity 
 draft: false
@@ -17,7 +17,7 @@ BERT 等預訓練模型在許多自然語言處理任務中取得了巨大成功
 深度神經語言模型的應用(BERT、GPT)近年來取得了巨大成功，因為它們創造了對隨前後文語境改變的詞彙表徵向量。這一趨勢也刺激了為長文本產生語義崁入(句崁入向量、段落崁入向量)的研究進展。然而句崁入已被證明不能完整捕捉句子的基本語義。據先前研究([Gao et al., 2019; ][1][Ethayarajh, 2019; ][2][Li et al., 2020][3])，所有的詞語的表徵向量都不是[各項同性][4]的：它們在方向上並非均勻分布的，而是在崁入空間中佔據一個狹小的錐體，呈現各向異性。[Ethayarajh, 2019; ][2]證明，取自預訓練模型的崁入向量的極度的各向異性，以致任兩個詞的崁入向量COS相似度平均為0.99(極度相似)。[Li et al., 2020][3]進一步調查發現，BERT的句崁入空間存在兩問題:
 
 1. 詞頻令崁入空間產生偏移：高頻詞距離原點較近，低頻詞距離原點較遠。在相同權重下，低頻詞對整體句崁入向量的遠比高頻詞影響更強
-2. 低頻詞分散且稀疏：
+2. 低頻詞分散且稀疏：低頻詞在嵌入空間中與其他詞的最近距離(L2-dist)相較高頻詞更遠，使低頻的同義詞相似性更低
 
   [1]: https://openreview.net/forum?id=SkEYojRqtm "Representation Degeneration Problem in Training Natural Language Generation Models 表徵退化"
   [2]: https://aclanthology.org/D19-1006/ "How Contextual are Contextualized Word Representations? Comparing the Geometry of BERT, ELMo, and GPT-2 Embeddings 崁入向量的幾何結構"
