@@ -10,7 +10,7 @@
 <meta name="description" content="🚧還在寫喔!!語意相似度計算🚧">
 <meta name="author" content="">
 <link rel="canonical" href="https://lin-roger.github.io/posts/whiteningsentencerepresentationsforbettersemanticsandfasterretrieval/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.4a218b31d298c203f9f10882c0d271e6a7a7f0902d5e5425be578abfaf4686f0.css" integrity="sha256-SiGLMdKYwgP58QiCwNJx5qen8JAtXlQlvleKv69GhvA=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.1cf1dcff6f1b1b62a9a6089dbbad72128582e20d09fb2d1f545347d17bb2f20c.css" integrity="sha256-HPHc/28bG2Kppgidu61yEoWC4g0J&#43;y0fVFNH0Xuy8gw=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.acb54fd32bbc1982428b8850317e45d076b95012730a5936667e6bc21777692a.js" integrity="sha256-rLVP0yu8GYJCi4hQMX5F0Ha5UBJzClk2Zn5rwhd3aSo="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://lin-roger.github.io/flowey.png">
@@ -117,8 +117,8 @@
   "keywords": [
     "text-similarity"
   ],
-  "articleBody": "",
-  "wordCount" : "0",
+  "articleBody": "Abstract BERT 等預訓練模型在許多自然語言處理任務中取得了巨大成功。然而，如何通過這些預訓練模型獲得更好的句表徵向量仍然值得探索。先前的工作表明，各向異性問題是基於 BERT 的句表徵的關鍵瓶頸，阻礙模型充分利用底層語義特徵。因此，一些增強句子分佈各向同性的嘗試，例如基於流的模型(BERT-flow)，已被應用於句表徵並取得了一些改進。在本文中，我們發現傳統機器學習中的白化(球化)變換同樣可以增強句表徵的各向同性並取得有競爭力的結果。此外，白化還能夠降低句子表示的維度。我們的實驗結果表明，它不僅可以實現良好的性能，而且可以顯著降低存儲成本並加快模型檢索速度。\nIntroduction 深度神經語言模型的應用(BERT、GPT)近年來取得了巨大成功，因為它們創造了對隨前後文語境改變的詞彙表徵向量。這一趨勢也刺激了為長文本產生語義崁入(句崁入向量、段落崁入向量)的研究進展。然而句崁入已被證明不能完整捕捉句子的基本語義。據先前研究(Gao et al., 2019; Ethayarajh, 2019; Li et al., 2020)，所有的詞語的表徵向量都不是各項同性的：它們在方向上並非均勻分布的，而是在崁入空間中佔據一個狹小的錐體，呈現各向異性。Ethayarajh, 2019; 證明，取自預訓練模型的崁入向量的極度的各向異性，以致任兩個詞的崁入向量COS相似度平均為0.99(極度相似)。Li et al., 2020進一步調查發現，BERT的句崁入空間存在兩問題:\n詞頻令崁入空間產生偏移：高頻詞距離原點較近，低頻詞距離原點較遠。在相同權重下，低頻詞對整體句崁入向量的遠比高頻詞影響更強 低頻詞分散且稀疏： ",
+  "wordCount" : "23",
   "inLanguage": "en",
   "datePublished": "2023-06-28T01:31:35+08:00",
   "dateModified": "2023-06-28T01:31:35+08:00",
@@ -206,16 +206,108 @@
     <h1 class="post-title">
       🚧Whitening Sentence Representations for Better Semantics and Faster Retrieval🚧
     </h1>
-    <div class="post-meta"><span title='2023-06-28 01:31:35 +0800 CST'>June 28, 2023</span>&nbsp;·&nbsp;0 min
+    <div class="post-meta"><span title='2023-06-28 01:31:35 +0800 CST'>June 28, 2023</span>&nbsp;·&nbsp;1 min
 
 </div>
-  </header> 
+  </header> <aside id="toc-container" class="toc-container wide">
+    <div class="toc">
+        <details  open>
+            <summary accesskey="c" title="(Alt + C)">
+                <span class="details">Table of Contents</span>
+            </summary>
+
+            <div class="inner"><ul>
+                    <li>
+                        <a href="#abstract" aria-label="Abstract">Abstract</a></li>
+                    <li>
+                        <a href="#introduction" aria-label="Introduction">Introduction</a>
+                    </li>
+                </ul>
+            </div>
+        </details>
+    </div>
+</aside>
+<script>
+    let activeElement;
+    let elements;
+    window.addEventListener('DOMContentLoaded', function (event) {
+        checkTocPosition();
+
+        elements = document.querySelectorAll('h1[id],h2[id],h3[id],h4[id],h5[id],h6[id]');
+         
+         activeElement = elements[0];
+         const id = encodeURI(activeElement.getAttribute('id')).toLowerCase();
+         document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+     }, false);
+
+    window.addEventListener('resize', function(event) {
+        checkTocPosition();
+    }, false);
+
+    window.addEventListener('scroll', () => {
+        
+        activeElement = Array.from(elements).find((element) => {
+            if ((getOffsetTop(element) - window.pageYOffset) > 0 && 
+                (getOffsetTop(element) - window.pageYOffset) < window.innerHeight/2) {
+                return element;
+            }
+        }) || activeElement
+
+        elements.forEach(element => {
+             const id = encodeURI(element.getAttribute('id')).toLowerCase();
+             if (element === activeElement){
+                 document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+             } else {
+                 document.querySelector(`.inner ul li a[href="#${id}"]`).classList.remove('active');
+             }
+         })
+     }, false);
+
+    const main = parseInt(getComputedStyle(document.body).getPropertyValue('--article-width'), 10);
+    const toc = parseInt(getComputedStyle(document.body).getPropertyValue('--toc-width'), 10);
+    const gap = parseInt(getComputedStyle(document.body).getPropertyValue('--gap'), 10);
+
+    function checkTocPosition() {
+        const width = document.body.scrollWidth;
+
+        if (width - main - (toc * 2) - (gap * 4) > 0) {
+            document.getElementById("toc-container").classList.add("wide");
+        } else {
+            document.getElementById("toc-container").classList.remove("wide");
+        }
+    }
+
+    function getOffsetTop(element) {
+        if (!element.getClientRects().length) {
+            return 0;
+        }
+        let rect = element.getBoundingClientRect();
+        let win = element.ownerDocument.defaultView;
+        return rect.top + win.pageYOffset;   
+    }
+</script>
+  <div class="post-content"><h2 id="abstract">Abstract<a hidden class="anchor" aria-hidden="true" href="#abstract">#</a></h2>
+<p>BERT 等預訓練模型在許多自然語言處理任務中取得了巨大成功。然而，如何通過這些預訓練模型獲得更好的句表徵向量仍然值得探索。先前的工作表明，各向異性問題是基於 BERT 的句表徵的關鍵瓶頸，阻礙模型充分利用底層語義特徵。因此，一些增強句子分佈各向同性的嘗試，例如基於流的模型(BERT-flow)，已被應用於句表徵並取得了一些改進。在本文中，我們發現傳統機器學習中的白化(球化)變換同樣可以增強句表徵的各向同性並取得有競爭力的結果。此外，白化還能夠降低句子表示的維度。我們的實驗結果表明，它不僅可以實現良好的性能，而且可以顯著降低存儲成本並加快模型檢索速度。</p>
+<h2 id="introduction">Introduction<a hidden class="anchor" aria-hidden="true" href="#introduction">#</a></h2>
+<p>深度神經語言模型的應用(BERT、GPT)近年來取得了巨大成功，因為它們創造了對隨前後文語境改變的詞彙表徵向量。這一趨勢也刺激了為長文本產生語義崁入(句崁入向量、段落崁入向量)的研究進展。然而句崁入已被證明不能完整捕捉句子的基本語義。據先前研究(<a href="https://openreview.net/forum?id=SkEYojRqtm" title="Representation Degeneration Problem in Training Natural Language Generation Models 表徵退化">Gao et al., 2019; </a><a href="https://aclanthology.org/D19-1006/" title="How Contextual are Contextualized Word Representations? Comparing the Geometry of BERT, ELMo, and GPT-2 Embeddings 崁入向量的幾何結構">Ethayarajh, 2019; </a><a href="https://aclanthology.org/2020.emnlp-main.733/" title="On the Sentence Embeddings from Pre-trained Language Models BERT-flow">Li et al., 2020</a>)，所有的詞語的表徵向量都不是<a href="https://en.wikipedia.org/wiki/Isotropic_position" title="各項同性 wiki(英文)">各項同性</a>的：它們在方向上並非均勻分布的，而是在崁入空間中佔據一個狹小的錐體，呈現各向異性。<a href="https://aclanthology.org/D19-1006/" title="How Contextual are Contextualized Word Representations? Comparing the Geometry of BERT, ELMo, and GPT-2 Embeddings 崁入向量的幾何結構">Ethayarajh, 2019; </a>證明，取自預訓練模型的崁入向量的極度的各向異性，以致任兩個詞的崁入向量COS相似度平均為0.99(極度相似)。<a href="https://aclanthology.org/2020.emnlp-main.733/" title="On the Sentence Embeddings from Pre-trained Language Models BERT-flow">Li et al., 2020</a>進一步調查發現，BERT的句崁入空間存在兩問題:</p>
+<ol>
+<li>詞頻令崁入空間產生偏移：高頻詞距離原點較近，低頻詞距離原點較遠。在相同權重下，低頻詞對整體句崁入向量的遠比高頻詞影響更強</li>
+<li>低頻詞分散且稀疏：</li>
+</ol>
+
+
+  </div>
 
   <footer class="post-footer">
     <ul class="post-tags">
       <li><a href="https://lin-roger.github.io/tags/text-similarity/">text-similarity</a></li>
     </ul>
 <nav class="paginav">
+  <a class="prev" href="https://lin-roger.github.io/posts/howcontextualarecontextualizedwordrepresentationscomparingthegeometryofbertelmoandgpt2embeddings/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>🚧How Contextual are Contextualized Word Representations? Comparing the Geometry of BERT, ELMo, and GPT-2 Embeddings🚧</span>
+  </a>
   <a class="next" href="https://lin-roger.github.io/posts/advancedpromptingengineering/">
     <span class="title">Next »</span>
     <br>
