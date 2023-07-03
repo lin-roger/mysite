@@ -1,6 +1,6 @@
 ---
 title: "🚧Advanced Prompting Engineering 進階提示工程🚧"
-summary: "🚧還在寫喔!!🚧"
+summary: "🚧目前進度:deepl部分翻譯🚧"
 date: 2023-06-26T02:38:25+08:00
 lastmod: 2023-06-26T02:38:25+08:00
 tags: 

@@ -80,7 +80,7 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://lin-roger.github.io/posts/whiteningsentencerepresentationsforbettersemanticsandfasterretrieval/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2023-06-28T01:31:35+08:00" />
-<meta property="article:modified_time" content="2023-06-28T01:31:35+08:00" />
+<meta property="article:modified_time" content="2023-07-02T22:32:35+08:00" />
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="🚧Whitening Sentence Representations for Better Semantics and Faster Retrieval🚧"/>
@@ -117,11 +117,11 @@
   "keywords": [
     "text-similarity"
   ],
-  "articleBody": "Abstract BERT 等預訓練模型在許多自然語言處理任務中取得了巨大成功。然而，如何通過這些預訓練模型獲得更好的句表徵向量仍然值得探索。先前的工作表明，各向異性問題是基於 BERT 的句表徵的關鍵瓶頸，阻礙模型充分利用底層語義特徵。因此，一些增強句子分佈各向同性的嘗試，例如基於流的模型(BERT-flow)，已被應用於句表徵並取得了一些改進。在本文中，我們發現傳統機器學習中的白化(球化)變換同樣可以增強句表徵的各向同性並取得有競爭力的結果。此外，白化還能夠降低句子表示的維度。我們的實驗結果表明，它不僅可以實現良好的性能，而且可以顯著降低存儲成本並加快模型檢索速度。\nIntroduction 深度神經語言模型的應用(BERT、GPT)近年來取得了巨大成功，因為它們創造了對隨前後文語境改變的詞彙表徵向量。這一趨勢也刺激了為長文本產生語義崁入(句崁入向量、段落崁入向量)的研究進展。然而句崁入已被證明不能完整捕捉句子的基本語義。據先前研究(Gao et al., 2019; Ethayarajh, 2019; Li et al., 2020)，所有的詞語的表徵向量都不是各項同性的：它們在方向上並非均勻分布的，而是在崁入空間中佔據一個狹小的錐體，呈現各向異性。Ethayarajh, 2019; 證明，取自預訓練模型的崁入向量的極度的各向異性，以致任兩個詞的崁入向量COS相似度平均為0.99(極度相似)。Li et al., 2020進一步調查發現，BERT的句崁入空間存在兩問題:\n詞頻令崁入空間產生偏移：高頻詞距離原點較近，低頻詞距離原點較遠。在相同權重下，低頻詞對整體句崁入向量的遠比高頻詞影響更強 低頻詞分散且稀疏： ",
+  "articleBody": "Abstract BERT 等預訓練模型在許多自然語言處理任務中取得了巨大成功。然而，如何通過這些預訓練模型獲得更好的句表徵向量仍然值得探索。先前的工作表明，各向異性問題是基於 BERT 的句表徵的關鍵瓶頸，阻礙模型充分利用底層語義特徵。因此，一些增強句子分佈各向同性的嘗試，例如基於流的模型(BERT-flow)，已被應用於句表徵並取得了一些改進。在本文中，我們發現傳統機器學習中的白化(球化)變換同樣可以增強句表徵的各向同性並取得有競爭力的結果。此外，白化還能夠降低句子表示的維度。我們的實驗結果表明，它不僅可以實現良好的性能，而且可以顯著降低存儲成本並加快模型檢索速度。\nIntroduction 深度神經語言模型的應用(BERT、GPT)近年來取得了巨大成功，因為它們創造了對隨前後文語境改變的詞彙表徵向量。這一趨勢也刺激了為長文本產生語義崁入(句崁入向量、段落崁入向量)的研究進展。然而句崁入已被證明不能完整捕捉句子的基本語義。據先前研究(Gao et al., 2019; Ethayarajh, 2019; Li et al., 2020)，所有的詞語的表徵向量都不是各項同性的：它們在方向上並非均勻分布的，而是在崁入空間中佔據一個狹小的錐體，呈現各向異性。Ethayarajh, 2019; 證明，取自預訓練模型的崁入向量的極度的各向異性，以致任兩個詞的崁入向量COS相似度平均為0.99(極度相似)。Li et al., 2020進一步調查發現，BERT的句崁入空間存在兩問題:\n詞頻令崁入空間產生偏移：高頻詞距離原點較近，低頻詞距離原點較遠。在相同權重下，低頻詞對整體句崁入向量的遠比高頻詞影響更強 低頻詞分散且稀疏：低頻詞在嵌入空間中與其他詞的最近距離(L2-dist)相較高頻詞更遠，使低頻的同義詞相似性更低 ",
   "wordCount" : "23",
   "inLanguage": "en",
   "datePublished": "2023-06-28T01:31:35+08:00",
-  "dateModified": "2023-06-28T01:31:35+08:00",
+  "dateModified": "2023-07-02T22:32:35+08:00",
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "https://lin-roger.github.io/posts/whiteningsentencerepresentationsforbettersemanticsandfasterretrieval/"
@@ -292,7 +292,7 @@
 <p>深度神經語言模型的應用(BERT、GPT)近年來取得了巨大成功，因為它們創造了對隨前後文語境改變的詞彙表徵向量。這一趨勢也刺激了為長文本產生語義崁入(句崁入向量、段落崁入向量)的研究進展。然而句崁入已被證明不能完整捕捉句子的基本語義。據先前研究(<a href="https://openreview.net/forum?id=SkEYojRqtm" title="Representation Degeneration Problem in Training Natural Language Generation Models 表徵退化">Gao et al., 2019; </a><a href="https://aclanthology.org/D19-1006/" title="How Contextual are Contextualized Word Representations? Comparing the Geometry of BERT, ELMo, and GPT-2 Embeddings 崁入向量的幾何結構">Ethayarajh, 2019; </a><a href="https://aclanthology.org/2020.emnlp-main.733/" title="On the Sentence Embeddings from Pre-trained Language Models BERT-flow">Li et al., 2020</a>)，所有的詞語的表徵向量都不是<a href="https://en.wikipedia.org/wiki/Isotropic_position" title="各項同性 wiki(英文)">各項同性</a>的：它們在方向上並非均勻分布的，而是在崁入空間中佔據一個狹小的錐體，呈現各向異性。<a href="https://aclanthology.org/D19-1006/" title="How Contextual are Contextualized Word Representations? Comparing the Geometry of BERT, ELMo, and GPT-2 Embeddings 崁入向量的幾何結構">Ethayarajh, 2019; </a>證明，取自預訓練模型的崁入向量的極度的各向異性，以致任兩個詞的崁入向量COS相似度平均為0.99(極度相似)。<a href="https://aclanthology.org/2020.emnlp-main.733/" title="On the Sentence Embeddings from Pre-trained Language Models BERT-flow">Li et al., 2020</a>進一步調查發現，BERT的句崁入空間存在兩問題:</p>
 <ol>
 <li>詞頻令崁入空間產生偏移：高頻詞距離原點較近，低頻詞距離原點較遠。在相同權重下，低頻詞對整體句崁入向量的遠比高頻詞影響更強</li>
-<li>低頻詞分散且稀疏：</li>
+<li>低頻詞分散且稀疏：低頻詞在嵌入空間中與其他詞的最近距離(L2-dist)相較高頻詞更遠，使低頻的同義詞相似性更低</li>
 </ol>
 
 

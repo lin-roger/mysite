@@ -7,7 +7,7 @@
 <meta name="robots" content="index, follow">
 <title>🚧How Contextual are Contextualized Word Representations? Comparing the Geometry of BERT, ELMo, and GPT-2 Embeddings🚧 | Flowey &amp; Code</title>
 <meta name="keywords" content="text-similarity">
-<meta name="description" content="🚧還在寫喔!!🚧">
+<meta name="description" content="🚧目前進度:deepl全文翻譯&#43;重點標記&#43;提問🚧">
 <meta name="author" content="">
 <link rel="canonical" href="https://lin-roger.github.io/posts/howcontextualarecontextualizedwordrepresentationscomparingthegeometryofbertelmoandgpt2embeddings/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.1cf1dcff6f1b1b62a9a6089dbbad72128582e20d09fb2d1f545347d17bb2f20c.css" integrity="sha256-HPHc/28bG2Kppgidu61yEoWC4g0J&#43;y0fVFNH0Xuy8gw=" rel="preload stylesheet" as="style">
@@ -76,15 +76,15 @@
     });
 </script>
 <meta property="og:title" content="🚧How Contextual are Contextualized Word Representations? Comparing the Geometry of BERT, ELMo, and GPT-2 Embeddings🚧" />
-<meta property="og:description" content="🚧還在寫喔!!🚧" />
+<meta property="og:description" content="🚧目前進度:deepl全文翻譯&#43;重點標記&#43;提問🚧" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://lin-roger.github.io/posts/howcontextualarecontextualizedwordrepresentationscomparingthegeometryofbertelmoandgpt2embeddings/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2023-06-29T18:26:28+08:00" />
-<meta property="article:modified_time" content="2023-06-29T18:26:28+08:00" />
+<meta property="article:modified_time" content="2023-07-02T22:27:08+08:00" />
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="🚧How Contextual are Contextualized Word Representations? Comparing the Geometry of BERT, ELMo, and GPT-2 Embeddings🚧"/>
-<meta name="twitter:description" content="🚧還在寫喔!!🚧"/>
+<meta name="twitter:description" content="🚧目前進度:deepl全文翻譯&#43;重點標記&#43;提問🚧"/>
 
 
 <script type="application/ld+json">
@@ -113,7 +113,7 @@
   "@type": "BlogPosting",
   "headline": "🚧How Contextual are Contextualized Word Representations? Comparing the Geometry of BERT, ELMo, and GPT-2 Embeddings🚧",
   "name": "🚧How Contextual are Contextualized Word Representations? Comparing the Geometry of BERT, ELMo, and GPT-2 Embeddings🚧",
-  "description": "🚧還在寫喔!!🚧",
+  "description": "🚧目前進度:deepl全文翻譯+重點標記+提問🚧",
   "keywords": [
     "text-similarity"
   ],
@@ -121,7 +121,7 @@
   "wordCount" : "317",
   "inLanguage": "en",
   "datePublished": "2023-06-29T18:26:28+08:00",
-  "dateModified": "2023-06-29T18:26:28+08:00",
+  "dateModified": "2023-07-02T22:27:08+08:00",
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "https://lin-roger.github.io/posts/howcontextualarecontextualizedwordrepresentationscomparingthegeometryofbertelmoandgpt2embeddings/"
@@ -406,12 +406,12 @@ baseLine of $MEV$: 隨機抽取1K個詞的表徵，並計算其構成的矩陣�
 </p>
 <p>图1：在BERT、ELMo和GPT-2的几乎所有层中，单词表征都是各向异性的（每個方向的分布並非都是均勻分布）：统一随机采样的单词之间的平均余弦相似度不为零。 唯一的例外是ELMo的输入层；鉴于它生成字符级嵌入而不使用上下文，这并不令人惊讶。高层的表征通常比低层的表征更加各向异性。</p>
 <h3 id="41-anisotropy">4.1 (An)Isotropy<a hidden class="anchor" aria-hidden="true" href="#41-anisotropy">#</a></h3>
-<p><strong>上下文的表征在所有非输入层都是各向异性的。</strong> 如果来自某一层的单词表征是各向同性的（每個方向的分布都是均勻分布），那么均匀随机采样的单词之间的平均余弦相似度将是0（Arora等人，2017）。这个平均值越接近于1，表示各向异性越大。各向异性的几何解释是，词的表征都在向量空间中占据一个狭窄的锥体，而不是在所有方向上都是均匀的；各向异性越大，这个圆锥就越窄（Mimno和Thompson，2017）。如图1所示，这意味着<em>在BERT、ELMo和GPT-2的几乎所有层中，所有单词的表征都在向量空间中占据一个狭窄的圆锥</em>。唯一的例外是ELMo的输入层，它产生静态的字符级嵌入，而不使用上下文甚至位置信息（Peters等人，2018）。然而，应该注意的是，<em>并非所有的静态嵌入都一定是各向同性的</em>；Mimno和Thompson（2017）发现，<em>同样是静态的skipgram嵌入并不是各向同性的</em>。</p>
+<p><strong>上下文的表征在所有非输入层都是各向异性的。</strong> 如果来自某一层的单词表征是各向同性的（每個方向的分布都是均勻分布），那么均匀随机采样的单词之间的平均余弦相似度将是0（Arora等人，2017）。这个平均值越接近于1，表示各向异性越大。各向异性的几何解释是，词的表征都在向量空间中占据一个狭窄的锥体，而不是在所有方向上都是均匀的；各向异性越大，这个圆锥就越窄（Mimno和Thompson，2017）。如图1所示，这意味着<strong>在BERT、ELMo和GPT-2的几乎所有层中，所有单词的表征都在向量空间中占据一个狭窄的圆锥</strong>。唯一的例外是ELMo的输入层，它产生静态的字符级嵌入，而不使用上下文甚至位置信息（Peters等人，2018）。然而，应该注意的是，<strong>并非所有的静态嵌入都一定是各向同性的</strong>；Mimno和Thompson（2017）发现，<strong>同样是静态的skipgram嵌入并不是各向同性的</strong>。</p>
 <blockquote>
 <p>那靜態的skipgram嵌入各向異性的程度為何?各向異性程度與餘弦相似度的準確性是否明確成反比?</p>
 </blockquote>
 <p><strong>语境化的表征一般在较高的层次上更具有各向异性。</strong> 如图1所示，对于GPT-2，均匀随机的单词之间的平均余弦相似度在第2层到第8层大致为0.6，但从第8层到第12层呈指数级增长。事实上，GPT-2的最后一层的单词表示是如此的各向异性，以至于任何两个单词的平均余弦相似度几乎是完美的!这种模式也适用于BERT和ELMo，但也有例外：例如，BERT的倒数第二层的各向异性比最后一层高得多。</p>
-<p><em>各向同性对静态词嵌入有理论和经验上的好处</em>。在理论上，<strong>它允许在训练期间进行更强的 &ldquo;自我规范化&rdquo;</strong>（Arora等人，2017），并且<strong>在实践中，从静态嵌入中减去平均矢量会导致在几个下游NLP任务上的改</strong>进（Mu等人，2018）。因此，在语境化词汇表征中看到的极端程度的各向异性&ndash;特别是在较高的层中&ndash;是令人惊讶的。如图1所示，对于所有三个模型，<strong>上下文隐蔽层的表征几乎都比输入层的表征更加各向异性</strong>，后者没有纳入上下文。<strong>这表明高各向异性是语境化过程所固有的，或者至少是语境化过程的副产品。</strong></p>
+<p><strong>各向同性对静态词嵌入有理论和经验上的好处</strong>。在理论上，<strong>它允许在训练期间进行更强的 &ldquo;自我规范化&rdquo;</strong>（Arora等人，2017），并且<strong>在实践中，从静态嵌入中减去平均矢量会导致在几个下游NLP任务上的改</strong>进（Mu等人，2018）。因此，在语境化词汇表征中看到的极端程度的各向异性&ndash;特别是在较高的层中&ndash;是令人惊讶的。如图1所示，对于所有三个模型，<strong>上下文隐蔽层的表征几乎都比输入层的表征更加各向异性</strong>，后者没有纳入上下文。<strong>这表明高各向异性是语境化过程所固有的，或者至少是语境化过程的副产品。</strong></p>
 <p><img loading="lazy" src="figure2.png" alt="figure2"  />
 </p>
 <p>图2：同一个词在不同语境中的平均余弦相似度被称为该词的自相似度（见定义1）。上面，我们绘制了各向异性调整后的均匀随机抽样词的平均自相似度（见3.4节）。在所有三个模型中，层数越高，自相似度越低，这表明在较高的层数中，语境化的词汇表征更具有语境针对性。</p>
@@ -452,6 +452,11 @@ baseLine of $MEV$: 隨機抽取1K個詞的表徵，並計算其構成的矩陣�
       <li><a href="https://lin-roger.github.io/tags/text-similarity/">text-similarity</a></li>
     </ul>
 <nav class="paginav">
+  <a class="prev" href="https://lin-roger.github.io/posts/sentencebertsentenceembeddingsusingsiamesebertnetworks/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>🚧Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks🚧</span>
+  </a>
   <a class="next" href="https://lin-roger.github.io/posts/whiteningsentencerepresentationsforbettersemanticsandfasterretrieval/">
     <span class="title">Next »</span>
     <br>
