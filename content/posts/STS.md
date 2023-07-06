@@ -14,6 +14,7 @@ draft: false
 ## STS 2012
 
 給定兩句子，預測兩個句子間語意的相似度，相似度有六個評級:
+
 0. On different topics. 完全不同主題
 1. Not equivalent, but on the same topic. 語意不相等，但主題相似
 2. Not equivalent, but share some details. 語意不相等，但有一些細節相同
