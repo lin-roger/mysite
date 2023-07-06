@@ -1,7 +1,7 @@
 ---
 title: "🚧STS 資料集簡介🚧"
 summary: "🚧介紹STS 2012-2016 和 STS benchmark, 目前進度:已完成STS 2012說明🚧"
-date: 2023-04-06T13:48:01+08:00
+date: 2023-07-06T22:06:01+08:00
 tags: 
 -  text-similarity
 -  dataset
