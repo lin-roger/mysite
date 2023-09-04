@@ -6,7 +6,7 @@ lastmod: 2023-07-03T16:55:24+08:00
 tags: 
 - text-similarity 
 
-draft: false
+draft: true
 ---
 
 ## Abstract

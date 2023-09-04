@@ -90,4 +90,4 @@ Prompt:
 >Text: I think the vacation is okay.  
 >Sentiment: "Neutral"  
 >Text: I think the food was okay.
->Sentiment:  
+>Sentiment: "Neutral"
