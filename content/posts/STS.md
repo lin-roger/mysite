@@ -5,7 +5,7 @@ date: 2023-07-06T22:06:01+08:00
 tags: 
 -  text-similarity
 -  dataset
-draft: false
+draft: true
 ---
 ## What is STS(Semantic Textual Similarity)
 
