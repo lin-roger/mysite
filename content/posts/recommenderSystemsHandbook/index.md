@@ -61,9 +61,9 @@ draft: false
 
 ## reference
 
-[Wiki: Collaborative filtering][1]
+[\[1\] Wiki: Collaborative filtering][1]
 
-[Wiki: Information overload][2]
+[\[2\] Wiki: Information overload][2]
 
 [1]: https://zh.wikipedia.org/zh-tw/%E5%8D%94%E5%90%8C%E9%81%8E%E6%BF%BE "Wiki: Collaborative filtering"
 [2]: https://zh.wikipedia.org/zh-tw/%E8%B3%87%E8%A8%8A%E8%B6%85%E8%BC%89 "Wiki: Information overload"
