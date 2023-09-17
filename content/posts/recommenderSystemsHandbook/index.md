@@ -1,8 +1,8 @@
 ---
 title: "Recommender systems handbook || 閱讀紀錄 0.概述"
 summary: "簡要說明推薦系統(RS)的基本概念，與此書的基本架構"
-date: {{ 2023-09-16T14:00:00+08:00 }}
-lastmod: {{ 2023-09-16T14:00:00+08:00 }}
+date: 2023-09-16T14:00:00+08:00
+lastmod: 2023-09-16T14:00:00+08:00
 tags: 
 - Recommender systems handbook
 - 推薦系統
