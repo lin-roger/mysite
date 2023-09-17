@@ -5,11 +5,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>🚧Advanced Prompting Engineering 進階提示工程🚧 | Flowey &amp; Code</title>
-<meta name="keywords" content="prompt-engineering">
-<meta name="description" content="🚧目前進度:deepl部分翻譯🚧">
+<title>Recommender systems handbook || 閱讀紀錄 0.概述 | Flowey &amp; Code</title>
+<meta name="keywords" content="Recommender systems handbook, 推薦系統">
+<meta name="description" content="簡要說明推薦系統(RS)的基本概念，與此書的基本架構">
 <meta name="author" content="">
-<link rel="canonical" href="https://lin-roger.github.io/posts/advancedpromptingengineering/">
+<link rel="canonical" href="https://lin-roger.github.io/posts/recommendersystemshandbook/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.85059c2daee4270ea2b0c292f9d9aaea00231b3ab9c6088e4fda88c70006ea69.css" integrity="sha256-hQWcLa7kJw6isMKS&#43;dmq6gAjGzq5xgiOT9qIxwAG6mk=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.acb54fd32bbc1982428b8850317e45d076b95012730a5936667e6bc21777692a.js" integrity="sha256-rLVP0yu8GYJCi4hQMX5F0Ha5UBJzClk2Zn5rwhd3aSo="
     onload="hljs.initHighlightingOnLoad();"></script>
@@ -75,16 +75,16 @@
         });
     });
 </script>
-<meta property="og:title" content="🚧Advanced Prompting Engineering 進階提示工程🚧" />
-<meta property="og:description" content="🚧目前進度:deepl部分翻譯🚧" />
+<meta property="og:title" content="Recommender systems handbook || 閱讀紀錄 0.概述" />
+<meta property="og:description" content="簡要說明推薦系統(RS)的基本概念，與此書的基本架構" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://lin-roger.github.io/posts/advancedpromptingengineering/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2023-06-26T02:38:25+08:00" />
-<meta property="article:modified_time" content="2023-06-26T02:38:25+08:00" />
+<meta property="og:url" content="https://lin-roger.github.io/posts/recommendersystemshandbook/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-09-16T14:00:00+08:00" />
+<meta property="article:modified_time" content="2023-09-16T14:00:00+08:00" />
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="🚧Advanced Prompting Engineering 進階提示工程🚧"/>
-<meta name="twitter:description" content="🚧目前進度:deepl部分翻譯🚧"/>
+<meta name="twitter:title" content="Recommender systems handbook || 閱讀紀錄 0.概述"/>
+<meta name="twitter:description" content="簡要說明推薦系統(RS)的基本概念，與此書的基本架構"/>
 
 
 <script type="application/ld+json">
@@ -101,8 +101,8 @@
     {
       "@type": "ListItem",
       "position":  2 ,
-      "name": "🚧Advanced Prompting Engineering 進階提示工程🚧",
-      "item": "https://lin-roger.github.io/posts/advancedpromptingengineering/"
+      "name": "Recommender systems handbook || 閱讀紀錄 0.概述",
+      "item": "https://lin-roger.github.io/posts/recommendersystemshandbook/"
     }
   ]
 }
@@ -111,20 +111,20 @@
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "🚧Advanced Prompting Engineering 進階提示工程🚧",
-  "name": "🚧Advanced Prompting Engineering 進階提示工程🚧",
-  "description": "🚧目前進度:deepl部分翻譯🚧",
+  "headline": "Recommender systems handbook || 閱讀紀錄 0.概述",
+  "name": "Recommender systems handbook || 閱讀紀錄 0.概述",
+  "description": "簡要說明推薦系統(RS)的基本概念，與此書的基本架構",
   "keywords": [
-    "prompt-engineering"
+    "Recommender systems handbook", "推薦系統"
   ],
-  "articleBody": "Zero-Shot Prompting \u0026 Few(N)-Shot Prompting How it work Shot意指範例，顧名思義，Zero-Shot就是提示不包含任何範例，反之N-Shot就是提示包含N個範例，在簡單任務中您使用Zero-Shot Prompting通常也可獲得不錯的效果，但當問題開始複雜起來時，Few-Shot Prompting 可以更好的解決問題\nThe model has somehow learned how to perform the task by providing it with just one example (i.e., 1-shot). For more difficult tasks, we can experiment with increasing the demonstrations (e.g., 3-shot, 5-shot, 10-shot, etc.).\n模型通過僅提供一個示例（即 1-shot）以某種方式學會瞭如何執行任務。對於更困難的任務，我們可以嘗試增加演示次數（例如 3 次、5 次、10 次等）。\nFollowing the findings from Min et al. (2022), here are a few more tips about demonstrations/exemplars when doing few-shot:\n根據 Min 等人的研究結果，這裡有一些關於進行小樣本時演示/範例的更多提示：\n“the label space and the distribution of the input text specified by the demonstrations are both important (regardless of whether the labels are correct for individual inputs)”\n“演示指定的標籤空間和輸入文本的分佈都很重要（無論標籤對於各個輸入是否正確）”\nthe format you use also plays a key role in performance, even if you just use random labels, this is much better than no labels at all.\n您使用的格式對性能也起著關鍵作用，即使您只是使用隨機標籤，這也比根本沒有標籤要好得多。\nadditional results show that selecting random labels from a true distribution of labels (instead of a uniform distribution) also helps.\n其他結果表明，從真實的標籤分佈（而不是均勻分佈）中選擇隨機標籤也有幫助。\nLimitations 當問題牽扯到具有多步驟的複雜推裡時，Few(N)-Shot 的效果會減弱，這時將指令拆解會是更好的選擇\nChain-of-Thought Prompting Self-Consistency Generated Knowledge Prompting Tree of Thoughts (ToT) Retrieval Augmented Generation (RAG) Automatic Reasoning and Tool-use (ART) Automatic Prompt Engineer (APE) Active-Prompt Directional Stimulus Prompting ReAct Prompting Multimodal CoT Prompting Graph Prompts ",
-  "wordCount" : "189",
+  "articleBody": "推薦系統簡介 推薦系統的目的是向使用者提供有價值的項目(items)，例如商品、新聞和串流影片，以幫助他們在大量資訊中找到有價值的內容。我們通常研究的推薦系統是個人化的，根據個人或特定使用者群體的偏好調整推薦項目。相比之下，大眾化的推薦系統方法通常較容易實現，例如top10 熱門項目。儘管這種方法在特定情境下可能有效，但它並不是推薦系統主要討論的議題。個人化推薦最簡單的形式可以用一排序後的項目列表呈現(最有興趣-\u003e最沒興趣)，系統透過使用者的偏好(對某項目的評分、是否查看某項目的詳細資訊)或某些條件排序。最早的推薦系統透過尋找和被推薦使用者(目標)相似的使用者，並將相似使用者關注或選擇的項目推薦給目標，該方法即為協同過濾(Collaborative filtering)。而現代人日常要接受的資訊繁多2，如何令使用者可以方便的取得有價值的資訊已成為重要問題，推薦系統很好的解決了此問題。\n更新計畫與週期 可能兩周一更\n本書架構 Part I Basic Techniques Data Mining Methods for Recommender Systems 🚧 Content-based Recommender Systems: State of the Art and Trends 🚧 A Comprehensive Survey of Neighborhood-based Recommendation Methods 🚧 Advances in Collaborative Filtering 🚧 Developing Constraint-based Recommenders 🚧 Context-Aware Recommender Systems 🚧 Part II Applications and Evaluation of RSs Evaluating Recommendation Systems 🚧 A Recommender System for an IPTV Service Provider: a Real Large-Scale Production Environment 🚧 How to Get the Recommender Out of the Lab? 🚧 Matching Recommendation Technologies and Domains 🚧 Recommender Systems in Technology Enhanced Learning 🚧 Part III Interacting with Recommender Systems On the Evolution of Critiquing Recommenders 🚧 Creating More Credible and Persuasive Recommender Systems: The Influence of Source Characteristics on Recommender System Evaluations 🚧 Designing and Evaluating Explanations for Recommender Systems 🚧 Usability Guidelines for Product Recommenders Based on Example Critiquing Research 🚧 Map Based Visualization of Product Catalogs 🚧 Part IV Recommender Systems and Communities Communities, Collaboration, and Recommender Systems in Personalized Web Search 🚧 Social Tagging Recommender Systems 🚧 Trust and Recommendations 🚧 Group Recommender Systems: Combining Individual Models 🚧 Part V Advanced Algorithms Aggregation of Preferences in Recommender Systems 🚧 Active Learning in Recommender Systems 🚧 Multi-Criteria Recommender Systems 🚧 Robust Collaborative Recommendation 🚧 reference [1] Wiki: Collaborative filtering\n[2] Wiki: Information overload\n",
+  "wordCount" : "219",
   "inLanguage": "en",
-  "datePublished": "2023-06-26T02:38:25+08:00",
-  "dateModified": "2023-06-26T02:38:25+08:00",
+  "datePublished": "2023-09-16T14:00:00+08:00",
+  "dateModified": "2023-09-16T14:00:00+08:00",
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://lin-roger.github.io/posts/advancedpromptingengineering/"
+    "@id": "https://lin-roger.github.io/posts/recommendersystemshandbook/"
   },
   "publisher": {
     "@type": "Organization",
@@ -204,9 +204,9 @@
   <header class="post-header">
     <div class="breadcrumbs"><a href="https://lin-roger.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://lin-roger.github.io/posts/">Posts</a></div>
     <h1 class="post-title">
-      🚧Advanced Prompting Engineering 進階提示工程🚧
+      Recommender systems handbook || 閱讀紀錄 0.概述
     </h1>
-    <div class="post-meta"><span title='2023-06-26 02:38:25 +0800 CST'>June 26, 2023</span>&nbsp;·&nbsp;1 min
+    <div class="post-meta"><span title='2023-09-16 14:00:00 +0800 CST'>September 16, 2023</span>&nbsp;·&nbsp;2 min
 
 </div>
   </header> <aside id="toc-container" class="toc-container wide">
@@ -218,37 +218,25 @@
 
             <div class="inner"><ul>
                     <li>
-                        <a href="#zero-shot-prompting--fewn-shot-prompting" aria-label="Zero-Shot Prompting &amp;amp; Few(N)-Shot Prompting">Zero-Shot Prompting &amp; Few(N)-Shot Prompting</a><ul>
+                        <a href="#%e6%8e%a8%e8%96%a6%e7%b3%bb%e7%b5%b1%e7%b0%a1%e4%bb%8b" aria-label="推薦系統簡介">推薦系統簡介</a></li>
+                    <li>
+                        <a href="#%e6%9b%b4%e6%96%b0%e8%a8%88%e7%95%ab%e8%88%87%e9%80%b1%e6%9c%9f" aria-label="更新計畫與週期">更新計畫與週期</a></li>
+                    <li>
+                        <a href="#%e6%9c%ac%e6%9b%b8%e6%9e%b6%e6%a7%8b" aria-label="本書架構">本書架構</a><ul>
                             
                     <li>
-                        <a href="#how-it-work" aria-label="How it work">How it work</a></li>
+                        <a href="#part-i-basic-techniques" aria-label="Part I Basic Techniques">Part I Basic Techniques</a></li>
                     <li>
-                        <a href="#limitations" aria-label="Limitations">Limitations</a></li></ul>
+                        <a href="#part-ii-applications-and-evaluation-of-rss" aria-label="Part II Applications and Evaluation of RSs">Part II Applications and Evaluation of RSs</a></li>
+                    <li>
+                        <a href="#part-iii-interacting-with-recommender-systems" aria-label="Part III Interacting with Recommender Systems">Part III Interacting with Recommender Systems</a></li>
+                    <li>
+                        <a href="#part-iv-recommender-systems-and-communities" aria-label="Part IV Recommender Systems and Communities">Part IV Recommender Systems and Communities</a></li>
+                    <li>
+                        <a href="#part-v-advanced-algorithms" aria-label="Part V Advanced Algorithms">Part V Advanced Algorithms</a></li></ul>
                     </li>
                     <li>
-                        <a href="#chain-of-thought-prompting" aria-label="Chain-of-Thought Prompting">Chain-of-Thought Prompting</a></li>
-                    <li>
-                        <a href="#self-consistency" aria-label="Self-Consistency">Self-Consistency</a></li>
-                    <li>
-                        <a href="#generated-knowledge-prompting" aria-label="Generated Knowledge Prompting">Generated Knowledge Prompting</a></li>
-                    <li>
-                        <a href="#tree-of-thoughts-tot" aria-label="Tree of Thoughts (ToT)">Tree of Thoughts (ToT)</a></li>
-                    <li>
-                        <a href="#retrieval-augmented-generation-rag" aria-label="Retrieval Augmented Generation (RAG)">Retrieval Augmented Generation (RAG)</a></li>
-                    <li>
-                        <a href="#automatic-reasoning-and-tool-use-art" aria-label="Automatic Reasoning and Tool-use (ART)">Automatic Reasoning and Tool-use (ART)</a></li>
-                    <li>
-                        <a href="#automatic-prompt-engineer-ape" aria-label="Automatic Prompt Engineer (APE)">Automatic Prompt Engineer (APE)</a></li>
-                    <li>
-                        <a href="#active-prompt" aria-label="Active-Prompt">Active-Prompt</a></li>
-                    <li>
-                        <a href="#directional-stimulus-prompting" aria-label="Directional Stimulus Prompting">Directional Stimulus Prompting</a></li>
-                    <li>
-                        <a href="#react-prompting" aria-label="ReAct Prompting">ReAct Prompting</a></li>
-                    <li>
-                        <a href="#multimodal-cot-prompting" aria-label="Multimodal CoT Prompting">Multimodal CoT Prompting</a></li>
-                    <li>
-                        <a href="#graph-prompts" aria-label="Graph Prompts">Graph Prompts</a>
+                        <a href="#reference" aria-label="reference">reference</a>
                     </li>
                 </ul>
             </div>
@@ -314,51 +302,67 @@
         return rect.top + win.pageYOffset;   
     }
 </script>
-  <div class="post-content"><h2 id="zero-shot-prompting--fewn-shot-prompting">Zero-Shot Prompting &amp; Few(N)-Shot Prompting<a hidden class="anchor" aria-hidden="true" href="#zero-shot-prompting--fewn-shot-prompting">#</a></h2>
-<h3 id="how-it-work">How it work<a hidden class="anchor" aria-hidden="true" href="#how-it-work">#</a></h3>
-<p>Shot意指範例，顧名思義，Zero-Shot就是提示不包含任何範例，反之N-Shot就是提示包含N個範例，在簡單任務中您使用Zero-Shot Prompting通常也可獲得不錯的效果，但當問題開始複雜起來時，Few-Shot Prompting 可以更好的解決問題</p>
-<p>The model has somehow learned how to perform the task by providing it with just one example (i.e., 1-shot). For more difficult tasks, we can experiment with increasing the demonstrations (e.g., 3-shot, 5-shot, 10-shot, etc.).</p>
-<p>模型通過僅提供一個示例（即 1-shot）以某種方式學會瞭如何執行任務。對於更困難的任務，我們可以嘗試增加演示次數（例如 3 次、5 次、10 次等）。</p>
-<p>Following the findings from <a href="https://arxiv.org/abs/2202.12837">Min et al. (2022)</a>, here are a few more tips about demonstrations/exemplars when doing few-shot:</p>
-<p>根據 Min 等人的研究結果，這裡有一些關於進行小樣本時演示/範例的更多提示：</p>
-<p>&ldquo;the label space and the distribution of the input text specified by the demonstrations are both important (regardless of whether the labels are correct for individual inputs)&rdquo;</p>
-<p>“演示指定的標籤空間和輸入文本的分佈都很重要（無論標籤對於各個輸入是否正確）”</p>
-<p>the format you use also plays a key role in performance, even if you just use random labels, this is much better than no labels at all.</p>
-<p>您使用的格式對性能也起著關鍵作用，即使您只是使用隨機標籤，這也比根本沒有標籤要好得多。</p>
-<p>additional results show that selecting random labels from a true distribution of labels (instead of a uniform distribution) also helps.</p>
-<p>其他結果表明，從真實的標籤分佈（而不是均勻分佈）中選擇隨機標籤也有幫助。</p>
-<h3 id="limitations">Limitations<a hidden class="anchor" aria-hidden="true" href="#limitations">#</a></h3>
-<p>當問題牽扯到具有多步驟的複雜推裡時，Few(N)-Shot 的效果會減弱，這時將指令拆解會是更好的選擇</p>
-<h2 id="chain-of-thought-prompting">Chain-of-Thought Prompting<a hidden class="anchor" aria-hidden="true" href="#chain-of-thought-prompting">#</a></h2>
-<h2 id="self-consistency">Self-Consistency<a hidden class="anchor" aria-hidden="true" href="#self-consistency">#</a></h2>
-<h2 id="generated-knowledge-prompting">Generated Knowledge Prompting<a hidden class="anchor" aria-hidden="true" href="#generated-knowledge-prompting">#</a></h2>
-<h2 id="tree-of-thoughts-tot">Tree of Thoughts (ToT)<a hidden class="anchor" aria-hidden="true" href="#tree-of-thoughts-tot">#</a></h2>
-<h2 id="retrieval-augmented-generation-rag">Retrieval Augmented Generation (RAG)<a hidden class="anchor" aria-hidden="true" href="#retrieval-augmented-generation-rag">#</a></h2>
-<h2 id="automatic-reasoning-and-tool-use-art">Automatic Reasoning and Tool-use (ART)<a hidden class="anchor" aria-hidden="true" href="#automatic-reasoning-and-tool-use-art">#</a></h2>
-<h2 id="automatic-prompt-engineer-ape">Automatic Prompt Engineer (APE)<a hidden class="anchor" aria-hidden="true" href="#automatic-prompt-engineer-ape">#</a></h2>
-<h2 id="active-prompt">Active-Prompt<a hidden class="anchor" aria-hidden="true" href="#active-prompt">#</a></h2>
-<h2 id="directional-stimulus-prompting">Directional Stimulus Prompting<a hidden class="anchor" aria-hidden="true" href="#directional-stimulus-prompting">#</a></h2>
-<h2 id="react-prompting">ReAct Prompting<a hidden class="anchor" aria-hidden="true" href="#react-prompting">#</a></h2>
-<h2 id="multimodal-cot-prompting">Multimodal CoT Prompting<a hidden class="anchor" aria-hidden="true" href="#multimodal-cot-prompting">#</a></h2>
-<h2 id="graph-prompts">Graph Prompts<a hidden class="anchor" aria-hidden="true" href="#graph-prompts">#</a></h2>
+  <div class="post-content"><h2 id="推薦系統簡介">推薦系統簡介<a hidden class="anchor" aria-hidden="true" href="#推薦系統簡介">#</a></h2>
+<p>推薦系統的目的是向使用者提供有價值的項目(items)，例如商品、新聞和串流影片，以幫助他們在大量資訊中找到有價值的內容。我們通常研究的推薦系統是個人化的，根據個人或特定使用者群體的偏好調整推薦項目。相比之下，大眾化的推薦系統方法通常較容易實現，例如top10 熱門項目。儘管這種方法在特定情境下可能有效，但它並不是推薦系統主要討論的議題。個人化推薦最簡單的形式可以用一排序後的項目列表呈現(最有興趣-&gt;最沒興趣)，系統透過使用者的偏好(對某項目的評分、是否查看某項目的詳細資訊)或某些條件排序。最早的推薦系統透過尋找和被推薦使用者(目標)相似的使用者，並將相似使用者關注或選擇的項目推薦給目標，該方法即為<a href="https://zh.wikipedia.org/zh-tw/%E5%8D%94%E5%90%8C%E9%81%8E%E6%BF%BE" title="Wiki: Collaborative filtering">協同過濾(Collaborative filtering)</a>。而現代人日常要接受的資訊繁多<a href="https://zh.wikipedia.org/zh-tw/%E8%B3%87%E8%A8%8A%E8%B6%85%E8%BC%89" title="Wiki: Information overload">2</a>，如何令使用者可以方便的取得有價值的資訊已成為重要問題，推薦系統很好的解決了此問題。</p>
+<h2 id="更新計畫與週期">更新計畫與週期<a hidden class="anchor" aria-hidden="true" href="#更新計畫與週期">#</a></h2>
+<p>可能兩周一更</p>
+<h2 id="本書架構">本書架構<a hidden class="anchor" aria-hidden="true" href="#本書架構">#</a></h2>
+<h3 id="part-i-basic-techniques">Part I Basic Techniques<a hidden class="anchor" aria-hidden="true" href="#part-i-basic-techniques">#</a></h3>
+<ol>
+<li>Data Mining Methods for Recommender Systems 🚧</li>
+<li>Content-based Recommender Systems: State of the Art and Trends 🚧</li>
+<li>A Comprehensive Survey of Neighborhood-based Recommendation Methods 🚧</li>
+<li>Advances in Collaborative Filtering 🚧</li>
+<li>Developing Constraint-based Recommenders 🚧</li>
+<li>Context-Aware Recommender Systems 🚧</li>
+</ol>
+<h3 id="part-ii-applications-and-evaluation-of-rss">Part II Applications and Evaluation of RSs<a hidden class="anchor" aria-hidden="true" href="#part-ii-applications-and-evaluation-of-rss">#</a></h3>
+<ol start="7">
+<li>Evaluating Recommendation Systems 🚧</li>
+<li>A Recommender System for an IPTV Service Provider: a Real Large-Scale Production Environment 🚧</li>
+<li>How to Get the Recommender Out of the Lab? 🚧</li>
+<li>Matching Recommendation Technologies and Domains 🚧</li>
+<li>Recommender Systems in Technology Enhanced Learning 🚧</li>
+</ol>
+<h3 id="part-iii-interacting-with-recommender-systems">Part III Interacting with Recommender Systems<a hidden class="anchor" aria-hidden="true" href="#part-iii-interacting-with-recommender-systems">#</a></h3>
+<ol start="12">
+<li>On the Evolution of Critiquing Recommenders 🚧</li>
+<li>Creating More Credible and Persuasive Recommender Systems: The Influence of Source Characteristics on Recommender System Evaluations 🚧</li>
+<li>Designing and Evaluating Explanations for Recommender Systems 🚧</li>
+<li>Usability Guidelines for Product Recommenders Based on Example Critiquing Research 🚧</li>
+<li>Map Based Visualization of Product Catalogs 🚧</li>
+</ol>
+<h3 id="part-iv-recommender-systems-and-communities">Part IV Recommender Systems and Communities<a hidden class="anchor" aria-hidden="true" href="#part-iv-recommender-systems-and-communities">#</a></h3>
+<ol start="17">
+<li>Communities, Collaboration, and Recommender Systems in Personalized Web Search 🚧</li>
+<li>Social Tagging Recommender Systems 🚧</li>
+<li>Trust and Recommendations 🚧</li>
+<li>Group Recommender Systems: Combining Individual Models 🚧</li>
+</ol>
+<h3 id="part-v-advanced-algorithms">Part V Advanced Algorithms<a hidden class="anchor" aria-hidden="true" href="#part-v-advanced-algorithms">#</a></h3>
+<ol start="21">
+<li>Aggregation of Preferences in Recommender Systems 🚧</li>
+<li>Active Learning in Recommender Systems 🚧</li>
+<li>Multi-Criteria Recommender Systems 🚧</li>
+<li>Robust Collaborative Recommendation 🚧</li>
+</ol>
+<h2 id="reference">reference<a hidden class="anchor" aria-hidden="true" href="#reference">#</a></h2>
+<p><a href="https://zh.wikipedia.org/zh-tw/%E5%8D%94%E5%90%8C%E9%81%8E%E6%BF%BE" title="Wiki: Collaborative filtering">[1] Wiki: Collaborative filtering</a></p>
+<p><a href="https://zh.wikipedia.org/zh-tw/%E8%B3%87%E8%A8%8A%E8%B6%85%E8%BC%89" title="Wiki: Information overload">[2] Wiki: Information overload</a></p>
 
 
   </div>
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="https://lin-roger.github.io/tags/prompt-engineering/">prompt-engineering</a></li>
+      <li><a href="https://lin-roger.github.io/tags/recommender-systems-handbook/">Recommender systems handbook</a></li>
+      <li><a href="https://lin-roger.github.io/tags/%E6%8E%A8%E8%96%A6%E7%B3%BB%E7%B5%B1/">推薦系統</a></li>
     </ul>
 <nav class="paginav">
-  <a class="prev" href="https://lin-roger.github.io/posts/recommendersystemshandbook/">
-    <span class="title">« Prev</span>
-    <br>
-    <span>Recommender systems handbook || 閱讀紀錄 0.概述</span>
-  </a>
-  <a class="next" href="https://lin-roger.github.io/posts/promptee/">
+  <a class="next" href="https://lin-roger.github.io/posts/advancedpromptingengineering/">
     <span class="title">Next »</span>
     <br>
-    <span>prompt-engineering 基礎</span>
+    <span>🚧Advanced Prompting Engineering 進階提示工程🚧</span>
   </a>
 </nav>
 

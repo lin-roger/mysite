@@ -2,26 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://lin-roger.github.io/posts/sentencebertsentenceembeddingsusingsiamesebertnetworks/</loc>
-    <lastmod>2023-07-03T16:55:24+08:00</lastmod>
-  </url><url>
     <loc>https://lin-roger.github.io/</loc>
-    <lastmod>2023-07-03T16:55:24+08:00</lastmod>
+    <lastmod>2023-09-16T14:00:00+08:00</lastmod>
   </url><url>
     <loc>https://lin-roger.github.io/posts/</loc>
-    <lastmod>2023-07-03T16:55:24+08:00</lastmod>
+    <lastmod>2023-09-16T14:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://lin-roger.github.io/tags/recommender-systems-handbook/</loc>
+    <lastmod>2023-09-16T14:00:00+08:00</lastmod>
+  </url><url>
+    <loc>https://lin-roger.github.io/posts/recommendersystemshandbook/</loc>
+    <lastmod>2023-09-16T14:00:00+08:00</lastmod>
   </url><url>
     <loc>https://lin-roger.github.io/tags/</loc>
-    <lastmod>2023-07-03T16:55:24+08:00</lastmod>
+    <lastmod>2023-09-16T14:00:00+08:00</lastmod>
   </url><url>
-    <loc>https://lin-roger.github.io/tags/text-similarity/</loc>
-    <lastmod>2023-07-03T16:55:24+08:00</lastmod>
-  </url><url>
-    <loc>https://lin-roger.github.io/posts/howcontextualarecontextualizedwordrepresentationscomparingthegeometryofbertelmoandgpt2embeddings/</loc>
-    <lastmod>2023-07-02T22:27:08+08:00</lastmod>
-  </url><url>
-    <loc>https://lin-roger.github.io/posts/whiteningsentencerepresentationsforbettersemanticsandfasterretrieval/</loc>
-    <lastmod>2023-07-02T22:32:35+08:00</lastmod>
+    <loc>https://lin-roger.github.io/tags/%E6%8E%A8%E8%96%A6%E7%B3%BB%E7%B5%B1/</loc>
+    <lastmod>2023-09-16T14:00:00+08:00</lastmod>
   </url><url>
     <loc>https://lin-roger.github.io/posts/advancedpromptingengineering/</loc>
     <lastmod>2023-06-26T02:38:25+08:00</lastmod>

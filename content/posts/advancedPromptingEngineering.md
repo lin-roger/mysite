@@ -6,7 +6,7 @@ lastmod: 2023-06-26T02:38:25+08:00
 tags: 
 - prompt-engineering 
 
-draft: true
+draft: flase
 ---
 ## Zero-Shot Prompting & Few(N)-Shot Prompting
 

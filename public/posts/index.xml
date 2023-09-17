@@ -6,32 +6,14 @@
     <description>Recent content in Posts on Flowey &amp; Code</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 03 Jul 2023 16:55:24 +0800</lastBuildDate><atom:link href="https://lin-roger.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 16 Sep 2023 14:00:00 +0800</lastBuildDate><atom:link href="https://lin-roger.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>🚧Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks🚧</title>
-      <link>https://lin-roger.github.io/posts/sentencebertsentenceembeddingsusingsiamesebertnetworks/</link>
-      <pubDate>Mon, 03 Jul 2023 16:55:24 +0800</pubDate>
+      <title>Recommender systems handbook || 閱讀紀錄 0.概述</title>
+      <link>https://lin-roger.github.io/posts/recommendersystemshandbook/</link>
+      <pubDate>Sat, 16 Sep 2023 14:00:00 +0800</pubDate>
       
-      <guid>https://lin-roger.github.io/posts/sentencebertsentenceembeddingsusingsiamesebertnetworks/</guid>
-      <description>🚧目前進度:Deepl全文翻譯🚧</description>
-    </item>
-    
-    <item>
-      <title>🚧How Contextual are Contextualized Word Representations? Comparing the Geometry of BERT, ELMo, and GPT-2 Embeddings🚧</title>
-      <link>https://lin-roger.github.io/posts/howcontextualarecontextualizedwordrepresentationscomparingthegeometryofbertelmoandgpt2embeddings/</link>
-      <pubDate>Thu, 29 Jun 2023 18:26:28 +0800</pubDate>
-      
-      <guid>https://lin-roger.github.io/posts/howcontextualarecontextualizedwordrepresentationscomparingthegeometryofbertelmoandgpt2embeddings/</guid>
-      <description>🚧目前進度:deepl全文翻譯+重點標記+提問🚧</description>
-    </item>
-    
-    <item>
-      <title>🚧Whitening Sentence Representations for Better Semantics and Faster Retrieval🚧</title>
-      <link>https://lin-roger.github.io/posts/whiteningsentencerepresentationsforbettersemanticsandfasterretrieval/</link>
-      <pubDate>Wed, 28 Jun 2023 01:31:35 +0800</pubDate>
-      
-      <guid>https://lin-roger.github.io/posts/whiteningsentencerepresentationsforbettersemanticsandfasterretrieval/</guid>
-      <description>🚧還在寫喔!!語意相似度計算🚧</description>
+      <guid>https://lin-roger.github.io/posts/recommendersystemshandbook/</guid>
+      <description>簡要說明推薦系統(RS)的基本概念，與此書的基本架構</description>
     </item>
     
     <item>

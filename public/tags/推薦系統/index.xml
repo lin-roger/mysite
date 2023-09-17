@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>推薦系統 on Flowey &amp; Code</title>
+    <link>https://lin-roger.github.io/tags/%E6%8E%A8%E8%96%A6%E7%B3%BB%E7%B5%B1/</link>
+    <description>Recent content in 推薦系統 on Flowey &amp; Code</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 16 Sep 2023 14:00:00 +0800</lastBuildDate><atom:link href="https://lin-roger.github.io/tags/%E6%8E%A8%E8%96%A6%E7%B3%BB%E7%B5%B1/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Recommender systems handbook || 閱讀紀錄 0.概述</title>
+      <link>https://lin-roger.github.io/posts/recommendersystemshandbook/</link>
+      <pubDate>Sat, 16 Sep 2023 14:00:00 +0800</pubDate>
+      
+      <guid>https://lin-roger.github.io/posts/recommendersystemshandbook/</guid>
+      <description>簡要說明推薦系統(RS)的基本概念，與此書的基本架構</description>
+    </item>
+    
+  </channel>
+</rss>
