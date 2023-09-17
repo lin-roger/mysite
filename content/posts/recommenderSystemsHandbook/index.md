@@ -22,42 +22,42 @@ draft: false
 
 ### Part I Basic Techniques
 
-1. Data Mining Methods for Recommender Systems 🚧
-2. Content-based Recommender Systems: State of the Art and Trends 🚧
-3. A Comprehensive Survey of Neighborhood-based Recommendation Methods 🚧
-4. Advances in Collaborative Filtering 🚧
-5. Developing Constraint-based Recommenders 🚧
-6. Context-Aware Recommender Systems 🚧
+    1. Data Mining Methods for Recommender Systems 🚧
+    2. Content-based Recommender Systems: State of the Art and Trends 🚧
+    3. A Comprehensive Survey of Neighborhood-based Recommendation Methods 🚧
+    4. Advances in Collaborative Filtering 🚧
+    5. Developing Constraint-based Recommenders 🚧
+    6. Context-Aware Recommender Systems 🚧
 
 ### Part II Applications and Evaluation of RSs
 
-7. Evaluating Recommendation Systems 🚧
-8. A Recommender System for an IPTV Service Provider: a Real Large-Scale Production Environment 🚧
-9. How to Get the Recommender Out of the Lab? 🚧
-10. Matching Recommendation Technologies and Domains 🚧
-11. Recommender Systems in Technology Enhanced Learning 🚧
+    7. Evaluating Recommendation Systems 🚧
+    8. A Recommender System for an IPTV Service Provider: a Real Large-Scale Production Environment 🚧
+    9. How to Get the Recommender Out of the Lab? 🚧
+    10. Matching Recommendation Technologies and Domains 🚧
+    11. Recommender Systems in Technology Enhanced Learning 🚧
 
 ### Part III Interacting with Recommender Systems
 
-12. On the Evolution of Critiquing Recommenders 🚧
-13. Creating More Credible and Persuasive Recommender Systems: The Influence of Source Characteristics on Recommender System Evaluations 🚧
-14. Designing and Evaluating Explanations for Recommender Systems 🚧
-15. Usability Guidelines for Product Recommenders Based on Example Critiquing Research 🚧
-16. Map Based Visualization of Product Catalogs 🚧
+    12. On the Evolution of Critiquing Recommenders 🚧
+    13. Creating More Credible and Persuasive Recommender Systems: The Influence of Source Characteristics on Recommender System Evaluations 🚧
+    14. Designing and Evaluating Explanations for Recommender Systems 🚧
+    15. Usability Guidelines for Product Recommenders Based on Example Critiquing Research 🚧
+    16. Map Based Visualization of Product Catalogs 🚧
 
 ### Part IV Recommender Systems and Communities
 
-17. Communities, Collaboration, and Recommender Systems in Personalized Web Search 🚧
-18. Social Tagging Recommender Systems 🚧
-19. Trust and Recommendations 🚧
-20. Group Recommender Systems: Combining Individual Models 🚧
+    17. Communities, Collaboration, and Recommender Systems in Personalized Web Search 🚧
+    18. Social Tagging Recommender Systems 🚧
+    19. Trust and Recommendations 🚧
+    20. Group Recommender Systems: Combining Individual Models 🚧
 
 ### Part V Advanced Algorithms
 
-21. Aggregation of Preferences in Recommender Systems 🚧
-22. Active Learning in Recommender Systems 🚧
-23. Multi-Criteria Recommender Systems 🚧
-24. Robust Collaborative Recommendation 🚧
+    21. Aggregation of Preferences in Recommender Systems 🚧
+    22. Active Learning in Recommender Systems 🚧
+    23. Multi-Criteria Recommender Systems 🚧
+    24. Robust Collaborative Recommendation 🚧
 
 ## reference
 
