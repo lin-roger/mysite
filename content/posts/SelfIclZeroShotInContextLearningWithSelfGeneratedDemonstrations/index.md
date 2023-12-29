@@ -1,8 +1,8 @@
 ---
-title: "{{ replace .Name "-" " " | title }}"
+title: "SelfIclZeroShotInContextLearningWithSelfGeneratedDemonstrations"
 # summary: "文章介紹"
-date: {{ .Date }}
-lastmod: {{ .Date }}
+date: 2023-12-29T21:29:32+08:00
+lastmod: 2023-12-29T21:29:32+08:00
 # tags: 
 # - prompt-engineering 
 # - LLM

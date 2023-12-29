@@ -1,8 +1,8 @@
 ---
-title: "{{ replace .Name "-" " " | title }}"
+title: "Week5"
 # summary: "文章介紹"
-date: {{ .Date }}
-lastmod: {{ .Date }}
+date: 2023-10-11T01:02:35+08:00
+lastmod: 2023-10-11T01:02:35+08:00
 # tags: 
 # - prompt-engineering 
 # - LLM
@@ -15,3 +15,8 @@ lastmod: {{ .Date }}
 draft: true
 ---
 
+## Builder Pattern
+
+## Flyweight Pattern
+
+## State Pattern

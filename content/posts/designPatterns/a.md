@@ -1,8 +1,8 @@
 ---
-title: "{{ replace .Name "-" " " | title }}"
+title: "A"
 # summary: "文章介紹"
-date: {{ .Date }}
-lastmod: {{ .Date }}
+date: 2023-09-27T16:07:21+08:00
+lastmod: 2023-09-27T16:07:21+08:00
 # tags: 
 # - prompt-engineering 
 # - LLM
