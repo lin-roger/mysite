@@ -7,8 +7,8 @@ tags:
 - Recommender systems handbook 
 - 推薦系統
 
-# cover:
-#     image: "" #图片路径：posts/tech/文章1/picture.png
+cover:
+    image: "cover.webp" #图片路径：posts/tech/文章1/picture.png
 #     caption: "" #图片底部描述
 #     alt: ""
 #     relative: false
