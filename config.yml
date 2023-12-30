@@ -39,7 +39,7 @@ params:
         favicon: "flowey.png"
 
     label:
-        text: "flowey & code"
+        text: "Flowey & code"
         icon: "flowey.png"
         iconHeight: 30
 
