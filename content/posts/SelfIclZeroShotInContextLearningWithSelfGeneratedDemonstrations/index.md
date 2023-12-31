@@ -91,26 +91,73 @@ draft: false
 
 * **LM** 
 
-    a
+    >**InstructGPT**(*text-davinci-003*): **主要測試對象，被社群認為更遵循指令**
+    >
+    >**text-bison-001**(*PaLM-2*): 次要測試對象，驗證方法是否普遍有效
+    >
+    >**gpt-3.5-turbo-instruct**(*GPT-3.5, ChatGPT*): 次要測試對象，驗證方法是否普遍有效
 
 * **Implementation details**
 
-    b
+    參數設置如下:
+
+    $Temperature = 0$
+    $NumOfToken_{max} = 1024$
+    $k = 3$
+
+    其他參數沿用官方預設
 
 * **Dataset**
 
-    c
+    **BIG-Bench Hard (BBH) benchmark**
+    
+    > 共包含了27個任務，其中23個被選為測試任務，皆為單選題，每個任務有150~250的範例，全部共有5,511個。  
+    >BBH為BIG-Bench benchmark中的一個任務套組，現有LM在該套組難以到達人類平均水平，被認為難度超越現有模型所擁有的能力。
 
 ### Baselines
 
 * **ZS-Direct**
   
-    a
+    即"zero-shot direct prompting"，direct prompting的Baselines，模型僅依據任務描述和測試輸入預測輸出
 
 * **ZS-CoT**
 
-    b
+    即"zero-shot CoT prompting"，CoT prompting的Baselines，zero-shot解複雜推理任務的SOTA(之一，待確認)，模型依任務描述、測試輸入和推理觸發短語"Let's think step by step"預測輸出
 
+## 結果
 
+### 主要表現
 
+![tab2](tab2.png)
+![fig4](fig4.png)
 
+### 普遍性
+
+![tab3](tab3.png)
+
+## 分析
+
+### Preliminary
+
+### The Entanglement of Input Space andInput-Label Mapping
+
+### Different Approaches for Generating Pseudo-Inputs
+
+### Effect of Different Number of Shots
+
+### Effect of Random Pseudo-Labels
+
+### A Deeper Look of SELF-ICL's Pseudo-Inputs
+
+## 相關文獻
+
+### Understanding ICL
+
+### Towards Zero-Shot ICL
+
+## 總結
+
+### 侷限性
+
+* Reliance on instruction-following models
+* Better diversify approaches
