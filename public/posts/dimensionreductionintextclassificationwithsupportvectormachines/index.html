@@ -4,13 +4,17 @@
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
 <meta name="robots" content="index, follow">
 <title>Dimension Reduction in Text Classification with Support Vector Machines | Flowey &amp; Code</title>
 <meta name="keywords" content="">
 <meta name="description" content="非經典古文，可以不用看，主要是我的筆記。SVM被公認是許多任務中效果最好的分類方法之一，SVM的學習能力和訓練計算複雜度與特徵空間維度無關，但在文本分類任務中，降低複雜度是有效處裡大量詞語的一個要點。該論文採用新的降維方法降低文檔向量的維度。還為基於中心的分類算法和SVM分類器引入決策函數，處理一個文檔可能屬於多個class的問題。分析大量的實驗結果表明使用為聚類資料設計的降維算法，使輸入維度降低，可在不犧牲預測精度的情況下取得更好的訓練效率。">
 <meta name="author" content="">
 <link rel="canonical" href="https://lin-roger.github.io/posts/dimensionreductionintextclassificationwithsupportvectormachines/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.85059c2daee4270ea2b0c292f9d9aaea00231b3ab9c6088e4fda88c70006ea69.css" integrity="sha256-hQWcLa7kJw6isMKS&#43;dmq6gAjGzq5xgiOT9qIxwAG6mk=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.58005412e3d12303300debdf9e7768acf4e937859b8aece38d4c4e46666e2750.css" integrity="sha256-WABUEuPRIwMwDevfnndorPTpN4WbiuzjjUxORmZuJ1A=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.acb54fd32bbc1982428b8850317e45d076b95012730a5936667e6bc21777692a.js" integrity="sha256-rLVP0yu8GYJCi4hQMX5F0Ha5UBJzClk2Zn5rwhd3aSo="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://lin-roger.github.io/flowey.png">
@@ -47,7 +51,7 @@
             }
 
             .list:not(.dark)::-webkit-scrollbar-track {
-                background: 0 0;
+                background: none;
             }
 
             .list:not(.dark)::-webkit-scrollbar-thumb {
@@ -153,9 +157,9 @@
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="https://lin-roger.github.io/" accesskey="h" title="flowey &amp; code (Alt + H)">
+            <a href="https://lin-roger.github.io/" accesskey="h" title="Flowey &amp; code (Alt + H)">
                 <img src="https://lin-roger.github.io/flowey.png" alt="" aria-label="logo"
-                    height="30">flowey &amp; code</a>
+                    height="30">Flowey &amp; code</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -206,129 +210,125 @@
     <h1 class="post-title">
       Dimension Reduction in Text Classification with Support Vector Machines
     </h1>
-    <div class="post-meta"><span title='2022-11-07 02:46:26 +0800 CST'>November 7, 2022</span>&nbsp;·&nbsp;2 min
+    <div class="post-meta">&lt;span title=&#39;2022-11-07 02:46:26 &#43;0800 CST&#39;&gt;November 7, 2022&lt;/span&gt;&amp;nbsp;·&amp;nbsp;2 min
 
 </div>
-  </header> <aside id="toc-container" class="toc-container wide">
-    <div class="toc">
-        <details  open>
-            <summary accesskey="c" title="(Alt + C)">
-                <span class="details">Table of Contents</span>
-            </summary>
+  </header> 
+  <button class="toc-btn noShowToc" id="toc-btn">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-square-half on"
+      viewBox="0 0 16 16">
+      <path
+        d="M8 15V1h6a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1zm6 1a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2z" />
+    </svg>
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-x-square off"
+      viewBox="0 0 16 16">
+      <path
+        d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
+      <path
+        d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
+    </svg>
+  </button><aside id="toc-container" class="toc-container">
+        <div class="toc">
+            <details  open>
+                <summary accesskey="c" title="(Alt + C)">
+                    <span class="details">Table of Contents</span>
+                </summary>
 
-            <div class="inner"><ul>
-                    <li>
-                        <a href="#%e6%91%98%e8%a6%81" aria-label="摘要">摘要</a></li>
-                    <li>
-                        <a href="#%e7%b0%a1%e4%bb%8b" aria-label="簡介">簡介</a></li>
-                    <li>
-                        <a href="#%e4%bd%8e%e7%a7%a9%e8%bf%91%e4%bc%bc%e4%bd%bf%e7%94%a8%e9%9a%b1%e5%90%ab%e8%aa%9e%e6%84%8f%e7%b4%a2%e5%bc%95" aria-label="低秩近似使用隱含語意索引">低秩近似使用隱含語意索引</a></li>
-                    <li>
-                        <a href="#%e8%81%9a%e9%a1%9e%e8%b3%87%e6%96%99%e7%9a%84%e9%99%8d%e7%b6%ad%e6%bc%94%e7%ae%97%e6%b3%95" aria-label="聚類資料的降維演算法">聚類資料的降維演算法</a><ul>
-                            
-                    <li>
-                        <a href="#centroid-based-algorithms-for-dimension-reduction-of-clustered-data" aria-label="Centroid-based Algorithms for Dimension Reduction of Clustered Data">Centroid-based Algorithms for Dimension Reduction of Clustered Data</a></li>
-                    <li>
-                        <a href="#generalized-discriminant-analysis-based-on-the-generalized-singular-value-decomposition" aria-label="Generalized Discriminant Analysis based on the Generalized Singular Value Decomposition">Generalized Discriminant Analysis based on the Generalized Singular Value Decomposition</a></li></ul>
+                <div class="inner"><ul>
+                        <li>
+                            <a href="#%e6%91%98%e8%a6%81" aria-label="摘要">摘要</a></li>
+                        <li>
+                            <a href="#%e7%b0%a1%e4%bb%8b" aria-label="簡介">簡介</a></li>
+                        <li>
+                            <a href="#%e4%bd%8e%e7%a7%a9%e8%bf%91%e4%bc%bc%e4%bd%bf%e7%94%a8%e9%9a%b1%e5%90%ab%e8%aa%9e%e6%84%8f%e7%b4%a2%e5%bc%95" aria-label="低秩近似使用隱含語意索引">低秩近似使用隱含語意索引</a></li>
+                        <li>
+                            <a href="#%e8%81%9a%e9%a1%9e%e8%b3%87%e6%96%99%e7%9a%84%e9%99%8d%e7%b6%ad%e6%bc%94%e7%ae%97%e6%b3%95" aria-label="聚類資料的降維演算法">聚類資料的降維演算法</a><ul>
+                                    
+                        <li>
+                            <a href="#centroid-based-algorithms-for-dimension-reduction-of-clustered-data" aria-label="Centroid-based Algorithms for Dimension Reduction of Clustered Data">Centroid-based Algorithms for Dimension Reduction of Clustered Data</a></li>
+                        <li>
+                            <a href="#generalized-discriminant-analysis-based-on-the-generalized-singular-value-decomposition" aria-label="Generalized Discriminant Analysis based on the Generalized Singular Value Decomposition">Generalized Discriminant Analysis based on the Generalized Singular Value Decomposition</a></li></ul>
+                        </li>
+                        <li>
+                            <a href="#%e5%88%86%e9%a1%9e%e6%96%b9%e6%b3%95" aria-label="分類方法">分類方法</a><ul>
+                                    
+                        <li>
+                            <a href="#centroid-based" aria-label="Centroid-based">Centroid-based</a></li>
+                        <li>
+                            <a href="#k-nearest-neighbor" aria-label="k-Nearest Neighbor">k-Nearest Neighbor</a></li>
+                        <li>
+                            <a href="#svm" aria-label="SVM">SVM</a></li></ul>
+                        </li>
+                        <li>
+                            <a href="#%e5%af%a6%e9%a9%97%e7%b5%90%e6%9e%9c" aria-label="實驗結果">實驗結果</a><ul>
+                                    
+                        <li>
+                            <a href="#%e8%b3%87%e6%96%99%e9%9b%86" aria-label="資料集">資料集</a></li>
+                        <li>
+                            <a href="#%e8%a1%a8%e4%b8%80" aria-label="表一">表一</a></li>
+                        <li>
+                            <a href="#%e8%a1%a8%e4%ba%8c" aria-label="表二">表二</a></li>
+                        <li>
+                            <a href="#%e8%a1%a8%e4%b8%89" aria-label="表三">表三</a></li>
+                        <li>
+                            <a href="#%e8%a1%a8%e5%9b%9b" aria-label="表四">表四</a></li>
+                        <li>
+                            <a href="#%e8%a1%a8%e4%ba%94" aria-label="表五">表五</a></li></ul>
+                        </li>
+                        <li>
+                            <a href="#%e7%b5%90%e8%ab%96%e8%88%87%e8%a8%8e%e8%ab%96" aria-label="結論與討論">結論與討論</a><ul>
+                                    
+                        <li>
+                            <a href="#%e7%b5%90%e8%ab%96" aria-label="結論">結論</a>
+                        </li>
+                    </ul>
                     </li>
-                    <li>
-                        <a href="#%e5%88%86%e9%a1%9e%e6%96%b9%e6%b3%95" aria-label="分類方法">分類方法</a><ul>
-                            
-                    <li>
-                        <a href="#centroid-based" aria-label="Centroid-based">Centroid-based</a></li>
-                    <li>
-                        <a href="#k-nearest-neighbor" aria-label="k-Nearest Neighbor">k-Nearest Neighbor</a></li>
-                    <li>
-                        <a href="#svm" aria-label="SVM">SVM</a></li></ul>
-                    </li>
-                    <li>
-                        <a href="#%e5%af%a6%e9%a9%97%e7%b5%90%e6%9e%9c" aria-label="實驗結果">實驗結果</a><ul>
-                            
-                    <li>
-                        <a href="#%e8%b3%87%e6%96%99%e9%9b%86" aria-label="資料集">資料集</a></li>
-                    <li>
-                        <a href="#%e8%a1%a8%e4%b8%80" aria-label="表一">表一</a></li>
-                    <li>
-                        <a href="#%e8%a1%a8%e4%ba%8c" aria-label="表二">表二</a></li>
-                    <li>
-                        <a href="#%e8%a1%a8%e4%b8%89" aria-label="表三">表三</a></li>
-                    <li>
-                        <a href="#%e8%a1%a8%e5%9b%9b" aria-label="表四">表四</a></li>
-                    <li>
-                        <a href="#%e8%a1%a8%e4%ba%94" aria-label="表五">表五</a></li></ul>
-                    </li>
-                    <li>
-                        <a href="#%e7%b5%90%e8%ab%96%e8%88%87%e8%a8%8e%e8%ab%96" aria-label="結論與討論">結論與討論</a><ul>
-                            
-                    <li>
-                        <a href="#%e7%b5%90%e8%ab%96" aria-label="結論">結論</a>
-                    </li>
-                </ul>
-                </li>
-                </ul>
-            </div>
-        </details>
-    </div>
-</aside>
-<script>
-    let activeElement;
-    let elements;
-    window.addEventListener('DOMContentLoaded', function (event) {
-        checkTocPosition();
+                    </ul>
+                </div>
+            </details>
+        </div>
+    </aside>
+    <script>
+        let activeElement;
+        let elements;
+        window.addEventListener('DOMContentLoaded', function (event) {
+            
 
-        elements = document.querySelectorAll('h1[id],h2[id],h3[id],h4[id],h5[id],h6[id]');
-         
-         activeElement = elements[0];
-         const id = encodeURI(activeElement.getAttribute('id')).toLowerCase();
-         document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
-     }, false);
+            elements = document.querySelectorAll('h1[id],h2[id],h3[id],h4[id],h5[id],h6[id]');
+            
+            activeElement = elements[0];
+            const id = encodeURI(activeElement.getAttribute('id')).toLowerCase();
+            document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+        }, false);
 
-    window.addEventListener('resize', function(event) {
-        checkTocPosition();
-    }, false);
+        window.addEventListener('scroll', () => {
+            
+            activeElement = Array.from(elements).find((element) => {
+                if ((getOffsetTop(element) - window.pageYOffset) > 0 &&
+                    (getOffsetTop(element) - window.pageYOffset) < window.innerHeight / 2) {
+                    return element;
+                }
+            }) || activeElement
 
-    window.addEventListener('scroll', () => {
-        
-        activeElement = Array.from(elements).find((element) => {
-            if ((getOffsetTop(element) - window.pageYOffset) > 0 && 
-                (getOffsetTop(element) - window.pageYOffset) < window.innerHeight/2) {
-                return element;
+            elements.forEach(element => {
+                const id = encodeURI(element.getAttribute('id')).toLowerCase();
+                if (element === activeElement) {
+                    document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+                } else {
+                    document.querySelector(`.inner ul li a[href="#${id}"]`).classList.remove('active');
+                }
+            })
+        }, false);
+
+        function getOffsetTop(element) {
+            if (!element.getClientRects().length) {
+                return 0;
             }
-        }) || activeElement
-
-        elements.forEach(element => {
-             const id = encodeURI(element.getAttribute('id')).toLowerCase();
-             if (element === activeElement){
-                 document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
-             } else {
-                 document.querySelector(`.inner ul li a[href="#${id}"]`).classList.remove('active');
-             }
-         })
-     }, false);
-
-    const main = parseInt(getComputedStyle(document.body).getPropertyValue('--article-width'), 10);
-    const toc = parseInt(getComputedStyle(document.body).getPropertyValue('--toc-width'), 10);
-    const gap = parseInt(getComputedStyle(document.body).getPropertyValue('--gap'), 10);
-
-    function checkTocPosition() {
-        const width = document.body.scrollWidth;
-
-        if (width - main - (toc * 2) - (gap * 4) > 0) {
-            document.getElementById("toc-container").classList.add("wide");
-        } else {
-            document.getElementById("toc-container").classList.remove("wide");
+            let rect = element.getBoundingClientRect();
+            let win = element.ownerDocument.defaultView;
+            return rect.top + win.pageYOffset;
         }
-    }
-
-    function getOffsetTop(element) {
-        if (!element.getClientRects().length) {
-            return 0;
-        }
-        let rect = element.getBoundingClientRect();
-        let win = element.ownerDocument.defaultView;
-        return rect.top + win.pageYOffset;   
-    }
-</script>
+    </script>
   <div class="post-content"><h2 id="摘要">摘要<a hidden class="anchor" aria-hidden="true" href="#摘要">#</a></h2>
 <p>SVM被公認是許多任務中效果最好的分類方法之一，SVM的學習能力和訓練計算複雜度與特徵空間維度無關，但在文本分類任務中，降低複雜度是有效處裡大量詞語的一個要點。該論文採用新的降維方法降低文檔向量的維度。還為基於中心的分類算法和SVM分類器引入決策函數，處理一個文檔可能屬於多個class的問題。分析大量的實驗結果表明使用為聚類資料設計的降維算法，使輸入維度降低，可在不犧牲預測精度的情況下取得更好的訓練效率。</p>
 <h2 id="簡介">簡介<a hidden class="anchor" aria-hidden="true" href="#簡介">#</a></h2>
@@ -488,8 +488,10 @@ $$</p>
     </main>
     
 <a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
-        <path d="M12 6H0l6-6z" />
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
+        class="bi bi-arrow-up-square-fill" viewBox="0 0 16 16">
+        <path
+            d="M2 16a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2zm6.5-4.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 1 0" />
     </svg>
 </a>
 
@@ -521,11 +523,18 @@ $$</p>
         });
     });
 
+    let tocBtn = document.getElementById("toc-btn");
+    tocBtn.addEventListener('click', () => {
+        tocBtn.classList.toggle("noShowToc");
+        tocBtn.classList.toggle("showToc")
+        document.getElementById("toc-container").classList.toggle("show");
+    }, false)
+
 </script>
 <script>
     var mybutton = document.getElementById("top-link");
     window.onscroll = function () {
-        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+        if (document.body.scrollTop > document.documentElement.clientHeight || document.documentElement.scrollTop > document.documentElement.clientHeight) {
             mybutton.style.visibility = "visible";
             mybutton.style.opacity = "1";
         } else {
@@ -593,7 +602,6 @@ $$</p>
             codeblock.parentNode.appendChild(copybutton);
         }
     });
-</script>
-</body>
+</script></body>
 
 </html>

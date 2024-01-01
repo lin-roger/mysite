@@ -3,31 +3,37 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://lin-roger.github.io/</loc>
-    <lastmod>2023-09-16T14:00:00+08:00</lastmod>
+    <lastmod>2023-12-29T21:29:32+08:00</lastmod>
+  </url><url>
+    <loc>https://lin-roger.github.io/tags/llm/</loc>
+    <lastmod>2023-12-29T21:29:32+08:00</lastmod>
   </url><url>
     <loc>https://lin-roger.github.io/posts/</loc>
-    <lastmod>2023-09-16T14:00:00+08:00</lastmod>
+    <lastmod>2023-12-29T21:29:32+08:00</lastmod>
+  </url><url>
+    <loc>https://lin-roger.github.io/tags/prompt-engineering/</loc>
+    <lastmod>2023-12-29T21:29:32+08:00</lastmod>
+  </url><url>
+    <loc>https://lin-roger.github.io/posts/selficlzeroshotincontextlearningwithselfgenerateddemonstrations/</loc>
+    <lastmod>2023-12-29T21:29:32+08:00</lastmod>
+  </url><url>
+    <loc>https://lin-roger.github.io/tags/</loc>
+    <lastmod>2023-12-29T21:29:32+08:00</lastmod>
   </url><url>
     <loc>https://lin-roger.github.io/tags/recommender-systems-handbook/</loc>
-    <lastmod>2023-09-16T14:00:00+08:00</lastmod>
+    <lastmod>2023-09-18T05:59:25+08:00</lastmod>
+  </url><url>
+    <loc>https://lin-roger.github.io/posts/dataminingmethodsforrecommendersystems/</loc>
+    <lastmod>2023-09-18T05:59:25+08:00</lastmod>
+  </url><url>
+    <loc>https://lin-roger.github.io/tags/%E6%8E%A8%E8%96%A6%E7%B3%BB%E7%B5%B1/</loc>
+    <lastmod>2023-09-18T05:59:25+08:00</lastmod>
   </url><url>
     <loc>https://lin-roger.github.io/posts/recommendersystemshandbook/</loc>
     <lastmod>2023-09-16T14:00:00+08:00</lastmod>
   </url><url>
-    <loc>https://lin-roger.github.io/tags/</loc>
-    <lastmod>2023-09-16T14:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://lin-roger.github.io/tags/%E6%8E%A8%E8%96%A6%E7%B3%BB%E7%B5%B1/</loc>
-    <lastmod>2023-09-16T14:00:00+08:00</lastmod>
-  </url><url>
     <loc>https://lin-roger.github.io/posts/advancedpromptingengineering/</loc>
     <lastmod>2023-06-26T02:38:25+08:00</lastmod>
-  </url><url>
-    <loc>https://lin-roger.github.io/tags/prompt-engineering/</loc>
-    <lastmod>2023-06-26T02:38:25+08:00</lastmod>
-  </url><url>
-    <loc>https://lin-roger.github.io/tags/llm/</loc>
-    <lastmod>2023-06-26T01:17:51+08:00</lastmod>
   </url><url>
     <loc>https://lin-roger.github.io/posts/promptee/</loc>
     <lastmod>2023-06-26T01:17:51+08:00</lastmod>

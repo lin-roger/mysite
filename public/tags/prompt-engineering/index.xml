@@ -6,7 +6,16 @@
     <description>Recent content in prompt-engineering on Flowey &amp; Code</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 26 Jun 2023 02:38:25 +0800</lastBuildDate><atom:link href="https://lin-roger.github.io/tags/prompt-engineering/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 29 Dec 2023 21:29:32 +0800</lastBuildDate><atom:link href="https://lin-roger.github.io/tags/prompt-engineering/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SELF-ICL: Zero-Shot In-Context Learning with Self-Generated Demonstrations</title>
+      <link>https://lin-roger.github.io/posts/selficlzeroshotincontextlearningwithselfgenerateddemonstrations/</link>
+      <pubDate>Fri, 29 Dec 2023 21:29:32 +0800</pubDate>
+      
+      <guid>https://lin-roger.github.io/posts/selficlzeroshotincontextlearningwithselfgenerateddemonstrations/</guid>
+      <description>A simple framework which bootstraps LMs&amp;rsquo; intrinsic capabilities to perform zero-shot ICL</description>
+    </item>
+    
     <item>
       <title>🚧Advanced Prompting Engineering 進階提示工程🚧</title>
       <link>https://lin-roger.github.io/posts/advancedpromptingengineering/</link>

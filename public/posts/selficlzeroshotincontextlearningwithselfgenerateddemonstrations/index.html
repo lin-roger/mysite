@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<meta name="robots" content="index, follow">
+<title>SELF-ICL: Zero-Shot In-Context Learning with Self-Generated Demonstrations | Flowey &amp; Code</title>
+<meta name="keywords" content="prompt-engineering, LLM">
+<meta name="description" content="A simple framework which bootstraps LMs&rsquo; intrinsic capabilities to perform zero-shot ICL">
+<meta name="author" content="">
+<link rel="canonical" href="https://lin-roger.github.io/posts/selficlzeroshotincontextlearningwithselfgenerateddemonstrations/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.58005412e3d12303300debdf9e7768acf4e937859b8aece38d4c4e46666e2750.css" integrity="sha256-WABUEuPRIwMwDevfnndorPTpN4WbiuzjjUxORmZuJ1A=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.acb54fd32bbc1982428b8850317e45d076b95012730a5936667e6bc21777692a.js" integrity="sha256-rLVP0yu8GYJCi4hQMX5F0Ha5UBJzClk2Zn5rwhd3aSo="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://lin-roger.github.io/flowey.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://lin-roger.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://lin-roger.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://lin-roger.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://lin-roger.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: none;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+
+
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+            delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false},
+                {left: "\\(", right: "\\)", display: false},
+                {left: "\\[", right: "\\]", display: true}
+            ]
+        });
+    });
+</script>
+<meta property="og:title" content="SELF-ICL: Zero-Shot In-Context Learning with Self-Generated Demonstrations" />
+<meta property="og:description" content="A simple framework which bootstraps LMs&rsquo; intrinsic capabilities to perform zero-shot ICL" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://lin-roger.github.io/posts/selficlzeroshotincontextlearningwithselfgenerateddemonstrations/" />
+<meta property="og:image" content="https://lin-roger.github.io/posts/selficlzeroshotincontextlearningwithselfgenerateddemonstrations/cover.png" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-12-29T21:29:32+08:00" />
+<meta property="article:modified_time" content="2023-12-29T21:29:32+08:00" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://lin-roger.github.io/posts/selficlzeroshotincontextlearningwithselfgenerateddemonstrations/cover.png" />
+<meta name="twitter:title" content="SELF-ICL: Zero-Shot In-Context Learning with Self-Generated Demonstrations"/>
+<meta name="twitter:description" content="A simple framework which bootstraps LMs&rsquo; intrinsic capabilities to perform zero-shot ICL"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://lin-roger.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "SELF-ICL: Zero-Shot In-Context Learning with Self-Generated Demonstrations",
+      "item": "https://lin-roger.github.io/posts/selficlzeroshotincontextlearningwithselfgenerateddemonstrations/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "SELF-ICL: Zero-Shot In-Context Learning with Self-Generated Demonstrations",
+  "name": "SELF-ICL: Zero-Shot In-Context Learning with Self-Generated Demonstrations",
+  "description": "A simple framework which bootstraps LMs\u0026rsquo; intrinsic capabilities to perform zero-shot ICL",
+  "keywords": [
+    "prompt-engineering", "LLM"
+  ],
+  "articleBody": "摘要 大語言模型(LLM)表現出優秀的語境內學習(ICL, in-context learning)的能力。為提升LLM的ICL能力，許多透過取得現有訓練語料中的有效示範(demonstration, 可以說是context)的方法被提出，但終端使用者在使用LLM時並不能存取訓練語料或demonstration pool。 該文提出一個簡單框架SELF-ICL實現零樣本ICL:\n給定一個測試輸入 利用指令引導模型產生多筆偽輸入 令模型預測偽輸入的偽標籤 以偽(輸入/標籤)作為ICL的context預測測試輸入的標籤 於23 BIG-Bench Hard tasks上的測試表明，SELF-ICL優於zero-shot的表現。此外，結合zero-shot CoT(chain-of-thought)，SELF-ICL的表現甚至比肩來自真實語料的示範。\n簡介 語境內學習(ICL, in-context learning), 透過指令給予少量範例(demonstrations, exemplars)使LLM適應新任務(即Few-shot learning)，是使LLM備受關注的的重要特性。為取得更好的ICL能力，選擇具代表性範例的方法被廣泛研究，大多方法假設可以存取外部大型資源(訓練資料集、相關文字語料)並以最鄰近搜尋或其他相似性度量從中選取範例。然而現實中，使用者查詢LLM通常透過API或網頁介面，無權訪問與任務相關的現有語料。由使用者自行為任務編寫範例也增加了使用者的負擔(費時費力)。\n近期一系列解釋ICL原理的研究被廣泛提出，表明範例之所以有效不是因其為新任務的學習提供明確引導，而是揭露LLM的隱含能力並引導模型貼近目標領域，相似現象也出現在CoT(chain-of-thought)和指令增強ICL(instruction-augmented ICL)。表明LLM具有被低估的零樣本能力且具備處理多樣目標任務的能力。\n受上述文獻啟發，作者提出SELF-ICL，透過自生成範例(提供ICL所需輸入與標籤之空間)引導LLM的隱含能力。給定一查詢(測試輸入)，SELF-ICL會執行以下步驟:\n利用指令引導模型依據給定查詢與相關任務陳述產生多筆偽輸入。 透過零樣本(zero-shot)指令為每筆偽輸入生成偽標籤。 以偽輸入-標籤對做為偽範例與給定查詢合併進行標準ICL。 所有步驟皆在同一凍結LLM執行，無須從候選池選擇範例，弭平現有技術與終端使用者的實務差距。\n為了於現存範例不易產生的困難任務驗證SELF-ICL的有效性，作者選擇 23 BIG-Bench Hard tasks 作為驗證資料。結果表明SELF-ICL在所有任務均有顯著提升(all-task-average accuracy and in head-to-head comparisons)，相較於zero-shot在23個任務中取得 18-0-5 (勝-平-敗) 的成績。且若結合zero-shot CoT(chain-of-thought)，SELF-ICL的表現甚至比肩來自真實語料的示範。\n該文額外驗證SELF-ICL在不同設定下的有效性，如:\n生成偽輸入的方法 number of shots 隨機偽標籤 據作者所知，該研究第一個嘗試真zero-shot ICL，無須依賴來自真實分部或預定義標籤集之現有資料。 (如下表)\nSELF-ICL 建構偽輸入(step 1) 偽輸入生成可以簡單透過零次指令(zero-shot prompting)達成(如下圖)\n給定查詢$q$(取自真實分布)提供實際輸入的輪廓，和相關的任務描述$T$指引模型產生任務領域相關的資訊。模型推理與淺在格式與產稱新的查詢(偽輸入)，在指定中給定$k$(num of shot)，以產生$k$個偽輸入。\n建構偽標籤(step 2) 取得偽輸入後，利用零次指令在同一LLM預測其偽標籤，使用兩種方法:\nDirect prompting\n利用標準零次指令直接產生偽標籤，僅向LLM提供任務描述與需生成偽標籤的偽輸入。一次一對。 CoT prompting\n$$觸發短語+推理過程+最終解=偽標籤$$\n利用zero-shot CoT產生偽標籤，向LLM提供任務描述、需生成偽標籤的偽輸入與觸發短語 “Let’s think step by step\"執行CoT推理。觸發短語置於指令末端引導產生推理過程已得到更準確的最終解。 預測(step 3) 建構偽範例(偽輸入-標籤對)，以偽範例和指令做為語境，透過Few-shot ICL預測測試輸入的最終答案。\n實驗設計 Configurations LM\nInstructGPT(text-davinci-003): 主要測試對象，被社群認為更遵循指令\ntext-bison-001(PaLM-2): 次要測試對象，驗證方法是否普遍有效\ngpt-3.5-turbo-instruct(GPT-3.5, ChatGPT): 次要測試對象，驗證方法是否普遍有效\nImplementation details\n參數設置如下:\n$Temperature = 0$ $NumOfToken_{max} = 1024$ $k = 3$\n其他參數沿用官方預設\nDataset\nBIG-Bench Hard (BBH) benchmark\n共包含了27個任務，其中23個被選為測試任務，皆為單選題，每個任務有150~250的範例，全部共有5,511個。\nBBH為BIG-Bench benchmark中的一個任務套組，現有LM在該套組難以到達人類平均水平，被認為難度超越現有模型所擁有的能力。\nBaselines ZS-Direct\n即\"zero-shot direct prompting”，direct prompting的Baselines，模型僅依據任務描述和測試輸入預測輸出\nZS-CoT\n即\"zero-shot CoT prompting\"，CoT prompting的Baselines，zero-shot解複雜推理任務的SOTA(之一，待確認)，模型依任務描述、測試輸入和推理觸發短語\"Let’s think step by step\"預測輸出\n結果 主要表現 $\\delta$ (delta 小寫) 為 SELF-ICL 和 Baseline 的差，正值為高於Baseline，負值為落後於Baseline。\n$\\dagger$ (dagger) 代表通過 one-sided McNemar’s test 確認相對於Baseline的性能增益具顯著性，$p \u003c 0.05$。\nSELF-ICL 於所有任務的平均表現在Direct和CoT皆超越Baselines。 Direct SELF-ICL 微小超越 ZS-CoT。 CoT SELF-ICL 能力到達使用真實範例的 3-shot prompting 的水準。 普遍性 分析 Preliminary The Entanglement of Input Space andInput-Label Mapping Different Approaches for Generating Pseudo-Inputs Effect of Different Number of Shots Effect of Random Pseudo-Labels A Deeper Look of SELF-ICL’s Pseudo-Inputs 相關文獻 Understanding ICL Towards Zero-Shot ICL 總結 侷限性 Reliance on instruction-following models Better diversify approaches ",
+  "wordCount" : "205",
+  "inLanguage": "en",
+  "image":"https://lin-roger.github.io/posts/selficlzeroshotincontextlearningwithselfgenerateddemonstrations/cover.png","datePublished": "2023-12-29T21:29:32+08:00",
+  "dateModified": "2023-12-29T21:29:32+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://lin-roger.github.io/posts/selficlzeroshotincontextlearningwithselfgenerateddemonstrations/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Flowey \u0026 Code",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://lin-roger.github.io/flowey.png"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://lin-roger.github.io/" accesskey="h" title="Flowey &amp; code (Alt + H)">
+                <img src="https://lin-roger.github.io/flowey.png" alt="" aria-label="logo"
+                    height="30">Flowey &amp; code</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://lin-roger.github.io/archives/" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://lin-roger.github.io/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://lin-roger.github.io/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://lin-roger.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://lin-roger.github.io/posts/">Posts</a></div>
+    <h1 class="post-title">
+      SELF-ICL: Zero-Shot In-Context Learning with Self-Generated Demonstrations
+    </h1>
+    <div class="post-meta">&lt;span title=&#39;2023-12-29 21:29:32 &#43;0800 CST&#39;&gt;December 29, 2023&lt;/span&gt;&amp;nbsp;·&amp;nbsp;1 min
+
+</div>
+  </header> 
+<figure class="entry-cover">
+        <img loading="lazy" srcset="https://lin-roger.github.io/posts/selficlzeroshotincontextlearningwithselfgenerateddemonstrations/cover_hue07085e4489832a9eb726eea8cc1ddae_80203_360x0_resize_box_3.png 360w ,https://lin-roger.github.io/posts/selficlzeroshotincontextlearningwithselfgenerateddemonstrations/cover_hue07085e4489832a9eb726eea8cc1ddae_80203_480x0_resize_box_3.png 480w ,https://lin-roger.github.io/posts/selficlzeroshotincontextlearningwithselfgenerateddemonstrations/cover.png 567w" 
+            sizes="(min-width: 768px) 720px, 100vw" src="https://lin-roger.github.io/posts/selficlzeroshotincontextlearningwithselfgenerateddemonstrations/cover.png" alt="SELF-ICL 框架" 
+            width="567" height="1080">
+        <p>SELF-ICL 框架</p>
+</figure>
+  <button class="toc-btn noShowToc" id="toc-btn">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-square-half on"
+      viewBox="0 0 16 16">
+      <path
+        d="M8 15V1h6a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1zm6 1a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2z" />
+    </svg>
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-x-square off"
+      viewBox="0 0 16 16">
+      <path
+        d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
+      <path
+        d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
+    </svg>
+  </button><aside id="toc-container" class="toc-container">
+        <div class="toc">
+            <details  open>
+                <summary accesskey="c" title="(Alt + C)">
+                    <span class="details">Table of Contents</span>
+                </summary>
+
+                <div class="inner"><ul>
+                        <li>
+                            <a href="#%e6%91%98%e8%a6%81" aria-label="摘要">摘要</a></li>
+                        <li>
+                            <a href="#%e7%b0%a1%e4%bb%8b" aria-label="簡介">簡介</a></li>
+                        <li>
+                            <a href="#self-icl" aria-label="SELF-ICL">SELF-ICL</a><ul>
+                                    
+                        <li>
+                            <a href="#%e5%bb%ba%e6%a7%8b%e5%81%bd%e8%bc%b8%e5%85%a5step-1" aria-label="建構偽輸入(step 1)">建構偽輸入(step 1)</a></li>
+                        <li>
+                            <a href="#%e5%bb%ba%e6%a7%8b%e5%81%bd%e6%a8%99%e7%b1%a4step-2" aria-label="建構偽標籤(step 2)">建構偽標籤(step 2)</a></li>
+                        <li>
+                            <a href="#%e9%a0%90%e6%b8%acstep-3" aria-label="預測(step 3)">預測(step 3)</a></li></ul>
+                        </li>
+                        <li>
+                            <a href="#%e5%af%a6%e9%a9%97%e8%a8%ad%e8%a8%88" aria-label="實驗設計">實驗設計</a><ul>
+                                    
+                        <li>
+                            <a href="#configurations" aria-label="Configurations">Configurations</a></li>
+                        <li>
+                            <a href="#baselines" aria-label="Baselines">Baselines</a></li></ul>
+                        </li>
+                        <li>
+                            <a href="#%e7%b5%90%e6%9e%9c" aria-label="結果">結果</a><ul>
+                                    
+                        <li>
+                            <a href="#%e4%b8%bb%e8%a6%81%e8%a1%a8%e7%8f%be" aria-label="主要表現">主要表現</a></li>
+                        <li>
+                            <a href="#%e6%99%ae%e9%81%8d%e6%80%a7" aria-label="普遍性">普遍性</a></li></ul>
+                        </li>
+                        <li>
+                            <a href="#%e5%88%86%e6%9e%90" aria-label="分析">分析</a><ul>
+                                    
+                        <li>
+                            <a href="#preliminary" aria-label="Preliminary">Preliminary</a></li>
+                        <li>
+                            <a href="#the-entanglement-of-input-space-andinput-label-mapping" aria-label="The Entanglement of Input Space andInput-Label Mapping">The Entanglement of Input Space andInput-Label Mapping</a></li>
+                        <li>
+                            <a href="#different-approaches-for-generating-pseudo-inputs" aria-label="Different Approaches for Generating Pseudo-Inputs">Different Approaches for Generating Pseudo-Inputs</a></li>
+                        <li>
+                            <a href="#effect-of-different-number-of-shots" aria-label="Effect of Different Number of Shots">Effect of Different Number of Shots</a></li>
+                        <li>
+                            <a href="#effect-of-random-pseudo-labels" aria-label="Effect of Random Pseudo-Labels">Effect of Random Pseudo-Labels</a></li>
+                        <li>
+                            <a href="#a-deeper-look-of-self-icls-pseudo-inputs" aria-label="A Deeper Look of SELF-ICL&amp;rsquo;s Pseudo-Inputs">A Deeper Look of SELF-ICL&rsquo;s Pseudo-Inputs</a></li></ul>
+                        </li>
+                        <li>
+                            <a href="#%e7%9b%b8%e9%97%9c%e6%96%87%e7%8d%bb" aria-label="相關文獻">相關文獻</a><ul>
+                                    
+                        <li>
+                            <a href="#understanding-icl" aria-label="Understanding ICL">Understanding ICL</a></li>
+                        <li>
+                            <a href="#towards-zero-shot-icl" aria-label="Towards Zero-Shot ICL">Towards Zero-Shot ICL</a></li></ul>
+                        </li>
+                        <li>
+                            <a href="#%e7%b8%bd%e7%b5%90" aria-label="總結">總結</a><ul>
+                                    
+                        <li>
+                            <a href="#%e4%be%b7%e9%99%90%e6%80%a7" aria-label="侷限性">侷限性</a>
+                        </li>
+                    </ul>
+                    </li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+    </aside>
+    <script>
+        let activeElement;
+        let elements;
+        window.addEventListener('DOMContentLoaded', function (event) {
+            
+
+            elements = document.querySelectorAll('h1[id],h2[id],h3[id],h4[id],h5[id],h6[id]');
+            
+            activeElement = elements[0];
+            const id = encodeURI(activeElement.getAttribute('id')).toLowerCase();
+            document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+        }, false);
+
+        window.addEventListener('scroll', () => {
+            
+            activeElement = Array.from(elements).find((element) => {
+                if ((getOffsetTop(element) - window.pageYOffset) > 0 &&
+                    (getOffsetTop(element) - window.pageYOffset) < window.innerHeight / 2) {
+                    return element;
+                }
+            }) || activeElement
+
+            elements.forEach(element => {
+                const id = encodeURI(element.getAttribute('id')).toLowerCase();
+                if (element === activeElement) {
+                    document.querySelector(`.inner ul li a[href="#${id}"]`).classList.add('active');
+                } else {
+                    document.querySelector(`.inner ul li a[href="#${id}"]`).classList.remove('active');
+                }
+            })
+        }, false);
+
+        function getOffsetTop(element) {
+            if (!element.getClientRects().length) {
+                return 0;
+            }
+            let rect = element.getBoundingClientRect();
+            let win = element.ownerDocument.defaultView;
+            return rect.top + win.pageYOffset;
+        }
+    </script>
+  <div class="post-content"><h2 id="摘要">摘要<a hidden class="anchor" aria-hidden="true" href="#摘要">#</a></h2>
+<p>大語言模型(LLM)表現出優秀的語境內學習(ICL, in-context learning)的能力。為提升LLM的ICL能力，許多透過取得現有訓練語料中的有效示範(demonstration, 可以說是context)的方法被提出，但終端使用者在使用LLM時並不能存取訓練語料或demonstration pool。
+該文提出一個簡單框架SELF-ICL實現零樣本ICL:</p>
+<ol>
+<li>給定一個測試輸入</li>
+<li>利用指令引導模型產生多筆偽輸入</li>
+<li>令模型預測偽輸入的偽標籤</li>
+<li>以偽(輸入/標籤)作為ICL的context預測測試輸入的標籤</li>
+</ol>
+<p>於23 BIG-Bench Hard tasks上的測試表明，SELF-ICL優於zero-shot的表現。此外，結合zero-shot CoT(chain-of-thought)，SELF-ICL的表現甚至比肩來自真實語料的示範。</p>
+<h2 id="簡介">簡介<a hidden class="anchor" aria-hidden="true" href="#簡介">#</a></h2>
+<p><strong>語境內學習</strong>(ICL, in-context learning), <strong>透過指令給予少量範例</strong>(demonstrations, exemplars)<strong>使LLM適應新任務</strong>(即Few-shot learning)，是使LLM備受關注的的重要特性。<strong>為取得更好的ICL能力</strong>，<strong>選擇具代表性範例的方法</strong>被廣泛研究，<strong>大多方法假設可以存取外部大型資源</strong>(訓練資料集、相關文字語料)並以最鄰近搜尋或其他相似性度量從中選取範例。<strong>然而現實中，使用者</strong>查詢LLM通常透過API或網頁介面，<strong>無權訪問與任務相關的現有語料</strong>。<strong>由使用者自行為任務編寫範例</strong>也增加了使用者的負擔(<strong>費時費力</strong>)。</p>
+<p>近期一系列解釋ICL原理的研究被廣泛提出，表明<strong>範例之所以有效不是因其為新任務的學習提供明確引導，而是揭露LLM的隱含能力並引導模型貼近目標領域</strong>，相似現象也出現在CoT(chain-of-thought)和指令增強ICL(instruction-augmented ICL)。表明LLM具有被低估的零樣本能力且具備處理多樣目標任務的能力。</p>
+<p>受上述文獻啟發，作者提出<strong>SELF-ICL</strong>，透過<strong>自生成範例</strong>(提供ICL所需輸入與標籤之空間)<strong>引導LLM的隱含能力</strong>。給定一查詢(測試輸入)，SELF-ICL會執行以下步驟:</p>
+<ol>
+<li>利用指令引導模型依據給定查詢與相關任務陳述產生多筆偽輸入。</li>
+<li>透過零樣本(zero-shot)指令為每筆偽輸入生成偽標籤。</li>
+<li>以偽輸入-標籤對做為偽範例與給定查詢合併進行標準ICL。</li>
+</ol>
+<p><strong>所有步驟皆在同一凍結LLM執行，無須從候選池選擇範例，弭平現有技術與終端使用者的實務差距。</strong></p>
+<p>為了於現存範例不易產生的困難任務驗證SELF-ICL的有效性，作者選擇 23 BIG-Bench Hard tasks 作為驗證資料。結果表明<strong>SELF-ICL在所有任務均有顯著提升</strong>(all-task-average accuracy and in head-to-head comparisons)，相較於zero-shot在23個任務中取得 18-0-5 (勝-平-敗) 的成績。且若<strong>結合zero-shot CoT</strong>(chain-of-thought)，SELF-ICL的表現甚至<strong>比肩來自真實語料的示範</strong>。</p>
+<p>該文額外驗證SELF-ICL在不同設定下的有效性，如:</p>
+<ul>
+<li>生成偽輸入的方法</li>
+<li>number of shots</li>
+<li>隨機偽標籤</li>
+</ul>
+<p>據作者所知，該研究<strong>第一個嘗試真zero-shot ICL，無須依賴來自真實分部或預定義標籤集之現有資料。</strong> (如下表)</p>
+<p><img loading="lazy" src="tab1.png" alt="表一"  />
+</p>
+<h2 id="self-icl">SELF-ICL<a hidden class="anchor" aria-hidden="true" href="#self-icl">#</a></h2>
+<h3 id="建構偽輸入step-1">建構偽輸入(step 1)<a hidden class="anchor" aria-hidden="true" href="#建構偽輸入step-1">#</a></h3>
+<p>偽輸入生成可以簡單透過零次指令(zero-shot prompting)達成(如下圖)</p>
+<p><img loading="lazy" src="fig1.png" alt="fig1"  />
+</p>
+<p>給定查詢$q$(取自真實分布)提供實際輸入的輪廓，和相關的任務描述$T$指引模型產生任務領域相關的資訊。模型推理與淺在格式與產稱新的查詢(偽輸入)，在指定中給定$k$(num of shot)，以產生$k$個偽輸入。</p>
+<h3 id="建構偽標籤step-2">建構偽標籤(step 2)<a hidden class="anchor" aria-hidden="true" href="#建構偽標籤step-2">#</a></h3>
+<p>取得偽輸入後，利用零次指令在同一LLM預測其偽標籤，使用兩種方法:</p>
+<ul>
+<li>
+<p><strong>Direct prompting</strong></p>
+<p>利用標準零次指令直接產生偽標籤，僅向LLM提供任務描述與需生成偽標籤的偽輸入。一次一對。
+<img loading="lazy" src="fig2.png" alt="fig2"  />
+</p>
+</li>
+<li>
+<p><strong>CoT prompting</strong></p>
+<p>$$觸發短語+推理過程+最終解=偽標籤$$</p>
+<p>利用zero-shot CoT產生偽標籤，向LLM提供任務描述、需生成偽標籤的偽輸入與觸發短語 &ldquo;Let&rsquo;s think step by step&quot;執行CoT推理。觸發短語置於指令末端引導產生推理過程已得到更準確的最終解。
+<img loading="lazy" src="fig3.png" alt="fig3"  />
+</p>
+</li>
+</ul>
+<h3 id="預測step-3">預測(step 3)<a hidden class="anchor" aria-hidden="true" href="#預測step-3">#</a></h3>
+<p>建構偽範例(偽輸入-標籤對)，以偽範例和指令做為語境，透過Few-shot ICL預測測試輸入的最終答案。</p>
+<h2 id="實驗設計">實驗設計<a hidden class="anchor" aria-hidden="true" href="#實驗設計">#</a></h2>
+<h3 id="configurations">Configurations<a hidden class="anchor" aria-hidden="true" href="#configurations">#</a></h3>
+<ul>
+<li>
+<p><strong>LM</strong></p>
+<blockquote>
+<p><strong>InstructGPT</strong>(<em>text-davinci-003</em>): <strong>主要測試對象，被社群認為更遵循指令</strong></p>
+<p><strong>text-bison-001</strong>(<em>PaLM-2</em>): 次要測試對象，驗證方法是否普遍有效</p>
+<p><strong>gpt-3.5-turbo-instruct</strong>(<em>GPT-3.5, ChatGPT</em>): 次要測試對象，驗證方法是否普遍有效</p>
+</blockquote>
+</li>
+<li>
+<p><strong>Implementation details</strong></p>
+<p>參數設置如下:</p>
+<p>$Temperature = 0$
+$NumOfToken_{max} = 1024$
+$k = 3$</p>
+<p>其他參數沿用官方預設</p>
+</li>
+<li>
+<p><strong>Dataset</strong></p>
+<p><strong>BIG-Bench Hard (BBH) benchmark</strong></p>
+<blockquote>
+<p>共包含了27個任務，其中23個被選為測試任務，皆為單選題，每個任務有150~250的範例，全部共有5,511個。<br>
+BBH為BIG-Bench benchmark中的一個任務套組，現有LM在該套組難以到達人類平均水平，被認為難度超越現有模型所擁有的能力。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="baselines">Baselines<a hidden class="anchor" aria-hidden="true" href="#baselines">#</a></h3>
+<ul>
+<li>
+<p><strong>ZS-Direct</strong></p>
+<p>即&quot;zero-shot direct prompting&rdquo;，direct prompting的Baselines，模型僅依據任務描述和測試輸入預測輸出</p>
+</li>
+<li>
+<p><strong>ZS-CoT</strong></p>
+<p>即&quot;zero-shot CoT prompting&quot;，CoT prompting的Baselines，zero-shot解複雜推理任務的SOTA(之一，待確認)，模型依任務描述、測試輸入和推理觸發短語&quot;Let&rsquo;s think step by step&quot;預測輸出</p>
+</li>
+</ul>
+<h2 id="結果">結果<a hidden class="anchor" aria-hidden="true" href="#結果">#</a></h2>
+<h3 id="主要表現">主要表現<a hidden class="anchor" aria-hidden="true" href="#主要表現">#</a></h3>
+<p><img loading="lazy" src="tab2.png" alt="tab2"  />
+</p>
+<blockquote>
+<p>$\delta$ (delta 小寫) 為 SELF-ICL 和 Baseline 的差，正值為高於Baseline，負值為落後於Baseline。<br>
+$\dagger$ (dagger) 代表通過 <a href="https://en.wikipedia.org/wiki/McNemar%27s_test">one-sided McNemar&rsquo;s test</a> 確認相對於Baseline的性能增益具顯著性，$p &lt; 0.05$。</p>
+</blockquote>
+<ol>
+<li>SELF-ICL 於所有任務的平均表現在Direct和CoT皆超越Baselines。</li>
+<li>Direct SELF-ICL 微小超越 ZS-CoT。</li>
+<li>CoT SELF-ICL 能力到達使用真實範例的 3-shot prompting 的水準。</li>
+</ol>
+<p><img loading="lazy" src="fig4.png" alt="fig4"  />
+</p>
+<h3 id="普遍性">普遍性<a hidden class="anchor" aria-hidden="true" href="#普遍性">#</a></h3>
+<p><img loading="lazy" src="tab3.png" alt="tab3"  />
+</p>
+<h2 id="分析">分析<a hidden class="anchor" aria-hidden="true" href="#分析">#</a></h2>
+<h3 id="preliminary">Preliminary<a hidden class="anchor" aria-hidden="true" href="#preliminary">#</a></h3>
+<h3 id="the-entanglement-of-input-space-andinput-label-mapping">The Entanglement of Input Space andInput-Label Mapping<a hidden class="anchor" aria-hidden="true" href="#the-entanglement-of-input-space-andinput-label-mapping">#</a></h3>
+<h3 id="different-approaches-for-generating-pseudo-inputs">Different Approaches for Generating Pseudo-Inputs<a hidden class="anchor" aria-hidden="true" href="#different-approaches-for-generating-pseudo-inputs">#</a></h3>
+<h3 id="effect-of-different-number-of-shots">Effect of Different Number of Shots<a hidden class="anchor" aria-hidden="true" href="#effect-of-different-number-of-shots">#</a></h3>
+<h3 id="effect-of-random-pseudo-labels">Effect of Random Pseudo-Labels<a hidden class="anchor" aria-hidden="true" href="#effect-of-random-pseudo-labels">#</a></h3>
+<h3 id="a-deeper-look-of-self-icls-pseudo-inputs">A Deeper Look of SELF-ICL&rsquo;s Pseudo-Inputs<a hidden class="anchor" aria-hidden="true" href="#a-deeper-look-of-self-icls-pseudo-inputs">#</a></h3>
+<h2 id="相關文獻">相關文獻<a hidden class="anchor" aria-hidden="true" href="#相關文獻">#</a></h2>
+<h3 id="understanding-icl">Understanding ICL<a hidden class="anchor" aria-hidden="true" href="#understanding-icl">#</a></h3>
+<h3 id="towards-zero-shot-icl">Towards Zero-Shot ICL<a hidden class="anchor" aria-hidden="true" href="#towards-zero-shot-icl">#</a></h3>
+<h2 id="總結">總結<a hidden class="anchor" aria-hidden="true" href="#總結">#</a></h2>
+<h3 id="侷限性">侷限性<a hidden class="anchor" aria-hidden="true" href="#侷限性">#</a></h3>
+<ul>
+<li>Reliance on instruction-following models</li>
+<li>Better diversify approaches</li>
+</ul>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://lin-roger.github.io/tags/prompt-engineering/">prompt-engineering</a></li>
+      <li><a href="https://lin-roger.github.io/tags/llm/">LLM</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="next" href="https://lin-roger.github.io/posts/dataminingmethodsforrecommendersystems/">
+    <span class="title">Next »</span>
+    <br>
+    <span>Recommender systems handbook || 閱讀紀錄 1. Data Mining Methods for Recommender Systems</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
+        class="bi bi-arrow-up-square-fill" viewBox="0 0 16 16">
+        <path
+            d="M2 16a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2zm6.5-4.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 1 0" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+    let tocBtn = document.getElementById("toc-btn");
+    tocBtn.addEventListener('click', () => {
+        tocBtn.classList.toggle("noShowToc");
+        tocBtn.classList.toggle("showToc")
+        document.getElementById("toc-container").classList.toggle("show");
+    }, false)
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > document.documentElement.clientHeight || document.documentElement.scrollTop > document.documentElement.clientHeight) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script></body>
+
+</html>

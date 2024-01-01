@@ -6,7 +6,25 @@
     <description>Recent content in Posts on Flowey &amp; Code</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 16 Sep 2023 14:00:00 +0800</lastBuildDate><atom:link href="https://lin-roger.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 29 Dec 2023 21:29:32 +0800</lastBuildDate><atom:link href="https://lin-roger.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SELF-ICL: Zero-Shot In-Context Learning with Self-Generated Demonstrations</title>
+      <link>https://lin-roger.github.io/posts/selficlzeroshotincontextlearningwithselfgenerateddemonstrations/</link>
+      <pubDate>Fri, 29 Dec 2023 21:29:32 +0800</pubDate>
+      
+      <guid>https://lin-roger.github.io/posts/selficlzeroshotincontextlearningwithselfgenerateddemonstrations/</guid>
+      <description>A simple framework which bootstraps LMs&amp;rsquo; intrinsic capabilities to perform zero-shot ICL</description>
+    </item>
+    
+    <item>
+      <title>Recommender systems handbook || 閱讀紀錄 1. Data Mining Methods for Recommender Systems</title>
+      <link>https://lin-roger.github.io/posts/dataminingmethodsforrecommendersystems/</link>
+      <pubDate>Mon, 18 Sep 2023 05:59:25 +0800</pubDate>
+      
+      <guid>https://lin-roger.github.io/posts/dataminingmethodsforrecommendersystems/</guid>
+      <description>推薦系統中的資料探勘方法。本章介紹推薦系統中常用的資料探勘(Data mining, DM)技術。首先描述的是常見的資料預處理方法，如抽樣與降維。接著回顧推薦系統中重要的分類/分群技術，如:貝葉斯網路和支援向量機(SVM)/k-mean。</description>
+    </item>
+    
     <item>
       <title>Recommender systems handbook || 閱讀紀錄 0.概述</title>
       <link>https://lin-roger.github.io/posts/recommendersystemshandbook/</link>
