@@ -43,7 +43,7 @@ draft: false
 
 為了於現存範例不易產生的困難任務驗證SELF-ICL的有效性，作者選擇 23 BIG-Bench Hard tasks 作為驗證資料。結果表明**SELF-ICL在所有任務均有顯著提升**(all-task-average accuracy and in head-to-head comparisons)，相較於zero-shot在23個任務中取得 18-0-5 (勝-平-敗) 的成績。且若**結合zero-shot CoT**(chain-of-thought)，SELF-ICL的表現甚至**比肩來自真實語料的示範**。
 
-該文額外驗證SELF-ICL在不同設定下的有效性，如: 
+該文額外驗證SELF-ICL在不同設定下的有效性，如:
 
 * 生成偽輸入的方法
 * number of shots
@@ -52,7 +52,6 @@ draft: false
 據作者所知，該研究**第一個嘗試真zero-shot ICL，無須依賴來自真實分部或預定義標籤集之現有資料。** (如下表)
 
 ![表一](tab1.png)
-
 
 ## SELF-ICL
 
@@ -68,7 +67,7 @@ draft: false
 
 取得偽輸入後，利用零次指令在同一LLM預測其偽標籤，使用兩種方法:
 
-* **Direct prompting** 
+* **Direct prompting**
 
     利用標準零次指令直接產生偽標籤，僅向LLM提供任務描述與需生成偽標籤的偽輸入。一次一對。
     ![fig2](fig2.png)
@@ -80,7 +79,6 @@ draft: false
     利用zero-shot CoT產生偽標籤，向LLM提供任務描述、需生成偽標籤的偽輸入與觸發短語 "Let's think step by step"執行CoT推理。觸發短語置於指令末端引導產生推理過程已得到更準確的最終解。
     ![fig3](fig3.png)
 
-
 ### 預測(step 3)
 
 建構偽範例(偽輸入-標籤對)，以偽範例和指令做為語境，透過Few-shot ICL預測測試輸入的最終答案。
@@ -89,7 +87,7 @@ draft: false
 
 ### Configurations
 
-* **LM** 
+* **LM**
 
     >**InstructGPT**(*text-davinci-003*): **主要測試對象，被社群認為更遵循指令**
     >
@@ -110,7 +108,7 @@ draft: false
 * **Dataset**
 
     **BIG-Bench Hard (BBH) benchmark**
-    
+
     > 共包含了27個任務，其中23個被選為測試任務，皆為單選題，每個任務有150~250的範例，全部共有5,511個。  
     >BBH為BIG-Bench benchmark中的一個任務套組，現有LM在該套組難以到達人類平均水平，被認為難度超越現有模型所擁有的能力。
 
@@ -129,6 +127,13 @@ draft: false
 ### 主要表現
 
 ![tab2](tab2.png)
+> $\delta$ (delta 小寫) 為 SELF-ICL 和 Baseline 的差，正值為高於Baseline，負值為落後於Baseline。  
+> $\dagger$ (dagger) 代表通過 [one-sided McNemar's test](https://en.wikipedia.org/wiki/McNemar%27s_test) 確認相對於Baseline的性能增益具顯著性，$p < 0.05$。
+
+1. SELF-ICL 於所有任務的平均表現在Direct和CoT皆超越Baselines。
+2. Direct SELF-ICL 微小超越 ZS-CoT。
+3. CoT SELF-ICL 能力到達使用真實範例的 3-shot prompting 的水準。
+
 ![fig4](fig4.png)
 
 ### 普遍性
