@@ -14,7 +14,7 @@
 <meta name="description" content="非經典古文，可以不用看，主要是我的筆記。SVM被公認是許多任務中效果最好的分類方法之一，SVM的學習能力和訓練計算複雜度與特徵空間維度無關，但在文本分類任務中，降低複雜度是有效處裡大量詞語的一個要點。該論文採用新的降維方法降低文檔向量的維度。還為基於中心的分類算法和SVM分類器引入決策函數，處理一個文檔可能屬於多個class的問題。分析大量的實驗結果表明使用為聚類資料設計的降維算法，使輸入維度降低，可在不犧牲預測精度的情況下取得更好的訓練效率。">
 <meta name="author" content="">
 <link rel="canonical" href="https://lin-roger.github.io/posts/dimensionreductionintextclassificationwithsupportvectormachines/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.8ae7460b7ae9f36f17ee648049e481a8c7aefeeb86dd7aee20fb6c32f187900e.css" integrity="sha256-iudGC3rp828X7mSASeSBqMeu/uuG3XruIPtsMvGHkA4=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.3f74f78ddd11b9883e685de48b64f35d004316edd0c339acc381493a87c5e9f1.css" integrity="sha256-P3T3jd0RuYg&#43;aF3ki2TzXQBDFu3Qwzmsw4FJOofF6fE=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.acb54fd32bbc1982428b8850317e45d076b95012730a5936667e6bc21777692a.js" integrity="sha256-rLVP0yu8GYJCi4hQMX5F0Ha5UBJzClk2Zn5rwhd3aSo="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://lin-roger.github.io/flowey.png">
@@ -201,69 +201,98 @@
         d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
     </svg>
   </button><aside id="toc-container" class="toc-container">
-        <div class="toc">
-            <details  open>
-                <summary accesskey="c" title="(Alt + C)">
-                    <span class="details">Table of Contents</span>
-                </summary>
-
-                <div class="inner"><ul>
-                        <li>
-                            <a href="#%e6%91%98%e8%a6%81" aria-label="摘要">摘要</a></li>
-                        <li>
-                            <a href="#%e7%b0%a1%e4%bb%8b" aria-label="簡介">簡介</a></li>
-                        <li>
-                            <a href="#%e4%bd%8e%e7%a7%a9%e8%bf%91%e4%bc%bc%e4%bd%bf%e7%94%a8%e9%9a%b1%e5%90%ab%e8%aa%9e%e6%84%8f%e7%b4%a2%e5%bc%95" aria-label="低秩近似使用隱含語意索引">低秩近似使用隱含語意索引</a></li>
-                        <li>
-                            <a href="#%e8%81%9a%e9%a1%9e%e8%b3%87%e6%96%99%e7%9a%84%e9%99%8d%e7%b6%ad%e6%bc%94%e7%ae%97%e6%b3%95" aria-label="聚類資料的降維演算法">聚類資料的降維演算法</a><ul>
-                                    
-                        <li>
-                            <a href="#centroid-based-algorithms-for-dimension-reduction-of-clustered-data" aria-label="Centroid-based Algorithms for Dimension Reduction of Clustered Data">Centroid-based Algorithms for Dimension Reduction of Clustered Data</a></li>
-                        <li>
-                            <a href="#generalized-discriminant-analysis-based-on-the-generalized-singular-value-decomposition" aria-label="Generalized Discriminant Analysis based on the Generalized Singular Value Decomposition">Generalized Discriminant Analysis based on the Generalized Singular Value Decomposition</a></li></ul>
+        <div class="inc">
+            <div class="toc" id="toc">
+                <details>
+                    <summary accesskey="c" title="(Alt + C)">
+                        <span class="details">Table of Contents</span>
+                    </summary>
+                    <div class="inner"><ul>
+                            <li>
+                                <a href="#%e6%91%98%e8%a6%81" aria-label="摘要">摘要</a></li>
+                            <li>
+                                <a href="#%e7%b0%a1%e4%bb%8b" aria-label="簡介">簡介</a></li>
+                            <li>
+                                <a href="#%e4%bd%8e%e7%a7%a9%e8%bf%91%e4%bc%bc%e4%bd%bf%e7%94%a8%e9%9a%b1%e5%90%ab%e8%aa%9e%e6%84%8f%e7%b4%a2%e5%bc%95" aria-label="低秩近似使用隱含語意索引">低秩近似使用隱含語意索引</a></li>
+                            <li>
+                                <a href="#%e8%81%9a%e9%a1%9e%e8%b3%87%e6%96%99%e7%9a%84%e9%99%8d%e7%b6%ad%e6%bc%94%e7%ae%97%e6%b3%95" aria-label="聚類資料的降維演算法">聚類資料的降維演算法</a><ul>
+                                        
+                            <li>
+                                <a href="#centroid-based-algorithms-for-dimension-reduction-of-clustered-data" aria-label="Centroid-based Algorithms for Dimension Reduction of Clustered Data">Centroid-based Algorithms for Dimension Reduction of Clustered Data</a></li>
+                            <li>
+                                <a href="#generalized-discriminant-analysis-based-on-the-generalized-singular-value-decomposition" aria-label="Generalized Discriminant Analysis based on the Generalized Singular Value Decomposition">Generalized Discriminant Analysis based on the Generalized Singular Value Decomposition</a></li></ul>
+                            </li>
+                            <li>
+                                <a href="#%e5%88%86%e9%a1%9e%e6%96%b9%e6%b3%95" aria-label="分類方法">分類方法</a><ul>
+                                        
+                            <li>
+                                <a href="#centroid-based" aria-label="Centroid-based">Centroid-based</a></li>
+                            <li>
+                                <a href="#k-nearest-neighbor" aria-label="k-Nearest Neighbor">k-Nearest Neighbor</a></li>
+                            <li>
+                                <a href="#svm" aria-label="SVM">SVM</a></li></ul>
+                            </li>
+                            <li>
+                                <a href="#%e5%af%a6%e9%a9%97%e7%b5%90%e6%9e%9c" aria-label="實驗結果">實驗結果</a><ul>
+                                        
+                            <li>
+                                <a href="#%e8%b3%87%e6%96%99%e9%9b%86" aria-label="資料集">資料集</a></li>
+                            <li>
+                                <a href="#%e8%a1%a8%e4%b8%80" aria-label="表一">表一</a></li>
+                            <li>
+                                <a href="#%e8%a1%a8%e4%ba%8c" aria-label="表二">表二</a></li>
+                            <li>
+                                <a href="#%e8%a1%a8%e4%b8%89" aria-label="表三">表三</a></li>
+                            <li>
+                                <a href="#%e8%a1%a8%e5%9b%9b" aria-label="表四">表四</a></li>
+                            <li>
+                                <a href="#%e8%a1%a8%e4%ba%94" aria-label="表五">表五</a></li></ul>
+                            </li>
+                            <li>
+                                <a href="#%e7%b5%90%e8%ab%96%e8%88%87%e8%a8%8e%e8%ab%96" aria-label="結論與討論">結論與討論</a><ul>
+                                        
+                            <li>
+                                <a href="#%e7%b5%90%e8%ab%96" aria-label="結論">結論</a>
+                            </li>
+                        </ul>
                         </li>
-                        <li>
-                            <a href="#%e5%88%86%e9%a1%9e%e6%96%b9%e6%b3%95" aria-label="分類方法">分類方法</a><ul>
-                                    
-                        <li>
-                            <a href="#centroid-based" aria-label="Centroid-based">Centroid-based</a></li>
-                        <li>
-                            <a href="#k-nearest-neighbor" aria-label="k-Nearest Neighbor">k-Nearest Neighbor</a></li>
-                        <li>
-                            <a href="#svm" aria-label="SVM">SVM</a></li></ul>
-                        </li>
-                        <li>
-                            <a href="#%e5%af%a6%e9%a9%97%e7%b5%90%e6%9e%9c" aria-label="實驗結果">實驗結果</a><ul>
-                                    
-                        <li>
-                            <a href="#%e8%b3%87%e6%96%99%e9%9b%86" aria-label="資料集">資料集</a></li>
-                        <li>
-                            <a href="#%e8%a1%a8%e4%b8%80" aria-label="表一">表一</a></li>
-                        <li>
-                            <a href="#%e8%a1%a8%e4%ba%8c" aria-label="表二">表二</a></li>
-                        <li>
-                            <a href="#%e8%a1%a8%e4%b8%89" aria-label="表三">表三</a></li>
-                        <li>
-                            <a href="#%e8%a1%a8%e5%9b%9b" aria-label="表四">表四</a></li>
-                        <li>
-                            <a href="#%e8%a1%a8%e4%ba%94" aria-label="表五">表五</a></li></ul>
-                        </li>
-                        <li>
-                            <a href="#%e7%b5%90%e8%ab%96%e8%88%87%e8%a8%8e%e8%ab%96" aria-label="結論與討論">結論與討論</a><ul>
-                                    
-                        <li>
-                            <a href="#%e7%b5%90%e8%ab%96" aria-label="結論">結論</a>
-                        </li>
-                    </ul>
-                    </li>
-                    </ul>
-                </div>
-            </details>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+            <div class="toc" id="loi">
+                <details>
+                    <summary>
+                        <span class="details">List of Illustrations</span>
+                    </summary>
+                    <div class="inner">
+                
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c0/Signum_function.png" alt="sign" loading="lazy"></div>
+                </details>
+            </div>
         </div>
+
     </aside>
     <script>
         let activeElement;
         let elements;
+
+        document.querySelectorAll('.toc details').forEach((details, idx) => {
+            details.addEventListener("toggle", (event) => {
+                if (details.open) {
+                    document.querySelectorAll('.toc details').forEach((d, i) => {
+                        console.log(i, idx)
+                        if (i != idx) {
+                            d.open = null;
+                        }
+                    });
+                } else {
+                    console.log("close")
+                }
+            });
+        });
+
+
         window.addEventListener('DOMContentLoaded', function (event) {
             
 

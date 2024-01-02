@@ -14,7 +14,7 @@
 <meta name="description" content="推薦系統中的資料探勘方法。本章介紹推薦系統中常用的資料探勘(Data mining, DM)技術。首先描述的是常見的資料預處理方法，如抽樣與降維。接著回顧推薦系統中重要的分類/分群技術，如:貝葉斯網路和支援向量機(SVM)/k-mean。">
 <meta name="author" content="">
 <link rel="canonical" href="https://lin-roger.github.io/posts/dataminingmethodsforrecommendersystems/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.8ae7460b7ae9f36f17ee648049e481a8c7aefeeb86dd7aee20fb6c32f187900e.css" integrity="sha256-iudGC3rp828X7mSASeSBqMeu/uuG3XruIPtsMvGHkA4=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.3f74f78ddd11b9883e685de48b64f35d004316edd0c339acc381493a87c5e9f1.css" integrity="sha256-P3T3jd0RuYg&#43;aF3ki2TzXQBDFu3Qwzmsw4FJOofF6fE=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.acb54fd32bbc1982428b8850317e45d076b95012730a5936667e6bc21777692a.js" integrity="sha256-rLVP0yu8GYJCi4hQMX5F0Ha5UBJzClk2Zn5rwhd3aSo="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://lin-roger.github.io/flowey.png">
@@ -209,64 +209,91 @@
         d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
     </svg>
   </button><aside id="toc-container" class="toc-container">
-        <div class="toc">
-            <details  open>
-                <summary accesskey="c" title="(Alt + C)">
-                    <span class="details">Table of Contents</span>
-                </summary>
-
-                <div class="inner"><ul>
-                        <li>
-                            <a href="#%e6%91%98%e8%a6%81" aria-label="摘要">摘要</a></li>
-                        <li>
-                            <a href="#%e7%b0%a1%e4%bb%8b" aria-label="簡介">簡介</a></li>
-                        <li>
-                            <a href="#1-%e8%b3%87%e6%96%99%e9%a0%90%e8%99%95%e7%90%86" aria-label="1. 資料預處理">1. 資料預處理</a><ul>
-                                    
-                        <li>
-                            <a href="#%e8%b7%9d%e9%9b%a2%e5%ba%a6%e9%87%8f" aria-label="距離度量">距離度量</a><ul>
-                                    
-                        <li>
-                            <a href="#l_p-dist" aria-label="$L_p$-dist">$L_p$-dist</a></li>
-                        <li>
-                            <a href="#%e9%a4%98%e5%bc%a6%e8%b7%9d%e9%9b%a2" aria-label="餘弦距離">餘弦距離</a></li>
-                        <li>
-                            <a href="#%e7%9a%ae%e7%88%be%e6%a3%ae%e7%9b%b8%e9%97%9c%e4%bf%82%e6%95%b8" aria-label="皮爾森相關係數">皮爾森相關係數</a></li>
-                        <li>
-                            <a href="#%e5%96%ae%e7%b4%94%e4%b8%80%e8%87%b4%e4%bf%82%e6%95%b8simple-matching-coefficient-smcjaccard-index" aria-label="單純一致係數(Simple Matching Coefficient, SMC)、Jaccard index">單純一致係數(Simple Matching Coefficient, SMC)、Jaccard index</a></li></ul>
-                        </li>
-                        <li>
-                            <a href="#%e6%8a%bd%e6%a8%a3" aria-label="抽樣">抽樣</a></li>
-                        <li>
-                            <a href="#%e9%99%8d%e7%b6%ad" aria-label="降維">降維</a><ul>
-                                    
-                        <li>
-                            <a href="#pca" aria-label="PCA">PCA</a></li>
-                        <li>
-                            <a href="#svd" aria-label="SVD">SVD</a></li></ul>
-                        </li></ul>
-                        </li>
-                        <li>
-                            <a href="#2-%e8%b3%87%e6%96%99%e5%88%86%e6%9e%90" aria-label="2. 資料分析">2. 資料分析</a><ul>
-                                    
-                        <li>
-                            <a href="#%e5%88%86%e9%a1%9e" aria-label="分類">分類</a></li>
-                        <li>
-                            <a href="#%e5%88%86%e7%be%a4" aria-label="分群">分群</a></li></ul>
-                        </li>
-                        <li>
-                            <a href="#%e7%b8%bd%e7%b5%90" aria-label="總結">總結</a></li>
-                        <li>
-                            <a href="#reference" aria-label="reference">reference</a>
-                        </li>
-                    </ul>
-                </div>
-            </details>
+        <div class="inc">
+            <div class="toc" id="toc">
+                <details>
+                    <summary accesskey="c" title="(Alt + C)">
+                        <span class="details">Table of Contents</span>
+                    </summary>
+                    <div class="inner"><ul>
+                            <li>
+                                <a href="#%e6%91%98%e8%a6%81" aria-label="摘要">摘要</a></li>
+                            <li>
+                                <a href="#%e7%b0%a1%e4%bb%8b" aria-label="簡介">簡介</a></li>
+                            <li>
+                                <a href="#1-%e8%b3%87%e6%96%99%e9%a0%90%e8%99%95%e7%90%86" aria-label="1. 資料預處理">1. 資料預處理</a><ul>
+                                        
+                            <li>
+                                <a href="#%e8%b7%9d%e9%9b%a2%e5%ba%a6%e9%87%8f" aria-label="距離度量">距離度量</a><ul>
+                                        
+                            <li>
+                                <a href="#l_p-dist" aria-label="$L_p$-dist">$L_p$-dist</a></li>
+                            <li>
+                                <a href="#%e9%a4%98%e5%bc%a6%e8%b7%9d%e9%9b%a2" aria-label="餘弦距離">餘弦距離</a></li>
+                            <li>
+                                <a href="#%e7%9a%ae%e7%88%be%e6%a3%ae%e7%9b%b8%e9%97%9c%e4%bf%82%e6%95%b8" aria-label="皮爾森相關係數">皮爾森相關係數</a></li>
+                            <li>
+                                <a href="#%e5%96%ae%e7%b4%94%e4%b8%80%e8%87%b4%e4%bf%82%e6%95%b8simple-matching-coefficient-smcjaccard-index" aria-label="單純一致係數(Simple Matching Coefficient, SMC)、Jaccard index">單純一致係數(Simple Matching Coefficient, SMC)、Jaccard index</a></li></ul>
+                            </li>
+                            <li>
+                                <a href="#%e6%8a%bd%e6%a8%a3" aria-label="抽樣">抽樣</a></li>
+                            <li>
+                                <a href="#%e9%99%8d%e7%b6%ad" aria-label="降維">降維</a><ul>
+                                        
+                            <li>
+                                <a href="#pca" aria-label="PCA">PCA</a></li>
+                            <li>
+                                <a href="#svd" aria-label="SVD">SVD</a></li></ul>
+                            </li></ul>
+                            </li>
+                            <li>
+                                <a href="#2-%e8%b3%87%e6%96%99%e5%88%86%e6%9e%90" aria-label="2. 資料分析">2. 資料分析</a><ul>
+                                        
+                            <li>
+                                <a href="#%e5%88%86%e9%a1%9e" aria-label="分類">分類</a></li>
+                            <li>
+                                <a href="#%e5%88%86%e7%be%a4" aria-label="分群">分群</a></li></ul>
+                            </li>
+                            <li>
+                                <a href="#%e7%b8%bd%e7%b5%90" aria-label="總結">總結</a></li>
+                            <li>
+                                <a href="#reference" aria-label="reference">reference</a>
+                            </li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+            <div class="toc" id="loi">
+                <details>
+                    <summary>
+                        <span class="details">List of Illustrations</span>
+                    </summary>
+                    <div class="inner"></div>
+                </details>
+            </div>
         </div>
+
     </aside>
     <script>
         let activeElement;
         let elements;
+
+        document.querySelectorAll('.toc details').forEach((details, idx) => {
+            details.addEventListener("toggle", (event) => {
+                if (details.open) {
+                    document.querySelectorAll('.toc details').forEach((d, i) => {
+                        console.log(i, idx)
+                        if (i != idx) {
+                            d.open = null;
+                        }
+                    });
+                } else {
+                    console.log("close")
+                }
+            });
+        });
+
+
         window.addEventListener('DOMContentLoaded', function (event) {
             
 

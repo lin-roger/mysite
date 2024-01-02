@@ -14,7 +14,7 @@
 <meta name="description" content="🚧目前進度:deepl部分翻譯🚧">
 <meta name="author" content="">
 <link rel="canonical" href="https://lin-roger.github.io/posts/advancedpromptingengineering/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.8ae7460b7ae9f36f17ee648049e481a8c7aefeeb86dd7aee20fb6c32f187900e.css" integrity="sha256-iudGC3rp828X7mSASeSBqMeu/uuG3XruIPtsMvGHkA4=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.3f74f78ddd11b9883e685de48b64f35d004316edd0c339acc381493a87c5e9f1.css" integrity="sha256-P3T3jd0RuYg&#43;aF3ki2TzXQBDFu3Qwzmsw4FJOofF6fE=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.acb54fd32bbc1982428b8850317e45d076b95012730a5936667e6bc21777692a.js" integrity="sha256-rLVP0yu8GYJCi4hQMX5F0Ha5UBJzClk2Zn5rwhd3aSo="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://lin-roger.github.io/flowey.png">
@@ -201,54 +201,81 @@
         d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
     </svg>
   </button><aside id="toc-container" class="toc-container">
-        <div class="toc">
-            <details  open>
-                <summary accesskey="c" title="(Alt + C)">
-                    <span class="details">Table of Contents</span>
-                </summary>
-
-                <div class="inner"><ul>
-                        <li>
-                            <a href="#zero-shot-prompting--fewn-shot-prompting" aria-label="Zero-Shot Prompting &amp;amp; Few(N)-Shot Prompting">Zero-Shot Prompting &amp; Few(N)-Shot Prompting</a><ul>
-                                    
-                        <li>
-                            <a href="#how-it-work" aria-label="How it work">How it work</a></li>
-                        <li>
-                            <a href="#limitations" aria-label="Limitations">Limitations</a></li></ul>
-                        </li>
-                        <li>
-                            <a href="#chain-of-thought-prompting" aria-label="Chain-of-Thought Prompting">Chain-of-Thought Prompting</a></li>
-                        <li>
-                            <a href="#self-consistency" aria-label="Self-Consistency">Self-Consistency</a></li>
-                        <li>
-                            <a href="#generated-knowledge-prompting" aria-label="Generated Knowledge Prompting">Generated Knowledge Prompting</a></li>
-                        <li>
-                            <a href="#tree-of-thoughts-tot" aria-label="Tree of Thoughts (ToT)">Tree of Thoughts (ToT)</a></li>
-                        <li>
-                            <a href="#retrieval-augmented-generation-rag" aria-label="Retrieval Augmented Generation (RAG)">Retrieval Augmented Generation (RAG)</a></li>
-                        <li>
-                            <a href="#automatic-reasoning-and-tool-use-art" aria-label="Automatic Reasoning and Tool-use (ART)">Automatic Reasoning and Tool-use (ART)</a></li>
-                        <li>
-                            <a href="#automatic-prompt-engineer-ape" aria-label="Automatic Prompt Engineer (APE)">Automatic Prompt Engineer (APE)</a></li>
-                        <li>
-                            <a href="#active-prompt" aria-label="Active-Prompt">Active-Prompt</a></li>
-                        <li>
-                            <a href="#directional-stimulus-prompting" aria-label="Directional Stimulus Prompting">Directional Stimulus Prompting</a></li>
-                        <li>
-                            <a href="#react-prompting" aria-label="ReAct Prompting">ReAct Prompting</a></li>
-                        <li>
-                            <a href="#multimodal-cot-prompting" aria-label="Multimodal CoT Prompting">Multimodal CoT Prompting</a></li>
-                        <li>
-                            <a href="#graph-prompts" aria-label="Graph Prompts">Graph Prompts</a>
-                        </li>
-                    </ul>
-                </div>
-            </details>
+        <div class="inc">
+            <div class="toc" id="toc">
+                <details>
+                    <summary accesskey="c" title="(Alt + C)">
+                        <span class="details">Table of Contents</span>
+                    </summary>
+                    <div class="inner"><ul>
+                            <li>
+                                <a href="#zero-shot-prompting--fewn-shot-prompting" aria-label="Zero-Shot Prompting &amp;amp; Few(N)-Shot Prompting">Zero-Shot Prompting &amp; Few(N)-Shot Prompting</a><ul>
+                                        
+                            <li>
+                                <a href="#how-it-work" aria-label="How it work">How it work</a></li>
+                            <li>
+                                <a href="#limitations" aria-label="Limitations">Limitations</a></li></ul>
+                            </li>
+                            <li>
+                                <a href="#chain-of-thought-prompting" aria-label="Chain-of-Thought Prompting">Chain-of-Thought Prompting</a></li>
+                            <li>
+                                <a href="#self-consistency" aria-label="Self-Consistency">Self-Consistency</a></li>
+                            <li>
+                                <a href="#generated-knowledge-prompting" aria-label="Generated Knowledge Prompting">Generated Knowledge Prompting</a></li>
+                            <li>
+                                <a href="#tree-of-thoughts-tot" aria-label="Tree of Thoughts (ToT)">Tree of Thoughts (ToT)</a></li>
+                            <li>
+                                <a href="#retrieval-augmented-generation-rag" aria-label="Retrieval Augmented Generation (RAG)">Retrieval Augmented Generation (RAG)</a></li>
+                            <li>
+                                <a href="#automatic-reasoning-and-tool-use-art" aria-label="Automatic Reasoning and Tool-use (ART)">Automatic Reasoning and Tool-use (ART)</a></li>
+                            <li>
+                                <a href="#automatic-prompt-engineer-ape" aria-label="Automatic Prompt Engineer (APE)">Automatic Prompt Engineer (APE)</a></li>
+                            <li>
+                                <a href="#active-prompt" aria-label="Active-Prompt">Active-Prompt</a></li>
+                            <li>
+                                <a href="#directional-stimulus-prompting" aria-label="Directional Stimulus Prompting">Directional Stimulus Prompting</a></li>
+                            <li>
+                                <a href="#react-prompting" aria-label="ReAct Prompting">ReAct Prompting</a></li>
+                            <li>
+                                <a href="#multimodal-cot-prompting" aria-label="Multimodal CoT Prompting">Multimodal CoT Prompting</a></li>
+                            <li>
+                                <a href="#graph-prompts" aria-label="Graph Prompts">Graph Prompts</a>
+                            </li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+            <div class="toc" id="loi">
+                <details>
+                    <summary>
+                        <span class="details">List of Illustrations</span>
+                    </summary>
+                    <div class="inner"></div>
+                </details>
+            </div>
         </div>
+
     </aside>
     <script>
         let activeElement;
         let elements;
+
+        document.querySelectorAll('.toc details').forEach((details, idx) => {
+            details.addEventListener("toggle", (event) => {
+                if (details.open) {
+                    document.querySelectorAll('.toc details').forEach((d, i) => {
+                        console.log(i, idx)
+                        if (i != idx) {
+                            d.open = null;
+                        }
+                    });
+                } else {
+                    console.log("close")
+                }
+            });
+        });
+
+
         window.addEventListener('DOMContentLoaded', function (event) {
             
 
