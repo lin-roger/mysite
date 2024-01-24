@@ -148,15 +148,48 @@ draft: false
 
 ### Preliminary
 
-### The Entanglement of Input Space andInput-Label Mapping
+給定 k-shot 示範 : ${(x_1, y_1), \dots, (x_k, y_k)}$，$x_i$為輸入，$y_i$為標籤。
+建立示範需考慮以下四個面向：
+
+1. 輸入-標籤 映射: $x_i$與$y_i$是否配對正確。(於標準ICL中非必要)
+2. 輸入空間: $x_1, \dots, x_k$的潛在分布。
+3. 標籤空間: $y_1, \dots, y_k$的所有可能標籤。
+4. 格式: $x_i$-$y_i$的表示格式。
+
+### The Entanglement of Input Space and Input-Label Mapping & Effect of Different Number of Shots
+
+Self-ICL 使用測試輸入生成偽示範，生成出的偽示範可能與測試輸入相似，無法完整表示輸入空間，且複製效應(模型傾向回答與測試輸入相似的演示)的影響可能會導致效能下降。
 
 ### Different Approaches for Generating Pseudo-Inputs
 
-### Effect of Different Number of Shots
+作者提出以下三種方法實驗複製效應的影響:
+
+1. Batch inference: 在同一個任務中使用不只一個測試輸入。
+2. Prompting with diversity hints: 指令中要求模型生成"new", "diverse", "creative"的偽輸入。
+3. Prompt without diversity hints: 指令不特別要求2所提的關鍵詞。**(對照組)**
+
+不同方法的偽輸入與測試輸入語意相似度如下圖5。(越低複製效應的影響越小)。
+
+![fig5](fig5.png)
+
+不同方法的效能如下圖6。(越高越好)
+
+![fig6](fig6.png)
+
+由上兩張圖可知，增加偽輸入的多樣性可以增強ICL的效能。圖6可知，3-shot的表現最好，且比較0-shot與1-shot可知，僅增加一筆示範即可大幅增加模型表現，由此可知Self-ICL的有效性。
 
 ### Effect of Random Pseudo-Labels
 
+參考圖6，將偽標籤隨機打亂的性能並不佳，但還是高過於0-shot。作者提出以下解釋：
+
+1. 複製效應
+2. 模型將偽演示中的錯誤答案視為正確。
+
 ### A Deeper Look of SELF-ICL's Pseudo-Inputs
+
+進一步比較真實演示和測試輸入的相似性與偽演示和測試輸入的相似性，如下圖7。
+
+![fig7](fig7.png)
 
 ## 相關文獻
 
