@@ -136,9 +136,9 @@ draft: false
 
 ![fig4](fig4.png)
 
-1. **Direct** ZS vs SELF-ICL: 18 win|0 tie|5 loss
-2. **CoT** ZS vs SELF-ICL: 16 win|2 tie|5 loss
-3. **SELF-ICL** Direct vs CoT: 14 win|1 tie|8 loss
+1. **Direct** ZS vs SELF-ICL: | 18勝 | 0平 | 5敗 |
+2. **CoT** ZS vs SELF-ICL: | 16勝 | 2平 | 5敗 |
+3. **SELF-ICL** Direct vs CoT: | 14勝 | 1平 | 8敗 |
 
 ### 普遍性
 
