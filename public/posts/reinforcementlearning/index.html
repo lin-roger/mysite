@@ -9,11 +9,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@200;300;400;500;600;700;900&display=swap" rel="stylesheet">
 <meta name="robots" content="index, follow">
-<title>Recommender systems handbook || 閱讀紀錄 0.概述 | Flowey &amp; Code</title>
-<meta name="keywords" content="Recommender systems handbook, 推薦系統">
-<meta name="description" content="簡要說明推薦系統(RS)的基本概念，與此書的基本架構">
+<title>Reinforcement Learning | Flowey &amp; Code</title>
+<meta name="keywords" content="Reinforcement Learning">
+<meta name="description" content="從馬可夫決策過程到雙重深度Q網路">
 <meta name="author" content="">
-<link rel="canonical" href="https://lin-roger.github.io/posts/recommendersystemshandbook/">
+<link rel="canonical" href="https://lin-roger.github.io/posts/reinforcementlearning/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.1b6ea1bd2f99c94cb5f9c51aedab930c41a52c8c34bf10bc587b0fc7301eb0df.css" integrity="sha256-G26hvS&#43;ZyUy1&#43;cUa7auTDEGlLIw0vxC8WHsPxzAesN8=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.acb54fd32bbc1982428b8850317e45d076b95012730a5936667e6bc21777692a.js" integrity="sha256-rLVP0yu8GYJCi4hQMX5F0Ha5UBJzClk2Zn5rwhd3aSo="
     onload="hljs.initHighlightingOnLoad();"></script>
@@ -55,16 +55,18 @@
         });
     });
 </script>
-<meta property="og:title" content="Recommender systems handbook || 閱讀紀錄 0.概述" />
-<meta property="og:description" content="簡要說明推薦系統(RS)的基本概念，與此書的基本架構" />
+<meta property="og:title" content="Reinforcement Learning" />
+<meta property="og:description" content="從馬可夫決策過程到雙重深度Q網路" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://lin-roger.github.io/posts/recommendersystemshandbook/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2023-09-16T14:00:00+08:00" />
-<meta property="article:modified_time" content="2023-09-16T14:00:00+08:00" />
+<meta property="og:url" content="https://lin-roger.github.io/posts/reinforcementlearning/" />
+<meta property="og:image" content="https://lin-roger.github.io/cover.png" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-01-27T15:36:25+08:00" />
+<meta property="article:modified_time" content="2024-01-27T15:36:25+08:00" />
 
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Recommender systems handbook || 閱讀紀錄 0.概述"/>
-<meta name="twitter:description" content="簡要說明推薦系統(RS)的基本概念，與此書的基本架構"/>
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://lin-roger.github.io/cover.png" />
+<meta name="twitter:title" content="Reinforcement Learning"/>
+<meta name="twitter:description" content="從馬可夫決策過程到雙重深度Q網路"/>
 
 
 <script type="application/ld+json">
@@ -81,8 +83,8 @@
     {
       "@type": "ListItem",
       "position":  2 ,
-      "name": "Recommender systems handbook || 閱讀紀錄 0.概述",
-      "item": "https://lin-roger.github.io/posts/recommendersystemshandbook/"
+      "name": "Reinforcement Learning",
+      "item": "https://lin-roger.github.io/posts/reinforcementlearning/"
     }
   ]
 }
@@ -91,20 +93,20 @@
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "Recommender systems handbook || 閱讀紀錄 0.概述",
-  "name": "Recommender systems handbook || 閱讀紀錄 0.概述",
-  "description": "簡要說明推薦系統(RS)的基本概念，與此書的基本架構",
+  "headline": "Reinforcement Learning",
+  "name": "Reinforcement Learning",
+  "description": "從馬可夫決策過程到雙重深度Q網路",
   "keywords": [
-    "Recommender systems handbook", "推薦系統"
+    "Reinforcement Learning"
   ],
-  "articleBody": "推薦系統簡介 推薦系統的目的是向使用者提供有價值的項目(items)，例如商品、新聞和串流影片，以幫助他們在大量資訊中找到有價值的內容。我們通常研究的推薦系統是個人化的，根據個人或特定使用者群體的偏好調整推薦項目。相比之下，大眾化的推薦系統方法通常較容易實現，例如top10 熱門項目。儘管這種方法在特定情境下可能有效，但它並不是推薦系統主要討論的議題。個人化推薦最簡單的形式可以用一排序後的項目列表呈現(最有興趣-\u003e最沒興趣)，系統透過使用者的偏好(對某項目的評分、是否查看某項目的詳細資訊)或某些條件排序。最早的推薦系統透過尋找和被推薦使用者(目標)相似的使用者，並將相似使用者關注或選擇的項目推薦給目標，該方法即為協同過濾(Collaborative filtering)。而現代人日常要接受的資訊繁多2，如何令使用者可以方便的取得有價值的資訊已成為重要問題，推薦系統很好的解決了此問題。\n更新計畫與週期 可能兩周一更\n本書架構 Part I Basic Techniques Data Mining Methods for Recommender Systems 🚧 Content-based Recommender Systems: State of the Art and Trends 🚧 A Comprehensive Survey of Neighborhood-based Recommendation Methods 🚧 Advances in Collaborative Filtering 🚧 Developing Constraint-based Recommenders 🚧 Context-Aware Recommender Systems 🚧 Part II Applications and Evaluation of RSs Evaluating Recommendation Systems 🚧 A Recommender System for an IPTV Service Provider: a Real Large-Scale Production Environment 🚧 How to Get the Recommender Out of the Lab? 🚧 Matching Recommendation Technologies and Domains 🚧 Recommender Systems in Technology Enhanced Learning 🚧 Part III Interacting with Recommender Systems On the Evolution of Critiquing Recommenders 🚧 Creating More Credible and Persuasive Recommender Systems: The Influence of Source Characteristics on Recommender System Evaluations 🚧 Designing and Evaluating Explanations for Recommender Systems 🚧 Usability Guidelines for Product Recommenders Based on Example Critiquing Research 🚧 Map Based Visualization of Product Catalogs 🚧 Part IV Recommender Systems and Communities Communities, Collaboration, and Recommender Systems in Personalized Web Search 🚧 Social Tagging Recommender Systems 🚧 Trust and Recommendations 🚧 Group Recommender Systems: Combining Individual Models 🚧 Part V Advanced Algorithms Aggregation of Preferences in Recommender Systems 🚧 Active Learning in Recommender Systems 🚧 Multi-Criteria Recommender Systems 🚧 Robust Collaborative Recommendation 🚧 reference [1] Wiki: Collaborative filtering\n[2] Wiki: Information overload\n",
-  "wordCount" : "219",
+  "articleBody": "馬可夫決策過程 強化學習(Reinforcement Learning, RL)藉由互動學習如何行動以實現目標，而馬可夫決策過程(Markov decision processes, MDPs)，是RL數學化的一種理想表示。MDPs中，代理(agent)與其環境(environment)在一連串分立的時步互動，其中代理是完全可知且可控的，而環境是不完全可控且很有可能難以理解的。代理與環境之互動遵循以下定義:\n代理選擇動作(action) 動作的選擇基於狀態(states) 選擇的驗證基於回饋(rewards) 策略(policy)定義代理在給定狀態$S_t$下如何選擇動作$A_t$，而代理的目標為最大化期望回饋$G_t$。\n$$G_t = R_{t+1}+R_{t+2}+R_{t+3}+\\dotsb+R_T$$ $T$為最終時步，該形式如果再$T$極大時令$G_t$發散至無窮，所以實務上會使用以下形式:\n$$ G_t = R_{t+1}+\\gamma R_{t+2}+\\gamma^2 R_{t+3}+\\dotsb=\\sum_{k=0}^{\\infty}\\gamma^kR_{t+k+1}, \\text{ in } 0 \\le \\gamma \\le 1 $$\n$\\gamma$為衰減係數。上式以遞迴形式表達:\n$$ \\begin{align*} G_t \u0026= R_{t+1}+\\gamma R_{t+2}+\\gamma^2 R_{t+3}+\\dotsb \\newline \u0026= R_{t+1}+\\gamma (R_{t+2}+\\gamma R_{t+3}+\\dotsb) \\newline \u0026= R_{t+1}+\\gamma G_{t+1} \\end{align*} $$\n範例: $$ \\begin{align*} \\mathcal{S} \u0026= \\set{ \\text{high}, \\text{low} } \\newline \\mathcal{R} \u0026= \\set{ -3, 0, r_{\\text{wait}}, r_{\\text{search}} } \\newline \\mathcal{A(\\text{hight})} \u0026= \\set{ \\text{search}, \\text{wait} } \\newline \\mathcal{A(\\text{low})} \u0026= \\set{ \\text{search}, \\text{wait}, \\text{recharge} } \\newline \\end{align*} $$\nMDPs以表表示:\n以轉移機率圖表示:\n策略與價值函數 大部分的強化學習演算法需要價值函數，其估計代理在給定的狀態(或狀態-操作對)在未來的期望回饋總和，與策略有關。\n策略將狀態$S$映射為每個可能操作的機率，如果代理在時間$t$遵循策略$\\pi$，則$\\pi(a|s)$即為在狀態$S_t=s$下操作為$A_t=a$機率。\n策略$\\pi$的狀態-價值函數 :\n$$ \\begin{align*} v_{\\pi}(s) \u0026= \\mathbb{E}{\\pi}[G_t|S_t=s] \\newline \u0026= \\mathbb{E}{\\pi}[\\sum_{k=0}^{\\infty}\\gamma^kR_{t+k+1}|S_t=s], \\text{for all } s \\in \\mathcal{S} \\end{align*} $$\n策略$\\pi$的動作-價值函數 :\n$$ q_{\\pi}(s, a) = \\mathbb{E}{\\pi}[G_t|S_t=s, A_t=a] = \\mathbb{E}{\\pi}[\\sum_{k=0}^{\\infty}\\gamma^kR_{t+k+1}|S_t=s, A_t=a] $$\n最佳化策略和最佳化價值函數 解RL任務即為找一可以在長久運行下取得大量回饋的策略。\n",
+  "wordCount" : "122",
   "inLanguage": "zh-hant",
-  "datePublished": "2023-09-16T14:00:00+08:00",
-  "dateModified": "2023-09-16T14:00:00+08:00",
+  "image":"https://lin-roger.github.io/cover.png","datePublished": "2024-01-27T15:36:25+08:00",
+  "dateModified": "2024-01-27T15:36:25+08:00",
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://lin-roger.github.io/posts/recommendersystemshandbook/"
+    "@id": "https://lin-roger.github.io/posts/reinforcementlearning/"
   },
   "publisher": {
     "@type": "Organization",
@@ -184,12 +186,18 @@
   <header class="post-header">
     <div class="breadcrumbs"><a href="https://lin-roger.github.io/">Home</a>&nbsp;»&nbsp;<a href="https://lin-roger.github.io/posts/">Posts</a></div>
     <h1 class="post-title">
-      Recommender systems handbook || 閱讀紀錄 0.概述
+      Reinforcement Learning
     </h1>
-    <div class="post-meta"><span title='2023-09-16 14:00:00 +0800 CST'>9月 16, 2023</span>&nbsp;·&nbsp;2 min
+    <div class="post-meta"><span title='2024-01-27 15:36:25 +0800 CST'>1月 27, 2024</span>&nbsp;·&nbsp;1 min
 
 </div>
   </header> 
+<figure class="entry-cover">
+        <img loading="lazy" srcset="https://lin-roger.github.io/posts/reinforcementlearning/cover_hu81d0d780715f9e72bfc0523331f5b083_26082_360x0_resize_box_3.png 360w ,https://lin-roger.github.io/posts/reinforcementlearning/cover_hu81d0d780715f9e72bfc0523331f5b083_26082_480x0_resize_box_3.png 480w ,https://lin-roger.github.io/posts/reinforcementlearning/cover.png 547w" 
+            sizes="(min-width: 768px) 720px, 100vw" src="https://lin-roger.github.io/posts/reinforcementlearning/cover.png" alt="強化學習中代理與環境的互動" 
+            width="547" height="180">
+        <p>強化學習中代理與環境的互動</p>
+</figure>
   <button class="toc-btn noShowToc" id="toc-btn">
     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-square-half on"
       viewBox="0 0 16 16">
@@ -212,25 +220,13 @@
                     </summary>
                     <div class="inner"><ul>
                             <li>
-                                <a href="#%e6%8e%a8%e8%96%a6%e7%b3%bb%e7%b5%b1%e7%b0%a1%e4%bb%8b" aria-label="推薦系統簡介">推薦系統簡介</a></li>
-                            <li>
-                                <a href="#%e6%9b%b4%e6%96%b0%e8%a8%88%e7%95%ab%e8%88%87%e9%80%b1%e6%9c%9f" aria-label="更新計畫與週期">更新計畫與週期</a></li>
-                            <li>
-                                <a href="#%e6%9c%ac%e6%9b%b8%e6%9e%b6%e6%a7%8b" aria-label="本書架構">本書架構</a><ul>
+                                <a href="#%e9%a6%ac%e5%8f%af%e5%a4%ab%e6%b1%ba%e7%ad%96%e9%81%8e%e7%a8%8b" aria-label="馬可夫決策過程">馬可夫決策過程</a><ul>
                                         
                             <li>
-                                <a href="#part-i-basic-techniques" aria-label="Part I Basic Techniques">Part I Basic Techniques</a></li>
-                            <li>
-                                <a href="#part-ii-applications-and-evaluation-of-rss" aria-label="Part II Applications and Evaluation of RSs">Part II Applications and Evaluation of RSs</a></li>
-                            <li>
-                                <a href="#part-iii-interacting-with-recommender-systems" aria-label="Part III Interacting with Recommender Systems">Part III Interacting with Recommender Systems</a></li>
-                            <li>
-                                <a href="#part-iv-recommender-systems-and-communities" aria-label="Part IV Recommender Systems and Communities">Part IV Recommender Systems and Communities</a></li>
-                            <li>
-                                <a href="#part-v-advanced-algorithms" aria-label="Part V Advanced Algorithms">Part V Advanced Algorithms</a></li></ul>
+                                <a href="#%e7%ad%96%e7%95%a5%e8%88%87%e5%83%b9%e5%80%bc%e5%87%bd%e6%95%b8" aria-label="策略與價值函數">策略與價值函數</a></li></ul>
                             </li>
                             <li>
-                                <a href="#reference" aria-label="reference">reference</a>
+                                <a href="#%e6%9c%80%e4%bd%b3%e5%8c%96%e7%ad%96%e7%95%a5%e5%92%8c%e6%9c%80%e4%bd%b3%e5%8c%96%e5%83%b9%e5%80%bc%e5%87%bd%e6%95%b8" aria-label="最佳化策略和最佳化價值函數">最佳化策略和最佳化價值函數</a>
                             </li>
                         </ul>
                     </div>
@@ -242,7 +238,11 @@
                     <summary>
                         <span class="details">List of Illustrations</span>
                     </summary>
-                    <div class="inner"></div>
+                    <div class="inner">
+                
+                        <img src="table1.png" alt="table1" loading="lazy">
+                
+                        <img src="fig1.png" alt="fig1" loading="lazy"></div>
                 </details>
             </div>
         </div>
@@ -306,72 +306,72 @@
             return rect.top + win.pageYOffset;
         }
     </script>
-  <div class="post-content"><h2 id="推薦系統簡介">推薦系統簡介<a hidden class="anchor" aria-hidden="true" href="#推薦系統簡介">#</a></h2>
-<p>推薦系統的目的是向使用者提供有價值的項目(items)，例如商品、新聞和串流影片，以幫助他們在大量資訊中找到有價值的內容。我們通常研究的推薦系統是個人化的，根據個人或特定使用者群體的偏好調整推薦項目。相比之下，大眾化的推薦系統方法通常較容易實現，例如top10 熱門項目。儘管這種方法在特定情境下可能有效，但它並不是推薦系統主要討論的議題。個人化推薦最簡單的形式可以用一排序後的項目列表呈現(最有興趣-&gt;最沒興趣)，系統透過使用者的偏好(對某項目的評分、是否查看某項目的詳細資訊)或某些條件排序。最早的推薦系統透過尋找和被推薦使用者(目標)相似的使用者，並將相似使用者關注或選擇的項目推薦給目標，該方法即為<a href="https://zh.wikipedia.org/zh-tw/%E5%8D%94%E5%90%8C%E9%81%8E%E6%BF%BE" title="Wiki: Collaborative filtering">協同過濾(Collaborative filtering)</a>。而現代人日常要接受的資訊繁多<a href="https://zh.wikipedia.org/zh-tw/%E8%B3%87%E8%A8%8A%E8%B6%85%E8%BC%89" title="Wiki: Information overload">2</a>，如何令使用者可以方便的取得有價值的資訊已成為重要問題，推薦系統很好的解決了此問題。</p>
-<h2 id="更新計畫與週期">更新計畫與週期<a hidden class="anchor" aria-hidden="true" href="#更新計畫與週期">#</a></h2>
-<p>可能兩周一更</p>
-<h2 id="本書架構">本書架構<a hidden class="anchor" aria-hidden="true" href="#本書架構">#</a></h2>
-<h3 id="part-i-basic-techniques">Part I Basic Techniques<a hidden class="anchor" aria-hidden="true" href="#part-i-basic-techniques">#</a></h3>
+  <div class="post-content"><h2 id="馬可夫決策過程">馬可夫決策過程<a hidden class="anchor" aria-hidden="true" href="#馬可夫決策過程">#</a></h2>
+<p>強化學習(Reinforcement Learning, RL)藉由互動學習如何行動以實現目標，而馬可夫決策過程(Markov decision processes, MDPs)，是RL數學化的一種理想表示。MDPs中，代理(agent)與其環境(environment)在一連串分立的時步互動，其中代理是完全可知且可控的，而環境是不完全可控且很有可能難以理解的。代理與環境之互動遵循以下定義:</p>
 <ol>
-<li>Data Mining Methods for Recommender Systems 🚧</li>
-<li>Content-based Recommender Systems: State of the Art and Trends 🚧</li>
-<li>A Comprehensive Survey of Neighborhood-based Recommendation Methods 🚧</li>
-<li>Advances in Collaborative Filtering 🚧</li>
-<li>Developing Constraint-based Recommenders 🚧</li>
-<li>Context-Aware Recommender Systems 🚧</li>
+<li>代理選擇動作(action)</li>
+<li>動作的選擇基於狀態(states)</li>
+<li>選擇的驗證基於回饋(rewards)</li>
 </ol>
-<h3 id="part-ii-applications-and-evaluation-of-rss">Part II Applications and Evaluation of RSs<a hidden class="anchor" aria-hidden="true" href="#part-ii-applications-and-evaluation-of-rss">#</a></h3>
-<ol start="7">
-<li>Evaluating Recommendation Systems 🚧</li>
-<li>A Recommender System for an IPTV Service Provider: a Real Large-Scale Production Environment 🚧</li>
-<li>How to Get the Recommender Out of the Lab? 🚧</li>
-<li>Matching Recommendation Technologies and Domains 🚧</li>
-<li>Recommender Systems in Technology Enhanced Learning 🚧</li>
-</ol>
-<h3 id="part-iii-interacting-with-recommender-systems">Part III Interacting with Recommender Systems<a hidden class="anchor" aria-hidden="true" href="#part-iii-interacting-with-recommender-systems">#</a></h3>
-<ol start="12">
-<li>On the Evolution of Critiquing Recommenders 🚧</li>
-<li>Creating More Credible and Persuasive Recommender Systems: The Influence of Source Characteristics on Recommender System Evaluations 🚧</li>
-<li>Designing and Evaluating Explanations for Recommender Systems 🚧</li>
-<li>Usability Guidelines for Product Recommenders Based on Example Critiquing Research 🚧</li>
-<li>Map Based Visualization of Product Catalogs 🚧</li>
-</ol>
-<h3 id="part-iv-recommender-systems-and-communities">Part IV Recommender Systems and Communities<a hidden class="anchor" aria-hidden="true" href="#part-iv-recommender-systems-and-communities">#</a></h3>
-<ol start="17">
-<li>Communities, Collaboration, and Recommender Systems in Personalized Web Search 🚧</li>
-<li>Social Tagging Recommender Systems 🚧</li>
-<li>Trust and Recommendations 🚧</li>
-<li>Group Recommender Systems: Combining Individual Models 🚧</li>
-</ol>
-<h3 id="part-v-advanced-algorithms">Part V Advanced Algorithms<a hidden class="anchor" aria-hidden="true" href="#part-v-advanced-algorithms">#</a></h3>
-<ol start="21">
-<li>Aggregation of Preferences in Recommender Systems 🚧</li>
-<li>Active Learning in Recommender Systems 🚧</li>
-<li>Multi-Criteria Recommender Systems 🚧</li>
-<li>Robust Collaborative Recommendation 🚧</li>
-</ol>
-<h2 id="reference">reference<a hidden class="anchor" aria-hidden="true" href="#reference">#</a></h2>
-<p><a href="https://zh.wikipedia.org/zh-tw/%E5%8D%94%E5%90%8C%E9%81%8E%E6%BF%BE" title="Wiki: Collaborative filtering">[1] Wiki: Collaborative filtering</a></p>
-<p><a href="https://zh.wikipedia.org/zh-tw/%E8%B3%87%E8%A8%8A%E8%B6%85%E8%BC%89" title="Wiki: Information overload">[2] Wiki: Information overload</a></p>
+<p>策略(policy)定義代理在給定狀態$S_t$下如何選擇動作$A_t$，而代理的目標為最大化期望回饋$G_t$。</p>
+<p>$$G_t = R_{t+1}+R_{t+2}+R_{t+3}+\dotsb+R_T$$
+$T$為最終時步，該形式如果再$T$極大時令$G_t$發散至無窮，所以實務上會使用以下形式:</p>
+<p>$$
+G_t = R_{t+1}+\gamma R_{t+2}+\gamma^2 R_{t+3}+\dotsb=\sum_{k=0}^{\infty}\gamma^kR_{t+k+1}, \text{ in }
+0 \le \gamma \le 1
+$$</p>
+<p>$\gamma$為衰減係數。上式以遞迴形式表達:</p>
+<p>$$
+\begin{align*}
+G_t &amp;= R_{t+1}+\gamma R_{t+2}+\gamma^2 R_{t+3}+\dotsb \newline
+&amp;= R_{t+1}+\gamma (R_{t+2}+\gamma R_{t+3}+\dotsb) \newline
+&amp;= R_{t+1}+\gamma G_{t+1}
+\end{align*}
+$$</p>
+<p>範例:
+$$
+\begin{align*}
+\mathcal{S} &amp;= \set{ \text{high}, \text{low} } \newline
+\mathcal{R} &amp;= \set{ -3, 0, r_{\text{wait}}, r_{\text{search}} } \newline
+\mathcal{A(\text{hight})} &amp;= \set{ \text{search}, \text{wait} } \newline
+\mathcal{A(\text{low})} &amp;= \set{ \text{search}, \text{wait}, \text{recharge} } \newline
+\end{align*}
+$$</p>
+<p>MDPs以表表示:</p>
+<p><img loading="lazy" src="table1.png" alt="table1"  />
+</p>
+<p>以轉移機率圖表示:</p>
+<p><img loading="lazy" src="fig1.png" alt="fig1"  />
+</p>
+<h3 id="策略與價值函數">策略與價值函數<a hidden class="anchor" aria-hidden="true" href="#策略與價值函數">#</a></h3>
+<p>大部分的強化學習演算法需要<em><strong>價值函數</strong></em>，其估計代理在給定的狀態(或狀態-操作對)在未來的期望回饋總和，與策略有關。</p>
+<p><em><strong>策略</strong></em>將狀態$S$映射為每個可能操作的機率，如果代理在時間$t$遵循策略$\pi$，則$\pi(a|s)$即為在狀態$S_t=s$下操作為$A_t=a$機率。</p>
+<p>策略$\pi$的<em>狀態-價值函數</em> :</p>
+<p>$$
+\begin{align*}
+v_{\pi}(s) &amp;= \mathbb{E}<em>{\pi}[G_t|S_t=s] \newline
+&amp;= \mathbb{E}</em>{\pi}[\sum_{k=0}^{\infty}\gamma^kR_{t+k+1}|S_t=s], \text{for all } s \in \mathcal{S}
+\end{align*}
+$$</p>
+<p>策略$\pi$的<em>動作-價值函數</em> :</p>
+<p>$$
+q_{\pi}(s, a) = \mathbb{E}<em>{\pi}[G_t|S_t=s, A_t=a] = \mathbb{E}</em>{\pi}[\sum_{k=0}^{\infty}\gamma^kR_{t+k+1}|S_t=s, A_t=a]
+$$</p>
+<h2 id="最佳化策略和最佳化價值函數">最佳化策略和最佳化價值函數<a hidden class="anchor" aria-hidden="true" href="#最佳化策略和最佳化價值函數">#</a></h2>
+<p>解RL任務即為找一可以在長久運行下取得大量回饋的策略。</p>
 
 
   </div>
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="https://lin-roger.github.io/tags/recommender-systems-handbook/">Recommender systems handbook</a></li>
-      <li><a href="https://lin-roger.github.io/tags/%E6%8E%A8%E8%96%A6%E7%B3%BB%E7%B5%B1/">推薦系統</a></li>
+      <li><a href="https://lin-roger.github.io/tags/reinforcement-learning/">Reinforcement Learning</a></li>
     </ul>
 <nav class="paginav">
-  <a class="prev" href="https://lin-roger.github.io/posts/dataminingmethodsforrecommendersystems/">
-    <span class="title">« </span>
-    <br>
-    <span>Recommender systems handbook || 閱讀紀錄 1. Data Mining Methods for Recommender Systems</span>
-  </a>
-  <a class="next" href="https://lin-roger.github.io/posts/advancedpromptingengineering/">
+  <a class="next" href="https://lin-roger.github.io/posts/selficlzeroshotincontextlearningwithselfgenerateddemonstrations/">
     <span class="title"> »</span>
     <br>
-    <span>🚧Advanced Prompting Engineering 進階提示工程🚧</span>
+    <span>SELF-ICL: Zero-Shot In-Context Learning with Self-Generated Demonstrations</span>
   </a>
 </nav>
 

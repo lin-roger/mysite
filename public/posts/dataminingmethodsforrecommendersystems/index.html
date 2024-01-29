@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="auto">
+<html lang="zh-hant" dir="auto">
 
 <head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,14 +7,14 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@200;300;400;500;600;700;900&display=swap" rel="stylesheet">
 <meta name="robots" content="index, follow">
 <title>Recommender systems handbook || 閱讀紀錄 1. Data Mining Methods for Recommender Systems | Flowey &amp; Code</title>
 <meta name="keywords" content="Recommender systems handbook, 推薦系統">
 <meta name="description" content="推薦系統中的資料探勘方法。本章介紹推薦系統中常用的資料探勘(Data mining, DM)技術。首先描述的是常見的資料預處理方法，如抽樣與降維。接著回顧推薦系統中重要的分類/分群技術，如:貝葉斯網路和支援向量機(SVM)/k-mean。">
 <meta name="author" content="">
 <link rel="canonical" href="https://lin-roger.github.io/posts/dataminingmethodsforrecommendersystems/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.3f74f78ddd11b9883e685de48b64f35d004316edd0c339acc381493a87c5e9f1.css" integrity="sha256-P3T3jd0RuYg&#43;aF3ki2TzXQBDFu3Qwzmsw4FJOofF6fE=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.1b6ea1bd2f99c94cb5f9c51aedab930c41a52c8c34bf10bc587b0fc7301eb0df.css" integrity="sha256-G26hvS&#43;ZyUy1&#43;cUa7auTDEGlLIw0vxC8WHsPxzAesN8=" rel="preload stylesheet" as="style">
 <script defer crossorigin="anonymous" src="/assets/js/highlight.acb54fd32bbc1982428b8850317e45d076b95012730a5936667e6bc21777692a.js" integrity="sha256-rLVP0yu8GYJCi4hQMX5F0Ha5UBJzClk2Zn5rwhd3aSo="
     onload="hljs.initHighlightingOnLoad();"></script>
 <link rel="icon" href="https://lin-roger.github.io/flowey.png">
@@ -36,19 +36,22 @@
 </noscript>
 
 
-<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         renderMathInElement(document.body, {
-            delimiters: [
-                {left: "$$", right: "$$", display: true},
-                {left: "$", right: "$", display: false},
-                {left: "\\(", right: "\\)", display: false},
-                {left: "\\[", right: "\\]", display: true}
-            ]
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          
+          throwOnError : false
         });
     });
 </script>
@@ -98,7 +101,7 @@
   ],
   "articleBody": "摘要 本章介紹推薦系統中常用的資料探勘(Data mining, DM)技術。首先描述的是常見的資料預處理方法，如抽樣與降維。接著回顧推薦系統中重要的分類/分群技術，如:貝葉斯網路和支援向量機(SVM)/k-mean。\n簡介 推薦系統可視為DM的一種特例，以下簡要回顧推薦系統常用的DM方法，DM通常有以下三步驟:\n1. 資料預處理 資料為一組物件(record, item, point, sample, observation, or instance)和屬性(variable, field, characteristic, or feature)的組合。資料通常須經預處理，以便後續分析使用，\n距離度量 衡量兩筆資料的差異性，不同技術須使用不同方法。\n$L_p$-dist $d(x, y) = (\\sum^n_{k = 1}|x_k-y_k|^p)^{\\frac{1}{p}}$\n$p = 1$，曼哈頓距離\n$p = 2$，歐式距離\n餘弦距離 $\\cos(x, y) = \\frac{x \\cdot y}{\\left |x\\right |^2 \\left |y\\right |^2}$\n計算兩向量間的夾角\n皮爾森相關係數 $Peason(x, y) = \\frac{\\mathbf{cov}(x, y)}{\\sigma_x \\times \\sigma_y}$\n計算$x, y$的關係。\n+1 代表$x, y$正相關\n-1 代表$x, y$負相關\n0 代表$x, y$間沒有明確關係\n單純一致係數(Simple Matching Coefficient, SMC)、Jaccard index $SMC = \\frac{\\mathbf{num\\ of\\ match}}{\\mathbf{num\\ of\\ attribute}} = \\frac{\\mathbf{M11+M00}}{\\mathbf{M01+M10+M00+M11}}$\n$\\mathbf{M00: x=0, y=0}$\n$\\mathbf{M10: x=1, y=0}$\n$\\mathbf{M01: x=0, y=1}$\n$\\mathbf{M11: x=1, y=1}$\n$Jaccard index = \\frac{\\mathbf{M11}}{\\mathbf{M01+M10+M11}}$\n$Jaccard index(bit\\ vector) = \\frac{x\\cdot y}{\\left |x\\right |^2 + \\left |y\\right |^2 - x \\cdot y}$\n抽樣 80/20法則: training $80%$ / testing $20%$。\nk-fold(k折交叉驗證): 將資料集拆為k份，在訓練時將其中一份作為testing，其餘作為training。\n降維 推薦系統利用使用者與項目間的的關係推算使用者可能喜歡的項目。然而使用者和項目的數量龐大且使用者通常只會與少量的向產生關係，所以這些資訊是稀疏(大部分都是0)且高維(但不同維度間有相關性，冗餘維度)的，需透過降維解決這些問題。\nPCA 將有相關性的維度合併，去除資訊中攏餘的維度。\nSVD 將原始資料矩陣$A$轉換為三個較小的矩陣$U\\Sigma V^\\top$表示。\nSVD推薦系統[1、2]\n2. 資料分析 分類 kNN: 離樣本$q$最近的$k$個點，他們屬於甚麼類別(取最多) 決策樹: C\u0026RT(CART)、C4.5、ID3。 貝葉斯 ANN SVM 將多個分類器集成[8]可以取得更好的效果\n分群 k-means 總結 回顧推薦系統中常用的資料探勘技術，\nreference [1] SVD 實作推薦系統\n[2] SVD++ 與混合模型\n[3] SVD_推薦系統_原理\n[4] Machine Learning Foundations/Techniques: Decision Tree / Random Forest\n[5] [機器學習] MultinomialNB 貝氏(貝葉氏)分類-理論篇\n[6] Machine Learning Foundations/Techniques: Neural Networks and Matrix Factorization\n[7] Machine Learning Foundations/Techniques: Linear Support Vector Machine\n[8] Machine Learning Foundations/Techniques: Blending / Bagging / Boosting\n",
   "wordCount" : "192",
-  "inLanguage": "en",
+  "inLanguage": "zh-hant",
   "image":"https://lin-roger.github.io/cover.webp","datePublished": "2023-09-18T05:59:25+08:00",
   "dateModified": "2023-09-18T05:59:25+08:00",
   "mainEntityOfPage": {
@@ -185,7 +188,7 @@
     <h1 class="post-title">
       Recommender systems handbook || 閱讀紀錄 1. Data Mining Methods for Recommender Systems
     </h1>
-    <div class="post-meta">&lt;span title=&#39;2023-09-18 05:59:25 &#43;0800 CST&#39;&gt;September 18, 2023&lt;/span&gt;&amp;nbsp;·&amp;nbsp;1 min
+    <div class="post-meta"><span title='2023-09-18 05:59:25 +0800 CST'>9月 18, 2023</span>&nbsp;·&nbsp;1 min
 
 </div>
   </header> 
@@ -263,6 +266,7 @@
                     </div>
                 </details>
             </div>
+            <hr>
             <div class="toc" id="loi">
                 <details>
                     <summary>
@@ -419,12 +423,12 @@ k-fold(k折交叉驗證): 將資料集拆為k份，在訓練時將其中一份�
     </ul>
 <nav class="paginav">
   <a class="prev" href="https://lin-roger.github.io/posts/selficlzeroshotincontextlearningwithselfgenerateddemonstrations/">
-    <span class="title">« Prev</span>
+    <span class="title">« </span>
     <br>
     <span>SELF-ICL: Zero-Shot In-Context Learning with Self-Generated Demonstrations</span>
   </a>
   <a class="next" href="https://lin-roger.github.io/posts/recommendersystemshandbook/">
-    <span class="title">Next »</span>
+    <span class="title"> »</span>
     <br>
     <span>Recommender systems handbook || 閱讀紀錄 0.概述</span>
   </a>

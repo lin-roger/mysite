@@ -5,8 +5,17 @@
     <link>https://lin-roger.github.io/posts/</link>
     <description>Recent content in Posts on Flowey &amp; Code</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Fri, 29 Dec 2023 21:29:32 +0800</lastBuildDate><atom:link href="https://lin-roger.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <language>zh-hant</language>
+    <lastBuildDate>Sat, 27 Jan 2024 15:36:25 +0800</lastBuildDate><atom:link href="https://lin-roger.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Reinforcement Learning</title>
+      <link>https://lin-roger.github.io/posts/reinforcementlearning/</link>
+      <pubDate>Sat, 27 Jan 2024 15:36:25 +0800</pubDate>
+      
+      <guid>https://lin-roger.github.io/posts/reinforcementlearning/</guid>
+      <description>從馬可夫決策過程到雙重深度Q網路</description>
+    </item>
+    
     <item>
       <title>SELF-ICL: Zero-Shot In-Context Learning with Self-Generated Demonstrations</title>
       <link>https://lin-roger.github.io/posts/selficlzeroshotincontextlearningwithselfgenerateddemonstrations/</link>
